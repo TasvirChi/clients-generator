@@ -28,30 +28,30 @@ echo -e "${BRIGHT_BLUE}######### Running tests ###########${NORMAL}"
 KS=`genks -b $PARTNER_ID`
 kalcli -x media list ks=$KS
 inc_counter $?
-SOME_ENTRY_ID=`kalcli -x baseentry list pager:objectType=KalturaFilterPager pager:pageSize=1 filter:objectType=KalturaBaseEntryFilter   filter:typeEqual=1 ks=$KS|awk '$1 == "id" {print $2}'`
+SOME_ENTRY_ID=`kalcli -x baseentry list pager:objectType=BorhanFilterPager pager:pageSize=1 filter:objectType=BorhanBaseEntryFilter   filter:typeEqual=1 ks=$KS|awk '$1 == "id" {print $2}'`
 inc_counter $?
 kalcli -x baseentry updateThumbnailFromSourceEntry  entryId=$SOME_ENTRY_ID sourceEntryId=$SOME_ENTRY_ID ks=$KS  timeOffset=3
 inc_counter $?
-kalcli -x  partner register partner:objectType=KalturaPartner partner:name=apartner partner:adminName=apartner partner:adminEmail=partner@example.com partner:description=someone cmsPassword=partner012
+kalcli -x  partner register partner:objectType=BorhanPartner partner:name=apartner partner:adminName=apartner partner:adminEmail=partner@example.com partner:description=someone cmsPassword=partner012
 inc_counter $?
-TOKEN=`kalcli -x uploadtoken add uploadToken:objectType=KalturaUploadToken uploadToken:fileName=$TEST_FLV  ks=$KS|awk '$1 == "id" {print $2}'`
+TOKEN=`kalcli -x uploadtoken add uploadToken:objectType=BorhanUploadToken uploadToken:fileName=$TEST_FLV  ks=$KS|awk '$1 == "id" {print $2}'`
 inc_counter $?
 kalcli -x uploadtoken upload fileData=@$TEST_FLV uploadTokenId=$TOKEN ks=$KS
 inc_counter $?
-ENTRY_ID=`kalcli -x baseentry addFromUploadedFile uploadTokenId=$TOKEN partnerId=$PARTNER_ID ks=$KS entry:objectType=KalturaBaseEntry |awk '$1 == "id" {print $2}'`
+ENTRY_ID=`kalcli -x baseentry addFromUploadedFile uploadTokenId=$TOKEN partnerId=$PARTNER_ID ks=$KS entry:objectType=BorhanBaseEntry |awk '$1 == "id" {print $2}'`
 inc_counter $?
 TEST_CAT_NAM='testme'+$RANDOM
-kalcli -x category add category:objectType=KalturaCategory category:name=$TEST_CAT_NAM  ks=$KS
+kalcli -x category add category:objectType=BorhanCategory category:name=$TEST_CAT_NAM  ks=$KS
 RC=$?
 inc_counter $RC
 if [ $RC -eq 0 ];then
-    TOTALC=`kalcli -x category list filter:objectType=KalturaCategoryFilter filter:fullNameEqual=$TEST_CAT_NAM ks=$KS|awk '$1 == "totalCount" {print $2}'`
+    TOTALC=`kalcli -x category list filter:objectType=BorhanCategoryFilter filter:fullNameEqual=$TEST_CAT_NAM ks=$KS|awk '$1 == "totalCount" {print $2}'`
     if [ $TOTALC -eq 1 ];then
 	inc_counter 0
     else
 	inc_counter 1
     fi
-    CAT_ID=`kalcli -x category list filter:objectType=KalturaCategoryFilter filter:fullNameEqual=$TEST_CAT_NAM ks=$KS|awk '$1 == "id" {print $2}'`
+    CAT_ID=`kalcli -x category list filter:objectType=BorhanCategoryFilter filter:fullNameEqual=$TEST_CAT_NAM ks=$KS|awk '$1 == "id" {print $2}'`
     kalcli -x category delete  id=$CAT_ID ks=$KS
     inc_counter $?
 fi

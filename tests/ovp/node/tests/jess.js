@@ -1,7 +1,7 @@
 var testCase  = require('nodeunit').testCase;
-var kc = require('../KalturaClient');
-var ktypes = require('../KalturaTypes');
-var vo = require ('../KalturaVO.js');
+var kc = require('../BorhanClient');
+var ktypes = require('../BorhanTypes');
+var vo = require ('../BorhanVO.js');
 var config = require ('./config.js');
 /* 
  This is an example test suite to demonstrate the nested test reporter.
@@ -53,10 +53,10 @@ var create_session = function (results)
 
 module.exports = testCase({
     "Create session": function(test) {
-    var kaltura_conf = new kc.KalturaConfiguration(config.minus2_partner_id);
-    kaltura_conf.serviceUrl = config.service_url ;
-    var client = new kc.KalturaClient(kaltura_conf);
-    var type = ktypes.KalturaSessionType.ADMIN;
+    var borhan_conf = new kc.BorhanConfiguration(config.minus2_partner_id);
+    borhan_conf.serviceUrl = config.service_url ;
+    var client = new kc.BorhanClient(borhan_conf);
+    var type = ktypes.BorhanSessionType.ADMIN;
 
     var expiry = null;
     var privileges = null;

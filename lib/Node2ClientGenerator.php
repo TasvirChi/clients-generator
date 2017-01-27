@@ -15,7 +15,7 @@ class Node2ClientGenerator extends ClientGeneratorFromXml
 	/**
 	 * Constructor.
 	 * @param string $xmlPath path to schema xml.
-	 * @link http://www.kaltura.com/api_v3/api_schema.php
+	 * @link http://www.borhan.com/api_v3/api_schema.php
 	 */
 	function __construct($xmlPath, Zend_Config $config, $sourcePath = "node2")
 	{
@@ -53,7 +53,7 @@ class Node2ClientGenerator extends ClientGeneratorFromXml
 					break;
 					
 				case 'classes':
-					$this->echoLine($this->voClasses, "const kaltura = require('./KalturaClientBase');");
+					$this->echoLine($this->voClasses, "const borhan = require('./BorhanClientBase');");
 					foreach($reflectionType->children() as $classes_node)
 					{
 						$this->writeObjectClass($classes_node);
@@ -61,7 +61,7 @@ class Node2ClientGenerator extends ClientGeneratorFromXml
 					break;
 					
 				case 'services':
-					$this->echoLine($this->serviceClasses, "const kaltura = require('./KalturaClientBase');");
+					$this->echoLine($this->serviceClasses, "const borhan = require('./BorhanClientBase');");
 					foreach($reflectionType->children() as $services_node)
 					{
 						$this->writeService($services_node);
@@ -80,11 +80,11 @@ class Node2ClientGenerator extends ClientGeneratorFromXml
 		$this->writeMainClass();
 		$this->writeRequestClasss($configurations);
 		
-		$this->addFile('KalturaTypes.js', $this->enumTypes);
-		$this->addFile('KalturaModel.js', $this->voClasses);
-		$this->addFile('KalturaServices.js', $this->serviceClasses);
-		$this->addFile('KalturaClient.js', $this->mainClass);
-		$this->addFile('KalturaRequestData.js', $this->requestClasses);
+		$this->addFile('BorhanTypes.js', $this->enumTypes);
+		$this->addFile('BorhanModel.js', $this->voClasses);
+		$this->addFile('BorhanServices.js', $this->serviceClasses);
+		$this->addFile('BorhanClient.js', $this->mainClass);
+		$this->addFile('BorhanRequestData.js', $this->requestClasses);
 		//write project file (if needed, this can also be included in the static sources folder if not dynamic)
 		$this->writeProjectFile();
 	}
@@ -112,7 +112,7 @@ class Node2ClientGenerator extends ClientGeneratorFromXml
 	
 	protected function getClassName($name)
 	{
-		return preg_replace('/^Kaltura/', '', $name);
+		return preg_replace('/^Borhan/', '', $name);
 	}
 	
 	/**
@@ -168,7 +168,7 @@ class Node2ClientGenerator extends ClientGeneratorFromXml
 		} 
 		else
 		{
-			$this->echoLine($this->voClasses, "class $clasName extends kaltura.BaseObject{");
+			$this->echoLine($this->voClasses, "class $clasName extends borhan.BaseObject{");
 		}
 		
 		$this->echoLine($this->voClasses, "	");
@@ -228,7 +228,7 @@ class Node2ClientGenerator extends ClientGeneratorFromXml
 		$serviceClass = "class $serviceName{\n";
 		
 		$serviceClassDesc = "\n/**\n";
-		$serviceClassDesc .= " *Class definition for the Kaltura service: $serviceName.\n";
+		$serviceClassDesc .= " *Class definition for the Borhan service: $serviceName.\n";
 		$actionsList = " * The available service actions:\n";
 		
 		//parse the service actions
@@ -363,11 +363,11 @@ class Node2ClientGenerator extends ClientGeneratorFromXml
 			}
 			if($haveFiles)
 			{
-				$actionClass .= "		return new kaltura.RequestBuilder('$serviceId', '$actionName', kparams, kfiles);\n";
+				$actionClass .= "		return new borhan.RequestBuilder('$serviceId', '$actionName', kparams, kfiles);\n";
 			}
 			else
 			{
-				$actionClass .= "		return new kaltura.RequestBuilder('$serviceId', '$actionName', kparams);\n";
+				$actionClass .= "		return new borhan.RequestBuilder('$serviceId', '$actionName', kparams);\n";
 			}
 			$actionClass .= "	};";
 			$this->echoLine($serviceClass, $actionClass);
@@ -383,7 +383,7 @@ class Node2ClientGenerator extends ClientGeneratorFromXml
 	
 	/**
 	 * Create the main class of the client library, may parse Services and actions.
-	 * initialize the service and assign to client to provide access to servcies and actions through the Kaltura client object.
+	 * initialize the service and assign to client to provide access to servcies and actions through the Borhan client object.
 	 */
 	protected function writeMainClass()
 	{
@@ -391,16 +391,16 @@ class Node2ClientGenerator extends ClientGeneratorFromXml
 		$date = date('y-m-d');
 		
 		$this->echoLine($this->mainClass, "/**");
-		$this->echoLine($this->mainClass, " * The Kaltura Client - this is the facade through which all service actions should be called.");
-		$this->echoLine($this->mainClass, " * @param config the Kaltura configuration object holding partner credentials (type: KalturaConfiguration).");
+		$this->echoLine($this->mainClass, " * The Borhan Client - this is the facade through which all service actions should be called.");
+		$this->echoLine($this->mainClass, " * @param config the Borhan configuration object holding partner credentials (type: BorhanConfiguration).");
 		$this->echoLine($this->mainClass, " */");
 		$this->echoLine($this->mainClass, "var util = require('util');");
-		$this->echoLine($this->mainClass, "var kaltura = require('./KalturaClientBase');");
-		$this->echoLine($this->mainClass, "kaltura.services = require('./KalturaServices');");
-		$this->echoLine($this->mainClass, "kaltura.objects = require('./KalturaModel');");
-		$this->echoLine($this->mainClass, "kaltura.enums = require('./KalturaTypes');");
+		$this->echoLine($this->mainClass, "var borhan = require('./BorhanClientBase');");
+		$this->echoLine($this->mainClass, "borhan.services = require('./BorhanServices');");
+		$this->echoLine($this->mainClass, "borhan.objects = require('./BorhanModel');");
+		$this->echoLine($this->mainClass, "borhan.enums = require('./BorhanTypes');");
 		$this->echoLine($this->mainClass, "");
-		$this->echoLine($this->mainClass, "class Client extends kaltura.ClientBase {");
+		$this->echoLine($this->mainClass, "class Client extends borhan.ClientBase {");
 		$this->echoLine($this->mainClass, "");
 		$this->echoLine($this->mainClass, "	/**");
 		$this->echoLine($this->mainClass, "	 * @param Configuration config");
@@ -412,7 +412,7 @@ class Node2ClientGenerator extends ClientGeneratorFromXml
 		$this->echoLine($this->mainClass, "	}");
 		$this->echoLine($this->mainClass, "}");
 		$this->echoLine($this->mainClass, "");
-		$this->echoLine($this->mainClass, "module.exports = kaltura;");
+		$this->echoLine($this->mainClass, "module.exports = borhan;");
 		$this->echoLine($this->mainClass, "module.exports.Client = Client;");
 		$this->echoLine($this->mainClass, "");
 	}

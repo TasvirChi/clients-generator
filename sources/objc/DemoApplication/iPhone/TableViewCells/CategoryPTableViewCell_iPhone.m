@@ -1,9 +1,9 @@
 //
 //  CategoryPTableViewCell_iPhone.m
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 04.03.12.
-//  Copyright (c) 2012 Kaltura. All rights reserved.
+//  Copyright (c) 2012 Borhan. All rights reserved.
 //
 
 #import "CategoryPTableViewCell_iPhone.h"
@@ -47,10 +47,10 @@
     
 }
 
-- (void)updateData:(KalturaMediaEntry *)mediaEntry 
+- (void)updateData:(BorhanMediaEntry *)mediaEntry 
             label1:(UILabel *)label1
             label2:(UILabel *)label2
-             image:(KalturaThumbView *)image
+             image:(BorhanThumbView *)image
               view:(UIView *)view {
     
     
@@ -63,13 +63,13 @@
     
 }
 
-- (void)updateCell1:(KalturaMediaEntry *)mediaEntry {
+- (void)updateCell1:(BorhanMediaEntry *)mediaEntry {
     
     [self updateData:mediaEntry label1:cell1Label1 label2:cell1Label2 image:cell1Image view:cell1View];
     
 }
 
-- (void)updateCell2:(KalturaMediaEntry *)mediaEntry {
+- (void)updateCell2:(BorhanMediaEntry *)mediaEntry {
     
     [self updateData:mediaEntry label1:cell2Label1 label2:cell2Label2 image:cell2Image view:cell2View];
 

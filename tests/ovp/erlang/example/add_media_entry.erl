@@ -5,19 +5,19 @@
 -module(test1).
 -import(io, [format/2]).
 
--include_lib("../src/kaltura_client.hrl").
+-include_lib("../src/borhan_client.hrl").
 
 main(_) ->
     application:start(inets),
     
-    ClientConfiguration = #kaltura_configuration{
+    ClientConfiguration = #borhan_configuration{
     	client_options = [{verbose, debug}]
     }, 
-    ClientRequest = #kaltura_request{
+    ClientRequest = #borhan_request{
     	ks = <<"KS Place Holder">>
     },
-    Entry = #kaltura_media_entry{name = <<"test entry">>, mediaType = 2},
-    Results = kaltura_media_service:add(ClientConfiguration, ClientRequest, Entry),
+    Entry = #borhan_media_entry{name = <<"test entry">>, mediaType = 2},
+    Results = borhan_media_service:add(ClientConfiguration, ClientRequest, Entry),
 
 	io:format("Created entry: ~p~n", [Results]).
 	

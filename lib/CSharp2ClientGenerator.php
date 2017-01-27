@@ -60,7 +60,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$this->startNewTextBlock();
 		$this->appendLine('using System;');
 		$this->appendLine();
-		$this->appendLine('namespace Kaltura');
+		$this->appendLine('namespace Borhan');
 		$this->appendLine('{');
 		$this->appendLine('	public class APIException : ApplicationException');
 		$this->appendLine('	{');
@@ -97,7 +97,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("}");
 		$this->appendLine();
 
-		$this->addFile("KalturaClient/APIException.cs", $this->getTextBlock());
+		$this->addFile("BorhanClient/APIException.cs", $this->getTextBlock());
 	}
 	
 	function writeObjectFactory(DOMNodeList $classNodes)
@@ -107,13 +107,13 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine('using System.Xml;');
 		$this->appendLine('using System.Runtime.Serialization;');
 		$this->appendLine('using System.Text.RegularExpressions;');
-		$this->appendLine('using Kaltura.Types;');
+		$this->appendLine('using Borhan.Types;');
 		$this->appendLine();
-		$this->appendLine('namespace Kaltura');
+		$this->appendLine('namespace Borhan');
 		$this->appendLine('{');
 		$this->appendLine('	public static class ObjectFactory');
 		$this->appendLine('	{');
-		$this->appendLine('		private static Regex prefixRegex = new Regex("^Kaltura");');
+		$this->appendLine('		private static Regex prefixRegex = new Regex("^Borhan");');
 		$this->appendLine('		');
 		$this->appendLine('		public static T Create<T>(XmlElement xmlElement) where T : ObjectBase');
 		$this->appendLine('		{');
@@ -125,7 +125,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine('			string className = xmlElement["objectType"].InnerText;');
 		$this->appendLine('			className = prefixRegex.Replace(className, "");');
 		$this->appendLine('			');
-		$this->appendLine('			Type type = Type.GetType("Kaltura.Types." + className);');
+		$this->appendLine('			Type type = Type.GetType("Borhan.Types." + className);');
 		$this->appendLine('			if (type == null)');
 		$this->appendLine('			{');
 		$this->appendLine('				type = typeof(T);');
@@ -151,7 +151,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		foreach($classNodes as $classNode)
 		{
 			$type = $classNode->getAttribute("name");
-			if ($this->shouldIncludeType($type) && $this->isClassInherit($type, 'KalturaListResponse'))
+			if ($this->shouldIncludeType($type) && $this->isClassInherit($type, 'BorhanListResponse'))
 			{
 				$arrayType = $this->getListResponseType($type);
 				if($arrayType)
@@ -170,7 +170,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("}");
 		$this->appendLine();
 
-		$this->addFile("KalturaClient/ObjectFactory.cs", $this->getTextBlock());
+		$this->addFile("BorhanClient/ObjectFactory.cs", $this->getTextBlock());
 	}
 
 	function writeEnum(DOMElement $enumNode)
@@ -182,7 +182,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$enumName = $this->getCSharpName($enumName);
 
 		$s = "";
-		$s .= "namespace Kaltura.Enums"."\n";
+		$s .= "namespace Borhan.Enums"."\n";
 		$s .= "{"."\n";
 
 		if ($enumNode->getAttribute("enumType") == "string")
@@ -222,7 +222,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 			$s .= "}"."\n";
 		}
 		$file = "Enums/$enumName.cs";
-		$this->addFile("KalturaClient/".$file, $s);
+		$this->addFile("BorhanClient/".$file, $s);
 		$this->_csprojIncludes[] = $file;
 	}
 
@@ -256,16 +256,16 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 
 	private function getCSharpName($name)
 	{
-		if($name === 'KalturaObject')
+		if($name === 'BorhanObject')
 			return 'ObjectBase';
 		
-		if ($this->isClassInherit($name, "KalturaListResponse"))
+		if ($this->isClassInherit($name, "BorhanListResponse"))
 		{
 			$arrayType = $this->getListResponseType($name);
 			return "ListResponse<$arrayType>";
 		}
 		
-		return preg_replace('/^Kaltura/', '', $name);
+		return preg_replace('/^Borhan/', '', $name);
 	}
 
 	function writeClass(DOMElement $classNode)
@@ -274,10 +274,10 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		if(!$this->shouldIncludeType($type))
 			return;
 
-		if($type == 'KalturaObject')
+		if($type == 'BorhanObject')
 			return;
 
-		if ($this->isClassInherit($type, "KalturaListResponse") || $type == "KalturaListResponse")
+		if ($this->isClassInherit($type, "BorhanListResponse") || $type == "BorhanListResponse")
 			return;
 				
 		$className = $this->getCSharpName($type);
@@ -285,10 +285,10 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("using System;");
 		$this->appendLine("using System.Xml;");
 		$this->appendLine("using System.Collections.Generic;");
-		$this->appendLine("using Kaltura.Enums;");
-		$this->appendLine("using Kaltura.Request;");
+		$this->appendLine("using Borhan.Enums;");
+		$this->appendLine("using Borhan.Request;");
 		$this->appendLine();
-		$this->appendLine("namespace Kaltura.Types");
+		$this->appendLine("namespace Borhan.Types");
 		$this->appendLine("{");
 
 		// class definition
@@ -306,7 +306,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 
 		// we want to make the orderBy property strongly typed with the corresponding string enum
 		$isFilter = false;
-		if ($this->isClassInherit($type, "KalturaFilter"))
+		if ($this->isClassInherit($type, "BorhanFilter"))
 		{
 			$orderByType = str_replace("Filter", "OrderBy", $type);
 			if ($this->enumExists($orderByType))
@@ -350,14 +350,14 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 			else if ($propType == "array")
 			{
 				$arrayObjectType = $propertyNode->getAttribute("arrayType");
-				if($arrayObjectType == 'KalturaObject')
+				if($arrayObjectType == 'BorhanObject')
 					$arrayObjectType = 'ObjectBase';
 				$dotNetPropType = "IList<" . $this->getCSharpName($arrayObjectType) . ">";
 			}
 			else if ($propType == "map")
 			{
 				$arrayObjectType = $propertyNode->getAttribute("arrayType");
-				if($arrayObjectType == 'KalturaObject')
+				if($arrayObjectType == 'BorhanObject')
 					$arrayObjectType = 'ObjectBase';
 				$dotNetPropType = "IDictionary<string, " . $this->getCSharpName($arrayObjectType) . ">";
 			}
@@ -624,7 +624,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine();
 
 		$file = "Types/$className.cs";
-		$this->addFile("KalturaClient/".$file, $this->getTextBlock());
+		$this->addFile("BorhanClient/".$file, $this->getTextBlock());
 		$this->_csprojIncludes[] = $file;
 	}
 
@@ -632,7 +632,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 	{
 		$csprojDoc = new DOMDocument();
 		$csprojDoc->formatOutput = true;
-		$csprojDoc->load($this->_sourcePath."/KalturaClient/KalturaClient.csproj");
+		$csprojDoc->load($this->_sourcePath."/BorhanClient/BorhanClient.csproj");
 		$csprojXPath = new DOMXPath($csprojDoc);
 		$csprojXPath->registerNamespace("m", "http://schemas.microsoft.com/developer/msbuild/2003");
 		$compileNodes = $csprojXPath->query("//m:ItemGroup/m:Compile/..");
@@ -644,7 +644,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 			$compileElement->setAttribute("Include", str_replace("/","\\", $include));
 			$compileItemGroupElement->appendChild($compileElement);
 		}
-		$this->addFile("KalturaClient/KalturaClient.csproj", $csprojDoc->saveXML(), false);
+		$this->addFile("BorhanClient/BorhanClient.csproj", $csprojDoc->saveXML(), false);
 	}
 
 	function writeService(DOMElement $serviceNode)
@@ -658,11 +658,11 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("using System.Xml;");
 		$this->appendLine("using System.Collections.Generic;");
 		$this->appendLine("using System.IO;");
-		$this->appendLine("using Kaltura.Request;");
-		$this->appendLine("using Kaltura.Types;");
-		$this->appendLine("using Kaltura.Enums;");
+		$this->appendLine("using Borhan.Request;");
+		$this->appendLine("using Borhan.Types;");
+		$this->appendLine("using Borhan.Enums;");
 		$this->appendLine();
-		$this->appendLine("namespace Kaltura.Services");
+		$this->appendLine("namespace Borhan.Services");
 		$this->appendLine("{");
 		$serviceName = $serviceNode->getAttribute("name");
 
@@ -698,7 +698,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("}");
 
 		$file = "Services/".$dotNetServiceName.".cs";
-		$this->addFile("KalturaClient/".$file, $this->getTextBlock());
+		$this->addFile("BorhanClient/".$file, $this->getTextBlock());
 		$this->_csprojIncludes[] = $file;
 	}
 
@@ -760,7 +760,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 			$paramName = $paramNode->getAttribute("name");
 			$new = '';
 			
-			if($this->classHasProperty('KalturaRequestConfiguration', $paramName))
+			if($this->classHasProperty('BorhanRequestConfiguration', $paramName))
 			{
 				$news[$paramName] = true;
 				$new = 'new ';
@@ -1077,11 +1077,11 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$this->startNewTextBlock();
 
 		$this->appendLine("using System;");
-		$this->appendLine("using Kaltura.Types;");
-		$this->appendLine("using Kaltura.Enums;");
+		$this->appendLine("using Borhan.Types;");
+		$this->appendLine("using Borhan.Enums;");
 		$this->appendLine();
 
-		$this->appendLine("namespace Kaltura");
+		$this->appendLine("namespace Borhan");
 		$this->appendLine("{");
 		$this->appendLine("	public class Client : ClientBase");
 		$this->appendLine("	{");
@@ -1136,7 +1136,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("	}");
 		$this->appendLine("}");
 
-		$this->addFile("KalturaClient/Client.cs", $this->getTextBlock());
+		$this->addFile("BorhanClient/Client.cs", $this->getTextBlock());
 	}
 
 	protected function writeConfigurationProperty($configurationName, $name, $paramName, $type, $description)
@@ -1279,7 +1279,7 @@ class CSharp2ClientGenerator extends ClientGeneratorFromXml
 
 	protected function addFile($fileName, $fileContents, $addLicense = true)
 	{
-		if ($fileName == "KalturaClient.suo")
+		if ($fileName == "BorhanClient.suo")
 			return;
 
 		$dirname = pathinfo($fileName, PATHINFO_DIRNAME);

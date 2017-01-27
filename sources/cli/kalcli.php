@@ -6,11 +6,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,9 +28,9 @@
 // @ignore
 // ===================================================================================================
 
-require_once(dirname(__file__) . '/lib/KalturaSession.php');
-require_once(dirname(__file__) . '/lib/KalturaCommandLineParser.php');
-require_once(dirname(__file__) . '/lib/KalturaCurlWrapper.php');
+require_once(dirname(__file__) . '/lib/BorhanSession.php');
+require_once(dirname(__file__) . '/lib/BorhanCommandLineParser.php');
+require_once(dirname(__file__) . '/lib/BorhanCurlWrapper.php');
 require_once(dirname(__file__) . '/kalcliSwitches.php');
 
 $config = parse_ini_file(dirname(__file__) . '/config/config.ini');
@@ -38,7 +38,7 @@ $config = parse_ini_file(dirname(__file__) . '/config/config.ini');
 $DATE_FIELD_SUFFIXES = array('At', 'Date', 'On');
 define('MIN_TIME_STAMP', 946677600);		// 2000
 define('MAX_TIME_STAMP', 2147483647);		// 2038
-define('API_LOG_FILENAME', $config['logDir'] . '/kaltura_api_v3.log');
+define('API_LOG_FILENAME', $config['logDir'] . '/borhan_api_v3.log');
 
 function formatResponseKalcliInput($resp, $prefix = '', $varName = null)
 {
@@ -170,16 +170,16 @@ function printLogFiltered($logPortion, $sessionId)
 	}
 }
 
-KalturaSecretRepository::init();
+BorhanSecretRepository::init();
 
 // parse command line
-$options = KalturaCommandLineParser::parseArguments($commandLineSwitches);
-$arguments = KalturaCommandLineParser::stripCommandLineSwitches($commandLineSwitches, $argv);
+$options = BorhanCommandLineParser::parseArguments($commandLineSwitches);
+$arguments = BorhanCommandLineParser::stripCommandLineSwitches($commandLineSwitches, $argv);
 
 if (count($arguments) < 2)
 {
 	$usage = "Usage: kalcli [switches] <service> <action> [<param1> <param2> ...]\nOptions:\n";
-	$usage .= KalturaCommandLineParser::getArgumentsUsage($commandLineSwitches);
+	$usage .= BorhanCommandLineParser::getArgumentsUsage($commandLineSwitches);
 	echo $usage;
 	exit(1);
 }
@@ -249,7 +249,7 @@ if (!isset($options['no-renew']))
 			continue;
 		}
 		
-		$renewedKs = KalturaSession::extendKs($value);
+		$renewedKs = BorhanSession::extendKs($value);
 		if (!$renewedKs)
 			continue;
 		
@@ -265,7 +265,7 @@ if (isset($options['url']) && is_string($options['url']))
 }
 else
 {
-	$serviceUrl = isset( $config['apiHost'] ) ? $config['apiHost'] : 'www.kaltura.com';
+	$serviceUrl = isset( $config['apiHost'] ) ? $config['apiHost'] : 'www.borhan.com';
 }
 
 if (strpos($serviceUrl, '://') === false)
@@ -313,7 +313,7 @@ if (isset($options['curl']))
 
 
 // initialize the curl wrapper
-$curlWrapper = new KalturaCurlWrapper();
+$curlWrapper = new BorhanCurlWrapper();
 if (isset($options['header']))
 {
 	if (is_array($options['header']))
@@ -347,7 +347,7 @@ if (isset($options['log']))
 	
 	$logPortion = file_get_contents(API_LOG_FILENAME, false, null, $initialLogSize, $currentLogSize - $initialLogSize);
 	
-	if (preg_match('/X-Kaltura-Session: (\d+)/', $curlWrapper->responseHeaders, $matches))
+	if (preg_match('/X-Borhan-Session: (\d+)/', $curlWrapper->responseHeaders, $matches))
 	{
 		$sessionId = $matches[1];
 		printLogFiltered($logPortion, $sessionId);

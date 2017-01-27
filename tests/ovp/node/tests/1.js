@@ -1,7 +1,7 @@
 var async = require('async');
-var kc = require('../KalturaClient');
-var ktypes = require('../KalturaTypes');
-var vo = require ('../KalturaVO.js');
+var kc = require('../BorhanClient');
+var ktypes = require('../BorhanTypes');
+var vo = require ('../BorhanVO.js');
 var config = require ('./config.js');
 
 console.log('in main');
@@ -45,10 +45,10 @@ function doABunchOfThings(fnCallback) {
   async.series([
     function(callback) {
 	console.log('step 0');
-    var kaltura_conf = new kc.KalturaConfiguration(config.minus2_partner_id);
-    kaltura_conf.serviceUrl = config.service_url ;
-    var client = new kc.KalturaClient(kaltura_conf);
-    var type = ktypes.KalturaSessionType.ADMIN;
+    var borhan_conf = new kc.BorhanConfiguration(config.minus2_partner_id);
+    borhan_conf.serviceUrl = config.service_url ;
+    var client = new kc.BorhanClient(borhan_conf);
+    var type = ktypes.BorhanSessionType.ADMIN;
 
     var expiry = null;
     var privileges = null;
@@ -67,16 +67,16 @@ function doABunchOfThings(fnCallback) {
       setTimeout(callback, 2000);
       console.log('client1.uploadToken.add');
 	console.log('step 1');
-	var kaltura_conf = new kc.KalturaConfiguration(config.partner_id);
-	kaltura_conf.serviceUrl = config.service_url ;
-	var client1 = new kc.KalturaClient(kaltura_conf);
-	var type = ktypes.KalturaSessionType.USER;
+	var borhan_conf = new kc.BorhanConfiguration(config.partner_id);
+	borhan_conf.serviceUrl = config.service_url ;
+	var client1 = new kc.BorhanClient(borhan_conf);
+	var type = ktypes.BorhanSessionType.USER;
 
 	var expiry = null;
 	var privileges = null;
 	var ks = client1.session.start(create_session, config.secret, config.user_id, type, config.partner_id, expiry, privileges);
 	console.log(ks);
-	var uploadToken = new vo.KalturaUploadToken();
+	var uploadToken = new vo.BorhanUploadToken();
 	uploadToken.fileName = "~/downloads/cat.mp4";
 	var result = client1.uploadToken.add(create_upload_token, uploadToken);
 	/*var uploadTokenId = result.id;
@@ -88,7 +88,7 @@ function doABunchOfThings(fnCallback) {
     },
     function(callback) {
       console.log('step 3');
-	var uploadToken = new vo.KalturaUploadToken();
+	var uploadToken = new vo.BorhanUploadToken();
 	uploadToken.fileName = "~/downloads/cat.mp4";
 	var result = client1.uploadToken.add(create_upload_token, uploadToken);
       callback();

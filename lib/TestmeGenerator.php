@@ -332,7 +332,7 @@ class TestmeGenerator extends ClientGeneratorFromXml
 		$this->appendLine('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">');
 		$this->appendLine('<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">');
 		$this->appendLine('<head>');
-		$this->appendLine('	<title>Kaltura - Test Me Console</title>');
+		$this->appendLine('	<title>Borhan - Test Me Console</title>');
 		$this->appendLine('	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />');
 		$this->appendLine('	<link rel="stylesheet" type="text/css" href="css/main.css" />');
 		$this->appendLine('	<link rel="stylesheet" type="text/css" href="css/code.example.css" />');
@@ -423,7 +423,7 @@ class TestmeGenerator extends ClientGeneratorFromXml
 		if($includeMenu)
 		{
 			$this->appendLine('<body class="body-bg">');
-			$this->appendLine('	<ul id="kmcSubMenu">');
+			$this->appendLine('	<ul id="bmcSubMenu">');
 			$this->appendLine('		<li class="active"><a href="#">Test Console</a></li>');
 			$this->appendLine('		<li><a href="../testmeDoc/">API Documentation</a></li>');
 			$this->appendLine('		<li><a href="../xsdDoc/">XML Schema</a></li>');

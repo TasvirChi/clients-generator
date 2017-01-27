@@ -1,9 +1,9 @@
 //
 //  CategoryViewController_iPhone.h
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 28.02.12.
-//  Copyright (c) 2012 Kaltura. All rights reserved.
+//  Copyright (c) 2012 Borhan. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -21,7 +21,7 @@
     
     IBOutlet UILabel *labelTitle;
 
-    KalturaCategory *category;
+    BorhanCategory *category;
     
     NSMutableArray *media;
     
@@ -44,7 +44,7 @@
 - (void)openMediaInfoByIndex:(int)index;
 - (void)playButtonPressed;
 
-@property (nonatomic, retain) KalturaCategory *category;
+@property (nonatomic, retain) BorhanCategory *category;
 @property (nonatomic, retain) NSMutableArray *media;
 @property BOOL mostPopular;
 

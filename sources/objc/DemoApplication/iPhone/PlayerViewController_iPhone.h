@@ -1,9 +1,9 @@
 //
 //  PlayerViewController_iPhone.h
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 22.03.12.
-//  Copyright (c) 2012 Kaltura. All rights reserved.
+//  Copyright (c) 2012 Borhan. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -16,7 +16,7 @@
     
     IBOutlet UIActivityIndicatorView *activity;
     
-    KalturaMediaEntry *mediaEntry;
+    BorhanMediaEntry *mediaEntry;
     NSArray *bitrates;
     
     IBOutlet UIView *toolsView;
@@ -59,7 +59,7 @@
 - (IBAction)sliderChanged:(UISlider *)slider;
 - (IBAction)volumePressed:(UIButton *)button;
 
-@property (nonatomic, retain) KalturaMediaEntry *mediaEntry;
+@property (nonatomic, retain) BorhanMediaEntry *mediaEntry;
 @property (nonatomic, retain) NSArray *bitrates;
 @property (nonatomic, retain) MPMoviePlayerViewController *moviePlayerViewController;
 @property (nonatomic, retain) NSString *flavorType;

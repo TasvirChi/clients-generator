@@ -763,7 +763,7 @@ KCodeExamplePHP.prototype.getService = function (service, plugin, entity){
 		return KCodeExampleBase.prototype.getService.apply(this, arguments);
 	
 	var pluginClientName = plugin + "ClientPlugin";
-	var pluginClientClass = "Kaltura" + pluginClientName.substr(0, 1).toUpperCase() + pluginClientName.substr(1);
+	var pluginClientClass = "Borhan" + pluginClientName.substr(0, 1).toUpperCase() + pluginClientName.substr(1);
 	var jqPluginObject = this.codeVar(plugin + "Plugin");
 	var jqFunction = this.codeFunction('get', [this.jqClientObject.clone(true)]);
 	
@@ -775,15 +775,15 @@ KCodeExamplePHP.prototype.codeHeader = function (){
 
 	this.jqEntity.append(jQuery("<span class=\"code-php-code\">&lt;?php</span>"));
 	this.jqEntity.append("<br/>");
-	this.addCode(this.codeSystemFunction("require_once", [this.codeString("lib/KalturaClient.php")]));
+	this.addCode(this.codeSystemFunction("require_once", [this.codeString("lib/BorhanClient.php")]));
 
 	var jqConfigObject = this.codeVar("config");
 
 	var jqPartnerId = this.codeError(this.codeVar("partnerId"), 'Variable partnerId must be defined');
 	
-	this.addCode(this.codeAssign(jqConfigObject.clone(true), this.codeNewInstance("KalturaConfiguration")));
+	this.addCode(this.codeAssign(jqConfigObject.clone(true), this.codeNewInstance("BorhanConfiguration")));
 	this.addCode(this.codeAssign(this.codeObjectAttribute(jqConfigObject.clone(true), "serviceUrl"), this.codeString(KCodeExampleBase.getServiceUrl())));
-	this.addCode(this.codeAssign(this.jqClientObject.clone(true), this.codeNewInstance("KalturaClient", [jqConfigObject.clone(true)])));
+	this.addCode(this.codeAssign(this.jqClientObject.clone(true), this.codeNewInstance("BorhanClient", [jqConfigObject.clone(true)])));
 	
 	this.jqAction = jQuery("<div class=\"code-action\"/>");
 	this.jqEntity.append(this.jqAction);
@@ -962,11 +962,11 @@ KCodeExampleJavascript.prototype.codeHeader = function (){
 	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/ox.ajast.js"}));
 	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/webtoolkit.md5.js"}));
 
-	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/KalturaClientBase.js"}));
-	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/KalturaTypes.js"}));
-	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/KalturaVO.js"}));
-	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/KalturaServices.js"}));
-	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/KalturaClient.js"}));
+	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/BorhanClientBase.js"}));
+	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/BorhanTypes.js"}));
+	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/BorhanVO.js"}));
+	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/BorhanServices.js"}));
+	this.addHtmlCode(this.codeHtml("script", {type: "text/javascript", src: "js/BorhanClient.js"}));
 	
 	this.jqAction = jQuery("<div class=\"code-action\"/>");
 
@@ -1027,13 +1027,13 @@ KCodeExampleJavascript.prototype.codeHeader = function (){
 	
 	var jqConfigObject = this.codeVar("config");
 	var jqConfigDeclare = this.codeVarDefine(jqConfigObject.clone(true));
-	var jqClientDeclare = this.codeVarDefine(this.jqClientObject.clone(true), "KalturaClient");
+	var jqClientDeclare = this.codeVarDefine(this.jqClientObject.clone(true), "BorhanClient");
 
 	var jqPartnerId = this.codeError(this.codeVar("partnerId"), 'Variable partnerId must be defined');
 	
-	this.addCode(this.codeAssign(jqConfigDeclare, this.codeNewInstance("KalturaConfiguration", [jqPartnerId])), jqBody);
+	this.addCode(this.codeAssign(jqConfigDeclare, this.codeNewInstance("BorhanConfiguration", [jqPartnerId])), jqBody);
 	this.addCode(this.codeAssign(this.codeObjectAttribute(jqConfigObject.clone(true), "serviceUrl"), this.codeString(KCodeExampleBase.getServiceUrl())), jqBody);
-	this.addCode(this.codeAssign(jqClientDeclare, this.codeNewInstance("KalturaClient", [jqConfigObject.clone(true)])), jqBody);
+	this.addCode(this.codeAssign(jqClientDeclare, this.codeNewInstance("BorhanClient", [jqConfigObject.clone(true)])), jqBody);
 	
 	jqBody.append(this.jqAction);
 	jqBody.addClass("indent");
@@ -1129,7 +1129,7 @@ KCodeExampleJava.prototype.codeVarDefine = function (jqObject, type){
 			
 		default:
 			if(type.indexOf("ArrayList") < 0)
-				this.addCode(this.codeImport("com.kaltura.client.types." + type), this.jqActionImports);
+				this.addCode(this.codeImport("com.borhan.client.types." + type), this.jqActionImports);
 			break;
 	}
 		
@@ -1138,7 +1138,7 @@ KCodeExampleJava.prototype.codeVarDefine = function (jqObject, type){
 
 KCodeExampleJava.prototype.codeHeader = function (){
 
-	this.addCode(this.codePackage("com.kaltura.code.example"));
+	this.addCode(this.codePackage("com.borhan.code.example"));
 	
 	this.importsArray = {};	
 	this.jqImports = jQuery("<div class=\"code-java-imports\"/>");
@@ -1146,19 +1146,19 @@ KCodeExampleJava.prototype.codeHeader = function (){
 	this.jqEntity.append(this.jqImports);
 	this.jqEntity.append(this.jqActionImports);
 
-	this.addCode(this.codeImport("com.kaltura.client.enums.*"), this.jqImports);
-	this.addCode(this.codeImport("com.kaltura.client.types.*"), this.jqImports);
-	this.addCode(this.codeImport("com.kaltura.client.services.*"), this.jqImports);
-	this.addCode(this.codeImport("com.kaltura.client.KalturaApiException"), this.jqImports);
-	this.addCode(this.codeImport("com.kaltura.client.KalturaClient"), this.jqImports);
-	this.addCode(this.codeImport("com.kaltura.client.KalturaConfiguration"), this.jqImports);
+	this.addCode(this.codeImport("com.borhan.client.enums.*"), this.jqImports);
+	this.addCode(this.codeImport("com.borhan.client.types.*"), this.jqImports);
+	this.addCode(this.codeImport("com.borhan.client.services.*"), this.jqImports);
+	this.addCode(this.codeImport("com.borhan.client.BorhanApiException"), this.jqImports);
+	this.addCode(this.codeImport("com.borhan.client.BorhanClient"), this.jqImports);
+	this.addCode(this.codeImport("com.borhan.client.BorhanConfiguration"), this.jqImports);
 
 	this.jqAction = jQuery("<div class=\"code-action\"/>");
 	
 	var jqBody = jQuery("<div/>");
 	var jqConfigObject = this.codeVar("config");
-	var jqConfigObjectDeclare = this.codeVarDefine(jqConfigObject, "KalturaConfiguration");
-	var jqConfigObjectInit = this.codeAssign(jqConfigObjectDeclare.clone(true), this.codeNewInstance("KalturaConfiguration"));
+	var jqConfigObjectDeclare = this.codeVarDefine(jqConfigObject, "BorhanConfiguration");
+	var jqConfigObjectInit = this.codeAssign(jqConfigObjectDeclare.clone(true), this.codeNewInstance("BorhanConfiguration"));
 	this.addCode(jqConfigObjectInit, jqBody);
 
 	var jqPartnerId = this.codeError(this.codeVar("partnerId"), 'Variable partnerId must be defined');
@@ -1167,14 +1167,14 @@ KCodeExampleJava.prototype.codeHeader = function (){
 	var jqSetEndpoint = this.codeUserFunction("setEndpoint", [this.codeString(KCodeExampleBase.getServiceUrl())]);
 	this.addCode(this.codeObjectMethod(jqConfigObject.clone(true), jqSetEndpoint), jqBody);
 
-	var jqClientDeclare = this.codeVarDefine(this.jqClientObject.clone(true), "KalturaClient");
-	var jqClientInit = this.codeAssign(jqClientDeclare, this.codeNewInstance("KalturaClient", [jqConfigObject.clone(true)]));
+	var jqClientDeclare = this.codeVarDefine(this.jqClientObject.clone(true), "BorhanClient");
+	var jqClientInit = this.codeAssign(jqClientDeclare, this.codeNewInstance("BorhanClient", [jqConfigObject.clone(true)]));
 	this.addCode(jqClientInit, jqBody);
 	
 	jqBody.append(this.jqAction);
 
 	var jqExceptionObject = this.codeVar("e");
-	var jqExceptionObjectDeclare = this.codeVarDefine(jqExceptionObject.clone(true), "KalturaApiException");
+	var jqExceptionObjectDeclare = this.codeVarDefine(jqExceptionObject.clone(true), "BorhanApiException");
 	var jqTraceFunction = this.codeUserFunction("printStackTrace");
 	var jqTrace = this.codeObjectMethod(jqExceptionObject.clone(true), jqTraceFunction);
 	
@@ -1321,15 +1321,15 @@ KCodeExampleCsharp.prototype.codeHeader = function (){
 	
 	var jqBody = jQuery("<div/>");
 	var jqConfigObject = this.codeVar("config");
-	var jqConfigObjectDeclare = this.codeVarDefine(jqConfigObject, "KalturaConfiguration");
+	var jqConfigObjectDeclare = this.codeVarDefine(jqConfigObject, "BorhanConfiguration");
 	var jqPartnerId = this.codeError(this.codeVar("partnerId"), 'Variable partnerId must be defined');
-	var jqConfigObjectInit = this.codeAssign(jqConfigObjectDeclare.clone(true), this.codeNewInstance("KalturaConfiguration", [jqPartnerId]));
+	var jqConfigObjectInit = this.codeAssign(jqConfigObjectDeclare.clone(true), this.codeNewInstance("BorhanConfiguration", [jqPartnerId]));
 	this.addCode(jqConfigObjectInit, jqBody);
 	
 	this.addCode(this.codeAssign(this.codeObjectAttribute(jqConfigObject.clone(true), "ServiceUrl"), this.codeString(KCodeExampleBase.getServiceUrl())), jqBody);
 			
-	var jqClientDeclare = this.codeVarDefine(this.jqClientObject.clone(true), "KalturaClient");
-	var jqClientInit = this.codeAssign(jqClientDeclare, this.codeNewInstance("KalturaClient", [jqConfigObject.clone(true)]));
+	var jqClientDeclare = this.codeVarDefine(this.jqClientObject.clone(true), "BorhanClient");
+	var jqClientInit = this.codeAssign(jqClientDeclare, this.codeNewInstance("BorhanClient", [jqConfigObject.clone(true)]));
 	this.addCode(jqClientInit, jqBody);
 	
 	jqBody.append(this.jqAction);
@@ -1341,7 +1341,7 @@ KCodeExampleCsharp.prototype.codeHeader = function (){
 	
 	var jqClass = this.codeClassDeclare("CodeExample", jqMain);
 	jqClass.addClass("indent");
-	var jqPackage = this.codePackage("Kaltura", jqClass);
+	var jqPackage = this.codePackage("Borhan", jqClass);
 	this.jqEntity.append(jqPackage);
 };
 
@@ -1422,16 +1422,16 @@ KCodeExamplePython.prototype.codeHeader = function (){
 	this.jqEntity.append(this.jqImports);
 	this.jqEntity.append(this.jqActionImports);
 
-	this.addCode(this.codeImport("KalturaClient"), this.jqImports);
+	this.addCode(this.codeImport("BorhanClient"), this.jqImports);
 
 	var jqConfigObject = this.codeVar("config");
-	var jqConfigObjectDeclare = this.codeVarDefine(jqConfigObject, "KalturaConfiguration");
+	var jqConfigObjectDeclare = this.codeVarDefine(jqConfigObject, "BorhanConfiguration");
 
-	this.addCode(this.codeAssign(jqConfigObjectDeclare.clone(true), this.codeNewInstance("KalturaConfiguration", [this.codeVar("PARTNER_ID")])));
+	this.addCode(this.codeAssign(jqConfigObjectDeclare.clone(true), this.codeNewInstance("BorhanConfiguration", [this.codeVar("PARTNER_ID")])));
 	
 	this.addCode(this.codeAssign(this.codeObjectAttribute(jqConfigObject.clone(true), "serviceUrl"), this.codeString(KCodeExampleBase.getServiceUrl())));
 		
-	this.addCode(this.codeAssign(this.jqClientObject.clone(true), this.codeNewInstance("KalturaClient", [jqConfigObject.clone(true)])));
+	this.addCode(this.codeAssign(this.jqClientObject.clone(true), this.codeNewInstance("BorhanClient", [jqConfigObject.clone(true)])));
 	
 	this.jqAction = jQuery("<div class=\"code-action\"/>");
 	this.jqEntity.append(this.jqAction);

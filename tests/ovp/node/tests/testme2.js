@@ -1,7 +1,7 @@
 var Unit = require('deadunit')
-var kc = require('../KalturaClient');
-var ktypes = require('../KalturaTypes');
-var vo = require ('../KalturaVO.js');
+var kc = require('../BorhanClient');
+var ktypes = require('../BorhanTypes');
+var vo = require ('../BorhanVO.js');
 var config = require ('./config.js');
 
     var testme = Unit.test('Create -2 Admin session', function () {
@@ -26,15 +26,15 @@ var cb = function (results)
     }
 }
 
-var kaltura_conf = new kc.KalturaConfiguration(config.minus2_partner_id);
-kaltura_conf.serviceUrl = config.service_url ;
-var client = new kc.KalturaClient(kaltura_conf);
-var type = ktypes.KalturaSessionType.ADMIN;
+var borhan_conf = new kc.BorhanConfiguration(config.minus2_partner_id);
+borhan_conf.serviceUrl = config.service_url ;
+var client = new kc.BorhanClient(borhan_conf);
+var type = ktypes.BorhanSessionType.ADMIN;
 
 var expiry = null;
 var privileges = null;
 var ks = client.session.start(cb, config.minus2_admin_secret, config.user_id, type, config.minus2_partner_id, expiry, privileges);
-var partner = new vo.KalturaPartner();
+var partner = new vo.BorhanPartner();
 partner.name = "MBP";
 partner.appearInSearch = null;
 partner.adminName = "MBP";

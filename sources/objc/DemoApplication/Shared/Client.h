@@ -1,17 +1,17 @@
 //
 //  Client.h
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 28.02.12.
-//  Copyright (c) 2012 Kaltura. All rights reserved.
+//  Copyright (c) 2012 Borhan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "KalturaClient.h"
+#import "BorhanClient.h"
 
-#define DEFAULT_SERVICE_URL     @"http://www.kaltura.com"
+#define DEFAULT_SERVICE_URL     @"http://www.borhan.com"
 
-@class KalturaClient;
+@class BorhanClient;
 
 #ifdef widevine
 @class WVSettings;
@@ -23,12 +23,12 @@
 -(void) loadWVBitratesList:(NSArray*)wvBitrates;
 @end
 
-@interface Client : NSObject <KalturaClientDelegate, ASIProgressDelegate> {
+@interface Client : NSObject <BorhanClientDelegate, ASIProgressDelegate> {
     
     NSMutableArray* mutableArray;
     NSDictionary* dict;
     
-    KalturaClient *client;
+    BorhanClient *client;
     NSMutableArray *categories;
     NSMutableArray *media;
     
@@ -39,7 +39,7 @@
     int partnerId;
     
     
-    KalturaUploadToken* token;
+    BorhanUploadToken* token;
     
     long long fileSize;
     long long uploadedSize;
@@ -61,23 +61,23 @@
 
 - (id)initClient;
 - (NSArray *)getCategories;
-- (NSArray *)getMedia:(KalturaCategory *)category;
+- (NSArray *)getMedia:(BorhanCategory *)category;
 - (BOOL)login;
 - (NSString *)getThumbPath:(NSString *)fileName;
-- (BOOL)isThumbExist:(KalturaMediaEntry *)mediaEntry;
-- (BOOL)isThumbExist:(KalturaMediaEntry *)mediaEntry width:(int)width height:(int)height;
+- (BOOL)isThumbExist:(BorhanMediaEntry *)mediaEntry;
+- (BOOL)isThumbExist:(BorhanMediaEntry *)mediaEntry width:(int)width height:(int)height;
 - (BOOL)isThumbNameExist:(NSString *)fileName;
 - (NSString *)getThumbURL:(NSString *)fileName width:(int)width height:(int)height;
-- (NSData *)getThumb:(KalturaMediaEntry *)mediaEntry;
-- (NSString *)getShareURL:(KalturaMediaEntry *)mediaEntry;
-- (void)shareFacebook:(KalturaMediaEntry *)mediaEntry;
-- (void)shareTwitter:(KalturaMediaEntry *)mediaEntry;
+- (NSData *)getThumb:(BorhanMediaEntry *)mediaEntry;
+- (NSString *)getShareURL:(BorhanMediaEntry *)mediaEntry;
+- (void)shareFacebook:(BorhanMediaEntry *)mediaEntry;
+- (void)shareTwitter:(BorhanMediaEntry *)mediaEntry;
 
 - (void)cancelUploading;
 - (BOOL)uploadingInProgress;
 - (void)uploadProcess:(NSDictionary *)data withDelegate:(UIViewController *)delegateController;
-- (NSArray *)getBitratesList:(KalturaMediaEntry *)mediaEntry withFilter:(NSString *)filter;
-- (NSString *)getVideoURL:(KalturaMediaEntry *)mediaEntry forMediaEntryDuration:(int)EntryDuration forFlavor:(NSString *)flavorId forFlavorType: (NSString*)flavorType;
+- (NSArray *)getBitratesList:(BorhanMediaEntry *)mediaEntry withFilter:(NSString *)filter;
+- (NSString *)getVideoURL:(BorhanMediaEntry *)mediaEntry forMediaEntryDuration:(int)EntryDuration forFlavor:(NSString *)flavorId forFlavorType: (NSString*)flavorType;
 - (void)HandleCurrentBitrate:(NSDictionary *)attributes;
 - (void)HandleBitrates:(NSDictionary *)attributes;
 
@@ -87,9 +87,9 @@
 - (void) initializeWVDictionary: (NSString *)flavorId;
 - (void) terminateWV;
 - (void)selectBitrate:(int)ind;
-- (NSString *)getIframeURL:(KalturaMediaEntry *)mediaEntry;
+- (NSString *)getIframeURL:(BorhanMediaEntry *)mediaEntry;
 
-@property (nonatomic, retain) KalturaClient *client;
+@property (nonatomic, retain) BorhanClient *client;
 @property (nonatomic, retain) NSMutableArray *categories;
 @property (nonatomic, retain) NSMutableArray *media;
 @property int partnerId;

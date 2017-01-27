@@ -41,13 +41,13 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		$xpath = new DOMXPath($this->_doc);
 		if ($pluginName == '')
 		{
-			$pluginClassName = "KalturaCoreClient";
-			$outputFileName = "KalturaClient/Plugins/Core.py";
+			$pluginClassName = "BorhanCoreClient";
+			$outputFileName = "BorhanClient/Plugins/Core.py";
 		}
 		else 
 		{
-			$pluginClassName = "Kaltura" . ucfirst($pluginName) . "ClientPlugin";
-			$outputFileName = "KalturaClient/Plugins/".ucfirst($pluginName).".py";
+			$pluginClassName = "Borhan" . ucfirst($pluginName) . "ClientPlugin";
+			$outputFileName = "BorhanClient/Plugins/".ucfirst($pluginName).".py";
 		}
 		
     	$this->startNewTextBlock();
@@ -125,7 +125,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		
 		$this->appendLine('########## main ##########');
 				
-		$this->appendLine("class $pluginClassName(KalturaClientPlugin):");
+		$this->appendLine("class $pluginClassName(BorhanClientPlugin):");
 		$this->appendLine("    # $pluginClassName");
 		$this->appendLine('    instance = None');
 		$this->appendLine('');
@@ -137,13 +137,13 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("            $pluginClassName.instance = $pluginClassName()");
 		$this->appendLine("        return $pluginClassName.instance");
 		$this->appendLine('');
-		$this->appendLine('    # @return array<KalturaServiceBase>');
+		$this->appendLine('    # @return array<BorhanServiceBase>');
 		$this->appendLine('    def getServices(self):');
 		$this->appendLine('        return {');
 		foreach($services as $service)
 		{
 			$serviceName = ucfirst($service);
-			$this->appendLine("            '$service': Kaltura{$serviceName}Service,");
+			$this->appendLine("            '$service': Borhan{$serviceName}Service,");
 		}
 		$this->appendLine('        }');
 		$this->appendLine('');
@@ -253,7 +253,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		if ($classNode->hasAttribute("base"))
 			$this->appendLine("class $type(" . $classNode->getAttribute("base") . "):");
 		else
-			$this->appendLine("class $type(KalturaObjectBase):");
+			$this->appendLine("class $type(BorhanObjectBase):");
 			
 		$description = $this->buildMultilineString($classNode->getAttribute("description"), "    ");
 		if ($description)
@@ -315,7 +315,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		if ($classNode->hasAttribute("base"))
 			$base = $classNode->getAttribute ( "base" );
 		else
-			$base = "KalturaObjectBase";
+			$base = "BorhanObjectBase";
 
 		$initParams = $this->getCtorArguments($classNode, ",\n            ", "=NotImplemented");
 		$baseInitParams = $this->getCtorArguments($this->getParentClassNode($classNode), ",\n            ");
@@ -389,7 +389,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		if ($classNode->hasAttribute("base"))
 			$base = $classNode->getAttribute ( "base" );
 		else
-			$base = "KalturaObjectBase";
+			$base = "BorhanObjectBase";
 			
 		$this->appendLine("    PROPERTY_LOADERS = {");
 		
@@ -416,7 +416,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 					if ($isEnum) 
 					{
 						$enumType = $propertyNode->getAttribute ( "enumType" );
-						$curLine .= "(KalturaEnumsFactory.createInt, \"$enumType\")";
+						$curLine .= "(BorhanEnumsFactory.createInt, \"$enumType\")";
 					} 
 					else
 					{
@@ -427,7 +427,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 					if ($isEnum) 
 					{
 						$enumType = $propertyNode->getAttribute ( "enumType" );
-						$curLine .= "(KalturaEnumsFactory.createString, \"$enumType\")";
+						$curLine .= "(BorhanEnumsFactory.createString, \"$enumType\")";
 					} 
 					else
 					{
@@ -444,16 +444,16 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 					$arrayType = $propertyNode->getAttribute ( "arrayType" );
 					if($arrayType == $type)
 					{
-						$arrayType = 'KalturaObjectBase';
+						$arrayType = 'BorhanObjectBase';
 					}
-					$curLine .= "(KalturaObjectFactory.createArray, $arrayType)";
+					$curLine .= "(BorhanObjectFactory.createArray, $arrayType)";
 					break;
 				default : // sub object
 					if($propType == $type)
 					{
-						$propType = 'KalturaObjectBase';
+						$propType = 'BorhanObjectBase';
 					}
-					$curLine .= "(KalturaObjectFactory.create, $propType)";
+					$curLine .= "(BorhanObjectFactory.create, $propType)";
 					break;
 			}
 			$curLine .= ", ";
@@ -473,7 +473,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		if ($classNode->hasAttribute("base"))
 			$base = $classNode->getAttribute ( "base" );
 		else
-			$base = "KalturaObjectBase";
+			$base = "BorhanObjectBase";
 		
 		$this->appendLine ( "    def toParams(self):" );
 		$this->appendLine ( "        kparams = $base.toParams(self)" );
@@ -537,7 +537,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 			
 		$serviceName = $serviceNode->getAttribute("name");
 		
-		$serviceClassName = "Kaltura".$this->upperCaseFirstLetter($serviceName)."Service";
+		$serviceClassName = "Borhan".$this->upperCaseFirstLetter($serviceName)."Service";
 		$this->appendLine();
 		
 		if($this->generateDocs)
@@ -546,14 +546,14 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine("# @subpackage $this->subpackage");
 		}
 		
-		$this->appendLine("class $serviceClassName(KalturaServiceBase):");
+		$this->appendLine("class $serviceClassName(BorhanServiceBase):");
 		
 		$description = $this->buildMultilineString($serviceNode->getAttribute("description"), "    ");
 		if ($description)
 			$this->appendLine($description . "\n");
 			
 		$this->appendLine("    def __init__(self, client = None):");
-		$this->appendLine("        KalturaServiceBase.__init__(self, client)");
+		$this->appendLine("        BorhanServiceBase.__init__(self, client)");
 		
 		$actionNodes = $serviceNode->childNodes;
 		foreach($actionNodes as $actionNode)
@@ -590,7 +590,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		if ($description)
 			$this->appendLine($description . "\n");
 			
-		$this->appendLine("        kparams = KalturaParams()");
+		$this->appendLine("        kparams = BorhanParams()");
 		$haveFiles = false;
 		foreach($paramNodes as $paramNode)
 		{
@@ -604,7 +604,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 		    if ($haveFiles === false && $paramType == "file")
 	    	{
 		        $haveFiles = true;
-	        	$this->appendLine("        kfiles = KalturaFiles()");
+	        	$this->appendLine("        kfiles = BorhanFiles()");
 	    	}
 	    
 			switch ($paramType) 
@@ -661,7 +661,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 				{
 					case "array" :
 						$arrayType = $resultNode->getAttribute ( "arrayType" );
-						$this->appendLine ( "        return KalturaObjectFactory.createArray(resultNode, $arrayType)" );
+						$this->appendLine ( "        return BorhanObjectFactory.createArray(resultNode, $arrayType)" );
 						break;
 					case "bigint":
 					case "int" :
@@ -677,7 +677,7 @@ class PythonClientGenerator extends ClientGeneratorFromXml
 						$this->appendLine ( "        return getXmlNodeText(resultNode)" );
 						break;
 					default :
-						$this->appendLine ( "        return KalturaObjectFactory.create(resultNode, $resultType)" );
+						$this->appendLine ( "        return BorhanObjectFactory.create(resultNode, $resultType)" );
 						break;
 				}
 			}

@@ -1,9 +1,9 @@
 //
 //  AppDelegate_iPhone.m
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 28.02.12.
-//  Copyright 2012 Kaltura. All rights reserved.
+//  Copyright 2012 Borhan. All rights reserved.
 //
 
 #import "AppDelegate_iPhone.h"
@@ -102,11 +102,11 @@
     //NSString *path = [[NSBundle mainBundle] pathForResource:@"video" ofType:@"m4v"];
     //UISaveVideoAtPathToSavedPhotosAlbum(path, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
     
-    //KalturaCategoryListResponse *response = [_client.category list];
+    //BorhanCategoryListResponse *response = [_client.category list];
         
     //NSLog(@"categories count %d   %d", response.totalCount, [response.objects count]);
     
-    NSString* suffixUA = @"kalturaNativeCordovaPlayer";
+    NSString* suffixUA = @"borhanNativeCordovaPlayer";
     UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     NSString* defaultUA = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
     NSString* finalUA = [defaultUA stringByAppendingString:suffixUA];
