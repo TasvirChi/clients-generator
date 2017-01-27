@@ -1,7 +1,7 @@
 {
-  "name": "kaltura",
+  "name": "borhan",
   "version": "3.3.3",
-  "description": "Kaltura NodeJS clientlibs",
+  "description": "Borhan NodeJS clientlibs",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --timeout 60000"
@@ -11,20 +11,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kaltura/KalturaGeneratedAPIClientsNodeJS"
+    "url": "https://github.com/borhan/BorhanGeneratedAPIClientsNodeJS"
   },
   "keywords": [
-    "Kaltura",
+    "Borhan",
     "API",
     "clientlibs"
   ],
   "author": {
-    "name": "Kaltura Community",
-    "email": "community@kaltura.com"
+    "name": "Borhan Community",
+    "email": "community@borhan.com"
   },
   "license": "AGPLv3",
   "bugs": {
-    "url": "https://github.com/kaltura/server/issues"
+    "url": "https://github.com/borhan/server/issues"
   },
   "dependencies": {
     "http": "*",

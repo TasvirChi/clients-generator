@@ -1,16 +1,16 @@
 //
 //  MediaInfoViewController_iPhone.h
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 29.02.12.
-//  Copyright (c) 2012 Kaltura. All rights reserved.
+//  Copyright (c) 2012 Borhan. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
-#import <KALTURAPlayerSDK/KPViewController.h>
+#import <BORHANPlayerSDK/KPViewController.h>
 
 @class AppDelegate_iPhone;
 
@@ -20,14 +20,14 @@ extern const CGRect PlayerCGRect;
     
     AppDelegate_iPhone *app;
     
-    KalturaMediaEntry *mediaEntry;
+    BorhanMediaEntry *mediaEntry;
     
     IBOutlet UIScrollView *scrollMain;
     
     IBOutlet UIView *viewIntro;
     IBOutlet UIView *viewDescription;
 
-    IBOutlet KalturaThumbView *imgThumb;
+    IBOutlet BorhanThumbView *imgThumb;
     IBOutlet UILabel *labelTitle;
 
     IBOutlet UILabel *labelVTitle;
@@ -55,7 +55,7 @@ extern const CGRect PlayerCGRect;
 - (void)stopAndRemovePlayer;
 - (void)toggleFullscreen:(NSNotification *)note;
 
-@property (nonatomic, retain) KalturaMediaEntry *mediaEntry;
+@property (nonatomic, retain) BorhanMediaEntry *mediaEntry;
 @property (nonatomic, retain) NSString *categoryName;
 
 @end

@@ -1,5 +1,5 @@
 
-const kaltura = require('./KalturaClient');
+const borhan = require('./BorhanClient');
 
 
 const secret = '@SECRET@';
@@ -7,19 +7,19 @@ const partnerId = @PARTNER_ID@;
 const entryName = 'test';
 const entryDescription = 'test';
 
-let config = new kaltura.Configuration();
-config.serviceUrl = "http://www.kaltura.com";
+let config = new borhan.Configuration();
+config.serviceUrl = "http://www.borhan.com";
 
-const client = new kaltura.Client(config);
+const client = new borhan.Client(config);
 
 function session_start(){
 	var userId = null;
-	var type = kaltura.enums.SessionType.USER;
+	var type = borhan.enums.SessionType.USER;
 	var expiry = null;
 	var privileges = null;
 
 	return new Promise((resolve, reject) => {
-		kaltura.services.session.start(secret, userId, type, partnerId, expiry, privileges)
+		borhan.services.session.start(secret, userId, type, partnerId, expiry, privileges)
     	.completion((success, ks) => {
     		if(!success){
     			reject(ks.message);
@@ -35,14 +35,14 @@ function session_start(){
 }
 
 function media_add(){
-	var entry = new kaltura.objects.MediaEntry({
-		mediaType: kaltura.enums.MediaType.VIDEO,
+	var entry = new borhan.objects.MediaEntry({
+		mediaType: borhan.enums.MediaType.VIDEO,
 		name: entryName,
 		description: entryDescription
 	});
 
 	return new Promise((resolve, reject) => {
-		kaltura.services.media.add(entry)
+		borhan.services.media.add(entry)
 		.completion((success, entry) => {
 			if(!success){
     			reject(entry.message);
@@ -57,7 +57,7 @@ function media_add(){
 }
 
 function media_delete(entryId){
-	kaltura.services.media.deleteAction(entryId)
+	borhan.services.media.deleteAction(entryId)
 	.execute(client);
 }
 
@@ -65,7 +65,7 @@ function media_delete_error_with_cb(){
 	var entryId = "kishkush";
 
 	return new Promise((resolve, reject) => {
-		kaltura.services.media.deleteAction(entryId).execute(client, function(success, results){
+		borhan.services.media.deleteAction(entryId).execute(client, function(success, results){
     		if(success) {
     			reject('Error was expected');
     		}
@@ -78,18 +78,18 @@ function media_delete_error_with_cb(){
 
 function media_delete_error_without_cb(){
 	var entryId = "kishkush";
-	kaltura.services.media.deleteAction(entryId).execute(client);
+	borhan.services.media.deleteAction(entryId).execute(client);
 }
 
 function multirequest_multi_callback(){
-	var entry = new kaltura.objects.MediaEntry({
-		mediaType: kaltura.enums.MediaType.VIDEO,
+	var entry = new borhan.objects.MediaEntry({
+		mediaType: borhan.enums.MediaType.VIDEO,
 		name: entryName,
 		description: entryDescription
 	});
 
 	return new Promise((resolve, reject) => {
-		kaltura.services.media.add(entry)
+		borhan.services.media.add(entry)
 		.completion((success, entry) => {
 			if(!success){
     			reject(entry.message);
@@ -98,7 +98,7 @@ function multirequest_multi_callback(){
 			
 			console.log("Entry created: " + entry.id);
 		})
-		.add(kaltura.services.media.deleteAction("{1:result:id}")
+		.add(borhan.services.media.deleteAction("{1:result:id}")
 			.completion((success, error) => {
 				if(!success) {
 					reject(error.message);
@@ -113,15 +113,15 @@ function multirequest_multi_callback(){
 }
 
 function multirequest_single_callback(){
-	var entry = new kaltura.objects.MediaEntry({
-		mediaType: kaltura.enums.MediaType.VIDEO,
+	var entry = new borhan.objects.MediaEntry({
+		mediaType: borhan.enums.MediaType.VIDEO,
 		name: entryName,
 		description: entryDescription
 	});
 
 	return new Promise((resolve, reject) => {
-		kaltura.services.media.add(entry)
-		.add(kaltura.services.media.deleteAction("{1:result:id}"))
+		borhan.services.media.add(entry)
+		.add(borhan.services.media.deleteAction("{1:result:id}"))
 		.execute(client, (success, results) => {
 			if(results.message) { // general transport error
 				reject(results.message);
@@ -145,16 +145,16 @@ function multirequest_single_callback(){
 }
 
 function multirequest_different_style(){
-	var entry = new kaltura.objects.MediaEntry({
-		mediaType: kaltura.enums.MediaType.VIDEO,
+	var entry = new borhan.objects.MediaEntry({
+		mediaType: borhan.enums.MediaType.VIDEO,
 		name: entryName,
 		description: entryDescription
 	});
 
-	var addRequestBuilder = kaltura.services.media.add(entry);
-	var deleteRequestBuilder = kaltura.services.media.deleteAction("{1:result:id}").completion();
+	var addRequestBuilder = borhan.services.media.add(entry);
+	var deleteRequestBuilder = borhan.services.media.deleteAction("{1:result:id}").completion();
 	
-	var multiRequestBuilder = new kaltura.MultiRequestBuilder(client);
+	var multiRequestBuilder = new borhan.MultiRequestBuilder(client);
 	multiRequestBuilder.add(addRequestBuilder);
 	multiRequestBuilder.add(deleteRequestBuilder);
 
@@ -182,15 +182,15 @@ function multirequest_different_style(){
 }
 
 function multirequest_single_promise(){
-	var entry = new kaltura.objects.MediaEntry({
-		mediaType: kaltura.enums.MediaType.VIDEO,
+	var entry = new borhan.objects.MediaEntry({
+		mediaType: borhan.enums.MediaType.VIDEO,
 		name: entryName,
 		description: entryDescription
 	});
 
 	return new Promise((resolve, reject) => {
-		kaltura.services.media.add(entry)
-		.add(kaltura.services.media.deleteAction("{1:result:id}"))
+		borhan.services.media.add(entry)
+		.add(borhan.services.media.deleteAction("{1:result:id}"))
 		.execute(client)
 		.then((results) => {
 			for(var i = 0; i < results.length; i++){
@@ -215,14 +215,14 @@ function multirequest_single_promise(){
 }
 
 function multirequest_return_promise(){
-	var entry = new kaltura.objects.MediaEntry({
-		mediaType: kaltura.enums.MediaType.VIDEO,
+	var entry = new borhan.objects.MediaEntry({
+		mediaType: borhan.enums.MediaType.VIDEO,
 		name: entryName,
 		description: entryDescription
 	});
 
-	return kaltura.services.media.add(entry)
-	.add(kaltura.services.media.deleteAction("{1:result:id}"))
+	return borhan.services.media.add(entry)
+	.add(borhan.services.media.deleteAction("{1:result:id}"))
 	.execute(client);
 }
 

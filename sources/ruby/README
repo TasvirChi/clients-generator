@@ -1,10 +1,10 @@
-Kaltura Ruby API Client Library.
-Compatible with Kaltura server version 10.20.0 and above.
+Borhan Ruby API Client Library.
+Compatible with Borhan server version 10.20.0 and above.
 
 This source contains:
- - The Kaltura client library (kaltura_client_base.rb)
- - Auto generated core APIs (kaltura_client.rb)
- - Auto generated plugin APIs (kaltura_plugins/*.rb)
+ - The Borhan client library (borhan_client_base.rb)
+ - Auto generated core APIs (borhan_client.rb)
+ - Auto generated plugin APIs (borhan_plugins/*.rb)
  - Ruby library test code and data files (test/*)
  
 == DEPENDENCIES ==
@@ -18,6 +18,6 @@ Rest_client		(gem install rest-client)
 IMPORTANT: never run the tests of the client library against a production account - 
 	these tests perform modifications to account profiles.
 	
-Update kaltura.yml with your account information
-Change directory to kaltura/ruby
+Update borhan.yml with your account information
+Change directory to borhan/ruby
 Execute the command: rake test

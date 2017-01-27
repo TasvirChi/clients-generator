@@ -3,9 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="jquery-3.1.0.min.js"></script>
-<script src="KalturaClient.min.js"></script>
-<script src="KalturaSessionService.min.js"></script>
-<script src="KalturaMediaService.min.js"></script>
+<script src="BorhanClient.min.js"></script>
+<script src="BorhanSessionService.min.js"></script>
+<script src="BorhanMediaService.min.js"></script>
 <script type="text/javascript">
 
 	
@@ -21,18 +21,18 @@
 	};
 
 	function session_start(){
-		var config = new KalturaConfiguration(document.getElementById("partnerId").value);
-		config.serviceUrl = "http://www.kaltura.com";
+		var config = new BorhanConfiguration(document.getElementById("partnerId").value);
+		config.serviceUrl = "http://www.borhan.com";
 		
-		client = new KalturaClient(config);
+		client = new BorhanClient(config);
 		
 		var secret = document.getElementById("secret").value;
 		var userId = null;
-		var type = 0; // KalturaSessionType.USER
+		var type = 0; // BorhanSessionType.USER
 		var partnerId = document.getElementById("partnerId").value;
 		var expiry = null;
 		var privileges = null;
-		KalturaSessionService.start(secret, userId, type, partnerId, expiry, privileges)
+		BorhanSessionService.start(secret, userId, type, partnerId, expiry, privileges)
 			.completion(session_start_cb)
 			.execute(client);
 	}
@@ -47,26 +47,26 @@
 
 	function media_add(){
 		var entry = {
-			objectType: "KalturaMediaEntry",
-			mediaType: 1, // KalturaMediaType.VIDEO
+			objectType: "BorhanMediaEntry",
+			mediaType: 1, // BorhanMediaType.VIDEO
 			name: document.getElementById("name").value,
 			description: document.getElementById("description").value,
 		}
 
-		KalturaMediaService.add(entry)
+		BorhanMediaService.add(entry)
 			.completion(media_add_cb)
 			.execute(client);
 	}
 
 	function media_delete(){
 		var entryId = document.getElementById("entryId").value;		
-		KalturaMediaService.deleteAction(entryId)
+		BorhanMediaService.deleteAction(entryId)
 			.execute(client);
 	}
 
 	function media_delete_error_with_cb(){
 		var entryId = "kishkush";
-		KalturaMediaService.deleteAction(entryId).execute(client, function(success, results){
+		BorhanMediaService.deleteAction(entryId).execute(client, function(success, results){
 			if(success) {
 				alert("Error was expected");
 			}
@@ -78,20 +78,20 @@
 
 	function media_delete_error_without_cb(){
 		var entryId = "kishkush";
-		KalturaMediaService.deleteAction(entryId).execute(client);
+		BorhanMediaService.deleteAction(entryId).execute(client);
 	}
 
 	function multirequest_multi_callback(){
 		var entry = {
-			objectType: "KalturaMediaEntry",
-			mediaType: 1, // KalturaMediaType.VIDEO
+			objectType: "BorhanMediaEntry",
+			mediaType: 1, // BorhanMediaType.VIDEO
 			name: document.getElementById("name").value,
 			description: document.getElementById("description").value,
 		}
 
-		KalturaMediaService.add(entry)
+		BorhanMediaService.add(entry)
 			.completion(media_add_cb)
-			.add(KalturaMediaService.deleteAction("{1:result:id}")
+			.add(BorhanMediaService.deleteAction("{1:result:id}")
 				.completion(function(success, error){
 					if(!success) {
 						alert(error.message);
@@ -105,14 +105,14 @@
 
 	function multirequest_single_callback(){
 		var entry = {
-			objectType: "KalturaMediaEntry",
-			mediaType: 1, // KalturaMediaType.VIDEO
+			objectType: "BorhanMediaEntry",
+			mediaType: 1, // BorhanMediaType.VIDEO
 			name: document.getElementById("name").value,
 			description: document.getElementById("description").value,
 		}
 
-		KalturaMediaService.add(entry)
-			.add(KalturaMediaService.deleteAction("{1:result:id}"))
+		BorhanMediaService.add(entry)
+			.add(BorhanMediaService.deleteAction("{1:result:id}"))
 			.execute(client, function(success, results){
 				if(results.message) { // general transport error
 					alert(results.message);
@@ -136,16 +136,16 @@
 
 	function multirequest_different_style(){
 		var entry = {
-			objectType: "KalturaMediaEntry",
-			mediaType: 1, // KalturaMediaType.VIDEO
+			objectType: "BorhanMediaEntry",
+			mediaType: 1, // BorhanMediaType.VIDEO
 			name: document.getElementById("name").value,
 			description: document.getElementById("description").value,
 		}
 
-		var addRequestBuilder = KalturaMediaService.add(entry);
-		var deleteRequestBuilder = KalturaMediaService.deleteAction("{1:result:id}").completion();
+		var addRequestBuilder = BorhanMediaService.add(entry);
+		var deleteRequestBuilder = BorhanMediaService.deleteAction("{1:result:id}").completion();
 		
-		var multiRequestBuilder = new KalturaMultiRequestBuilder(client);
+		var multiRequestBuilder = new BorhanMultiRequestBuilder(client);
 		multiRequestBuilder.add(addRequestBuilder);
 		multiRequestBuilder.add(deleteRequestBuilder);
 		

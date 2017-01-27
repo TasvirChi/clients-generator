@@ -1,9 +1,9 @@
 This source contains:
- - The Kaltura client library (KalturaClient.py & KalturaClientBase.py)
- - Auto generated core APIs (KalturaCoreClient.py)
- - Auto generated plugin APIs (KalturaPlugins/*.py)
+ - The Borhan client library (BorhanClient.py & BorhanClientBase.py)
+ - Auto generated core APIs (BorhanCoreClient.py)
+ - Auto generated plugin APIs (BorhanPlugins/*.py)
  - Python library test code and data files (TestCode/*)
- - The 'poster' python module (used by KalturaClient.py)
+ - The 'poster' python module (used by BorhanClient.py)
 
 == STANDARD DEPENDENCIES ==
 
@@ -33,18 +33,18 @@ The API library depends on the following python modules that are not included by
 == INSTALLATION ==
 
 Make sure you have the modules listed under the 'external dependencies' installed.
-Install the Kaltura client by running 'python setup.py install' from the same folder as this README file.
+Install the Borhan client by running 'python setup.py install' from the same folder as this README file.
 
 == TESTING THE CLIENT LIBRARY ==
   
-See KalturaClient/tests/README.txt
+See BorhanClient/tests/README.txt
 
 == RELEASE NOTES ==
 
-Sep 2015 - support JSON requests, compatible with Kaltura server version 10.20.0 and above. 
+Sep 2015 - support JSON requests, compatible with Borhan server version 10.20.0 and above. 
 Aug 2013 - the library was refactored to make it installable as a PyPI package.
-	This refactoring changed the way Kaltura client plugin modules are loaded -
+	This refactoring changed the way Borhan client plugin modules are loaded -
 	before the change the metadata plugin (for example) was loaded by:
-		from KalturaMetadataClientPlugin import *
+		from BorhanMetadataClientPlugin import *
 	when upgrading the client, this will need to be changed to:
-		from KalturaClient.Plugins.Metadata import *
+		from BorhanClient.Plugins.Metadata import *

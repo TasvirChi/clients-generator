@@ -6,11 +6,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,35 +28,35 @@
 // @ignore
 // ===================================================================================================
 
-require_once(dirname(__file__) . '/lib/KalturaCommandLineParser.php');
-require_once(dirname(__file__) . '/lib/KalturaSession.php');
+require_once(dirname(__file__) . '/lib/BorhanCommandLineParser.php');
+require_once(dirname(__file__) . '/lib/BorhanSession.php');
 
 $commandLineSwitches = array(
-	array(KalturaCommandLineParser::SWITCH_REQUIRES_VALUE, 'v', 'version', 'Session version (1/2)'),
-	array(KalturaCommandLineParser::SWITCH_REQUIRES_VALUE, 't', 'type', 'Session type - 0=USER, 2=ADMIN'),
-	array(KalturaCommandLineParser::SWITCH_REQUIRES_VALUE, 'u', 'user', 'User name'),
-	array(KalturaCommandLineParser::SWITCH_REQUIRES_VALUE, 'e', 'expiry', 'Session expiry (seconds)'),
-	array(KalturaCommandLineParser::SWITCH_REQUIRES_VALUE, 'p', 'privileges', 'Session privileges'),
-	array(KalturaCommandLineParser::SWITCH_NO_VALUE, 'w', 'widget', 'Widget session'),
-	array(KalturaCommandLineParser::SWITCH_NO_VALUE, 'b', 'bare', 'Print only the KS itself'),
+	array(BorhanCommandLineParser::SWITCH_REQUIRES_VALUE, 'v', 'version', 'Session version (1/2)'),
+	array(BorhanCommandLineParser::SWITCH_REQUIRES_VALUE, 't', 'type', 'Session type - 0=USER, 2=ADMIN'),
+	array(BorhanCommandLineParser::SWITCH_REQUIRES_VALUE, 'u', 'user', 'User name'),
+	array(BorhanCommandLineParser::SWITCH_REQUIRES_VALUE, 'e', 'expiry', 'Session expiry (seconds)'),
+	array(BorhanCommandLineParser::SWITCH_REQUIRES_VALUE, 'p', 'privileges', 'Session privileges'),
+	array(BorhanCommandLineParser::SWITCH_NO_VALUE, 'w', 'widget', 'Widget session'),
+	array(BorhanCommandLineParser::SWITCH_NO_VALUE, 'b', 'bare', 'Print only the KS itself'),
 );
 
 // parse command line
-$options = KalturaCommandLineParser::parseArguments($commandLineSwitches);
-$arguments = KalturaCommandLineParser::stripCommandLineSwitches($commandLineSwitches, $argv);
+$options = BorhanCommandLineParser::parseArguments($commandLineSwitches);
+$arguments = BorhanCommandLineParser::stripCommandLineSwitches($commandLineSwitches, $argv);
 
 if (!$arguments)
 {
 	$usage = "Usage: generateKs [switches] <partnerId>\nOptions:\n";
-	$usage .= KalturaCommandLineParser::getArgumentsUsage($commandLineSwitches);
+	$usage .= BorhanCommandLineParser::getArgumentsUsage($commandLineSwitches);
 	die($usage);
 }
 
 $partnerId = $arguments[0];
 
-KalturaSecretRepository::init();
+BorhanSecretRepository::init();
 
-$adminSecret = KalturaSecretRepository::getAdminSecret($partnerId);
+$adminSecret = BorhanSecretRepository::getAdminSecret($partnerId);
 if (!$adminSecret)
     die("Failed to get secret for partner {$partnerId}\n");
 
@@ -80,11 +80,11 @@ $version = isset($options['version']) ? $options['version'] : 1;
 switch ($version)
 { 
 case 1:
-	$ks = KalturaSession::generateKsV1($adminSecret, $user, $type, $partnerId, $expiry, $privileges, null, null);
+	$ks = BorhanSession::generateKsV1($adminSecret, $user, $type, $partnerId, $expiry, $privileges, null, null);
 	break;
 
 case 2:
-	$ks = KalturaSession::generateKsV2($adminSecret, $user, $type, $partnerId, $expiry, $privileges, null, null);
+	$ks = BorhanSession::generateKsV2($adminSecret, $user, $type, $partnerId, $expiry, $privileges, null, null);
 	break;
 
 default:

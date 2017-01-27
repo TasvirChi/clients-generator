@@ -1,6 +1,6 @@
 //
 //  WVSettings.m
-//  Kaltura
+//  Borhan
 //
 //  Created by Eliza Sapir on 6/3/13.
 //
@@ -19,9 +19,9 @@
 
 -(NSDictionary*) initializeDictionary:(NSString *)flavorId andKS: (NSString*) ks{
     NSString* hostName;
-    hostName= [[NSString alloc] initWithString: @"http://www.kaltura.com"];
+    hostName= [[NSString alloc] initWithString: @"http://www.borhan.com"];
 //    NSString* portalId, *drmServer;
-    self.portalId = [[NSString alloc] initWithString: @"kaltura"];
+    self.portalId = [[NSString alloc] initWithString: @"borhan"];
 
     //EMM
     self.drmServer = [[NSString alloc] initWithFormat: @"%@/api_v3/service/widevine_widevinedrm/action/getLicense?format=widevine&flavorAssetId=%@&ks=%@" , hostName, flavorId, ks];

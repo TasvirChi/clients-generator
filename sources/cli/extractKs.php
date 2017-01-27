@@ -6,11 +6,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,7 +28,7 @@
 // @ignore
 // ===================================================================================================
 
-require_once(dirname(__file__) . '/lib/KalturaSession.php');
+require_once(dirname(__file__) . '/lib/BorhanSession.php');
 
 function formatTimeInterval($secs)
 {
@@ -59,13 +59,13 @@ function formatTimeInterval($secs)
 	return join(' ', $ret);
 }
 
-KalturaSecretRepository::init();
+BorhanSecretRepository::init();
 
 if ($argc < 2)
 	die("Usage: extractKs <ks>\n");
 
 $ks = $argv[1];
-$ksObj = KalturaSession::getKsObject($ks);
+$ksObj = BorhanSession::getKsObject($ks);
 if (!$ksObj)
 	die("Failed to parse ks {$ks}\n");
 

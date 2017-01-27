@@ -1,0 +1,373 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2980D489149A40BA00EE7FA4 /* MetadataSchema.xsd in Resources */ = {isa = PBXBuildFile; fileRef = 2980D488149A40BA00EE7FA4 /* MetadataSchema.xsd */; };
+		29957F7E1498C28500935E70 /* DemoVideo.flv in Resources */ = {isa = PBXBuildFile; fileRef = 29957F7D1498C28500935E70 /* DemoVideo.flv */; };
+		29957F801498E93200935E70 /* DemoImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 29957F7F1498E93200935E70 /* DemoImage.jpg */; };
+		29B5B7641497A38F0000629F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B5B7631497A38F0000629F /* UIKit.framework */; };
+		29B5B7661497A38F0000629F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B5B7651497A38F0000629F /* Foundation.framework */; };
+		29B5B7681497A38F0000629F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B5B7671497A38F0000629F /* CoreGraphics.framework */; };
+		29B5B76E1497A38F0000629F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 29B5B76C1497A38F0000629F /* InfoPlist.strings */; };
+		29B5B7701497A38F0000629F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B5B76F1497A38F0000629F /* main.m */; };
+		29B5B7741497A38F0000629F /* BorhanClientTesterAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B5B7731497A38F0000629F /* BorhanClientTesterAppDelegate.m */; };
+		29B5B7771497A38F0000629F /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29B5B7751497A38F0000629F /* MainWindow.xib */; };
+		29B5B77A1497A38F0000629F /* BorhanClientTesterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B5B7791497A38F0000629F /* BorhanClientTesterViewController.m */; };
+		29B5B77D1497A38F0000629F /* BorhanClientTesterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29B5B77B1497A38F0000629F /* BorhanClientTesterViewController.xib */; };
+		29F608721497B78E00B09779 /* libBorhanClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F608701497B53600B09779 /* libBorhanClient.a */; };
+		29F608741497B7D900B09779 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F608731497B7D900B09779 /* libxml2.dylib */; };
+		29F608761497B82E00B09779 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F608751497B82E00B09779 /* libz.dylib */; };
+		29F608781497B9AD00B09779 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F608771497B9AD00B09779 /* CFNetwork.framework */; };
+		29F6087A1497BA1A00B09779 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F608791497BA1A00B09779 /* SystemConfiguration.framework */; };
+		29F6087C1497BA5200B09779 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F6087B1497BA5200B09779 /* MobileCoreServices.framework */; };
+		29F6087F1497BBDB00B09779 /* BorhanClientTester.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F6087E1497BBDB00B09779 /* BorhanClientTester.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		29F6086F1497B53600B09779 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29F608681497B53600B09779 /* BorhanClient.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 29133452149646BB006D8A8C;
+			remoteInfo = BorhanClient;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2980D488149A40BA00EE7FA4 /* MetadataSchema.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MetadataSchema.xsd; path = Resources/MetadataSchema.xsd; sourceTree = "<group>"; };
+		29957F7D1498C28500935E70 /* DemoVideo.flv */ = {isa = PBXFileReference; lastKnownFileType = file; name = DemoVideo.flv; path = Resources/DemoVideo.flv; sourceTree = "<group>"; };
+		29957F7F1498E93200935E70 /* DemoImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = DemoImage.jpg; path = Resources/DemoImage.jpg; sourceTree = "<group>"; };
+		29B5B75F1497A38F0000629F /* BorhanClientTester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BorhanClientTester.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		29B5B7631497A38F0000629F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		29B5B7651497A38F0000629F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		29B5B7671497A38F0000629F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		29B5B76B1497A38F0000629F /* BorhanClientTester-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BorhanClientTester-Info.plist"; sourceTree = "<group>"; };
+		29B5B76D1497A38F0000629F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		29B5B76F1497A38F0000629F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B5B7711497A38F0000629F /* BorhanClientTester-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BorhanClientTester-Prefix.pch"; sourceTree = "<group>"; };
+		29B5B7721497A38F0000629F /* BorhanClientTesterAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BorhanClientTesterAppDelegate.h; sourceTree = "<group>"; };
+		29B5B7731497A38F0000629F /* BorhanClientTesterAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BorhanClientTesterAppDelegate.m; sourceTree = "<group>"; };
+		29B5B7761497A38F0000629F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		29B5B7781497A38F0000629F /* BorhanClientTesterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BorhanClientTesterViewController.h; sourceTree = "<group>"; };
+		29B5B7791497A38F0000629F /* BorhanClientTesterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BorhanClientTesterViewController.m; sourceTree = "<group>"; };
+		29B5B77C1497A38F0000629F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BorhanClientTesterViewController.xib; sourceTree = "<group>"; };
+		29F608681497B53600B09779 /* BorhanClient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BorhanClient.xcodeproj; path = ../BorhanClient/BorhanClient.xcodeproj; sourceTree = "<group>"; };
+		29F608731497B7D900B09779 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		29F608751497B82E00B09779 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		29F608771497B9AD00B09779 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		29F608791497BA1A00B09779 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		29F6087B1497BA5200B09779 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		29F6087D1497BBDB00B09779 /* BorhanClientTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BorhanClientTester.h; sourceTree = "<group>"; };
+		29F6087E1497BBDB00B09779 /* BorhanClientTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BorhanClientTester.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		29B5B75C1497A38F0000629F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29F6087C1497BA5200B09779 /* MobileCoreServices.framework in Frameworks */,
+				29F6087A1497BA1A00B09779 /* SystemConfiguration.framework in Frameworks */,
+				29F608781497B9AD00B09779 /* CFNetwork.framework in Frameworks */,
+				29F608761497B82E00B09779 /* libz.dylib in Frameworks */,
+				29F608741497B7D900B09779 /* libxml2.dylib in Frameworks */,
+				29B5B7641497A38F0000629F /* UIKit.framework in Frameworks */,
+				29B5B7661497A38F0000629F /* Foundation.framework in Frameworks */,
+				29B5B7681497A38F0000629F /* CoreGraphics.framework in Frameworks */,
+				29F608721497B78E00B09779 /* libBorhanClient.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		29B5B7541497A38E0000629F = {
+			isa = PBXGroup;
+			children = (
+				29F6087B1497BA5200B09779 /* MobileCoreServices.framework */,
+				29F608791497BA1A00B09779 /* SystemConfiguration.framework */,
+				29F608771497B9AD00B09779 /* CFNetwork.framework */,
+				29F608751497B82E00B09779 /* libz.dylib */,
+				29F608731497B7D900B09779 /* libxml2.dylib */,
+				29F608681497B53600B09779 /* BorhanClient.xcodeproj */,
+				29B5B7691497A38F0000629F /* BorhanClientTester */,
+				29B5B7621497A38F0000629F /* Frameworks */,
+				29B5B7601497A38F0000629F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		29B5B7601497A38F0000629F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				29B5B75F1497A38F0000629F /* BorhanClientTester.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B5B7621497A38F0000629F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B5B7631497A38F0000629F /* UIKit.framework */,
+				29B5B7651497A38F0000629F /* Foundation.framework */,
+				29B5B7671497A38F0000629F /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		29B5B7691497A38F0000629F /* BorhanClientTester */ = {
+			isa = PBXGroup;
+			children = (
+				2980D488149A40BA00EE7FA4 /* MetadataSchema.xsd */,
+				29957F7F1498E93200935E70 /* DemoImage.jpg */,
+				29957F7D1498C28500935E70 /* DemoVideo.flv */,
+				29F6087D1497BBDB00B09779 /* BorhanClientTester.h */,
+				29F6087E1497BBDB00B09779 /* BorhanClientTester.m */,
+				29B5B7721497A38F0000629F /* BorhanClientTesterAppDelegate.h */,
+				29B5B7731497A38F0000629F /* BorhanClientTesterAppDelegate.m */,
+				29B5B7751497A38F0000629F /* MainWindow.xib */,
+				29B5B7781497A38F0000629F /* BorhanClientTesterViewController.h */,
+				29B5B7791497A38F0000629F /* BorhanClientTesterViewController.m */,
+				29B5B77B1497A38F0000629F /* BorhanClientTesterViewController.xib */,
+				29B5B76A1497A38F0000629F /* Supporting Files */,
+			);
+			path = BorhanClientTester;
+			sourceTree = "<group>";
+		};
+		29B5B76A1497A38F0000629F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				29B5B76B1497A38F0000629F /* BorhanClientTester-Info.plist */,
+				29B5B76C1497A38F0000629F /* InfoPlist.strings */,
+				29B5B76F1497A38F0000629F /* main.m */,
+				29B5B7711497A38F0000629F /* BorhanClientTester-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		29F608691497B53600B09779 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				29F608701497B53600B09779 /* libBorhanClient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		29B5B75E1497A38F0000629F /* BorhanClientTester */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29B5B7801497A38F0000629F /* Build configuration list for PBXNativeTarget "BorhanClientTester" */;
+			buildPhases = (
+				29B5B75B1497A38F0000629F /* Sources */,
+				29B5B75C1497A38F0000629F /* Frameworks */,
+				29B5B75D1497A38F0000629F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BorhanClientTester;
+			productName = BorhanClientTester;
+			productReference = 29B5B75F1497A38F0000629F /* BorhanClientTester.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B5B7561497A38E0000629F /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 29B5B7591497A38E0000629F /* Build configuration list for PBXProject "BorhanClientTester" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 29B5B7541497A38E0000629F;
+			productRefGroup = 29B5B7601497A38F0000629F /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 29F608691497B53600B09779 /* Products */;
+					ProjectRef = 29F608681497B53600B09779 /* BorhanClient.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				29B5B75E1497A38F0000629F /* BorhanClientTester */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		29F608701497B53600B09779 /* libBorhanClient.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libBorhanClient.a;
+			remoteRef = 29F6086F1497B53600B09779 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		29B5B75D1497A38F0000629F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29B5B76E1497A38F0000629F /* InfoPlist.strings in Resources */,
+				29B5B7771497A38F0000629F /* MainWindow.xib in Resources */,
+				29B5B77D1497A38F0000629F /* BorhanClientTesterViewController.xib in Resources */,
+				29957F7E1498C28500935E70 /* DemoVideo.flv in Resources */,
+				29957F801498E93200935E70 /* DemoImage.jpg in Resources */,
+				2980D489149A40BA00EE7FA4 /* MetadataSchema.xsd in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		29B5B75B1497A38F0000629F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29B5B7701497A38F0000629F /* main.m in Sources */,
+				29B5B7741497A38F0000629F /* BorhanClientTesterAppDelegate.m in Sources */,
+				29B5B77A1497A38F0000629F /* BorhanClientTesterViewController.m in Sources */,
+				29F6087F1497BBDB00B09779 /* BorhanClientTester.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		29B5B76C1497A38F0000629F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29B5B76D1497A38F0000629F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		29B5B7751497A38F0000629F /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29B5B7761497A38F0000629F /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		29B5B77B1497A38F0000629F /* BorhanClientTesterViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29B5B77C1497A38F0000629F /* en */,
+			);
+			name = BorhanClientTesterViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		29B5B77E1497A38F0000629F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		29B5B77F1497A38F0000629F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		29B5B7811497A38F0000629F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BorhanClientTester/BorhanClientTester-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					../BorhanClient/BorhanClient/BorhanPlugins,
+					../BorhanClient/BorhanClient/ASIHttpRequest,
+					../BorhanClient/BorhanClient,
+				);
+				INFOPLIST_FILE = "BorhanClientTester/BorhanClientTester-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		29B5B7821497A38F0000629F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BorhanClientTester/BorhanClientTester-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					../BorhanClient/BorhanClient/BorhanPlugins,
+					../BorhanClient/BorhanClient/ASIHttpRequest,
+					../BorhanClient/BorhanClient,
+				);
+				INFOPLIST_FILE = "BorhanClientTester/BorhanClientTester-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		29B5B7591497A38E0000629F /* Build configuration list for PBXProject "BorhanClientTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29B5B77E1497A38F0000629F /* Debug */,
+				29B5B77F1497A38F0000629F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29B5B7801497A38F0000629F /* Build configuration list for PBXNativeTarget "BorhanClientTester" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29B5B7811497A38F0000629F /* Debug */,
+				29B5B7821497A38F0000629F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B5B7561497A38E0000629F /* Project object */;
+}

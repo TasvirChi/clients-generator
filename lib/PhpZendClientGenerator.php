@@ -16,32 +16,32 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 	private function cacheEnum(DOMElement $enumNode)
 	{
 		$enumName = $enumNode->getAttribute('name');
-		$enumCacheName = preg_replace('/^Kaltura(.+)$/', '$1', $enumName); 
+		$enumCacheName = preg_replace('/^Borhan(.+)$/', '$1', $enumName); 
 		
 		if($enumNode->hasAttribute('plugin'))
 		{
 			$pluginName = ucfirst($enumNode->getAttribute('plugin'));
-			$this->cacheTypes[$enumName] = "Kaltura_Client_{$pluginName}_Enum_{$enumCacheName}";
+			$this->cacheTypes[$enumName] = "Borhan_Client_{$pluginName}_Enum_{$enumCacheName}";
 		}
 		else
 		{
-			$this->cacheTypes[$enumName] = "Kaltura_Client_Enum_{$enumCacheName}";	
+			$this->cacheTypes[$enumName] = "Borhan_Client_Enum_{$enumCacheName}";	
 		}
 	} 
 	
 	private function cacheType(DOMElement $classNode)
 	{
 		$className = $classNode->getAttribute('name');
-		$classCacheName = preg_replace('/^Kaltura(.+)$/', '$1', $className); 
+		$classCacheName = preg_replace('/^Borhan(.+)$/', '$1', $className); 
 		
 		if($classNode->hasAttribute('plugin'))
 		{
 			$pluginName = ucfirst($classNode->getAttribute('plugin'));
-			$this->cacheTypes[$className] = "Kaltura_Client_{$pluginName}_Type_{$classCacheName}";
+			$this->cacheTypes[$className] = "Borhan_Client_{$pluginName}_Type_{$classCacheName}";
 		}
 		else
 		{
-			$this->cacheTypes[$className] = "Kaltura_Client_Type_{$classCacheName}";	
+			$this->cacheTypes[$className] = "Borhan_Client_Type_{$classCacheName}";	
 		}
 	} 
 	
@@ -70,7 +70,7 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 			
-		$this->appendLine('class Kaltura_Client_TypeMap');
+		$this->appendLine('class Borhan_Client_TypeMap');
 		$this->appendLine('{');
 		
 		$classNodes = $xpath->query("/xml/classes/class");
@@ -78,21 +78,21 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 		$typeMap = array();
 		foreach($classNodes as $classNode)
 		{
-			$kalturaType = $classNode->getAttribute('name');
-			$zendType = $this->getTypeClass($kalturaType);
-			$typeMap[$kalturaType] = $zendType;
+			$borhanType = $classNode->getAttribute('name');
+			$zendType = $this->getTypeClass($borhanType);
+			$typeMap[$borhanType] = $zendType;
 		}
 		ksort($typeMap);
-		foreach ($typeMap as $kalturaType => $zendType)
-			$this->appendLine("		'$kalturaType' => '$zendType',");
+		foreach ($typeMap as $borhanType => $zendType)
+			$this->appendLine("		'$borhanType' => '$zendType',");
 		
 		$this->appendLine('	);');
 		$this->appendLine('	');
 		
-		$this->appendLine('	public static function getZendType($kalturaType)');
+		$this->appendLine('	public static function getZendType($borhanType)');
 		$this->appendLine('	{');
-		$this->appendLine('		if(isset(self::$map[$kalturaType]))');
-		$this->appendLine('			return self::$map[$kalturaType];');
+		$this->appendLine('		if(isset(self::$map[$borhanType]))');
+		$this->appendLine('			return self::$map[$borhanType];');
 		$this->appendLine('		return null;');
 		$this->appendLine('	}');
 		$this->appendLine('}');
@@ -156,25 +156,25 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 	protected function getEnumPath(DOMElement $enumNode)
 	{
 		$enumName = $enumNode->getAttribute('name');
-		$enumName = preg_replace('/^Kaltura(.+)$/', '$1', $enumName); 
+		$enumName = preg_replace('/^Borhan(.+)$/', '$1', $enumName); 
 			
 		if(!$enumNode->hasAttribute('plugin'))
-			return "Kaltura/Client/Enum/{$enumName}.php";
+			return "Borhan/Client/Enum/{$enumName}.php";
 
 		$pluginName = ucfirst($enumNode->getAttribute('plugin'));
-		return "Kaltura/Client/{$pluginName}/Enum/{$enumName}.php";
+		return "Borhan/Client/{$pluginName}/Enum/{$enumName}.php";
 	}
 	
 	protected function getTypePath(DOMElement $classNode)
 	{
 		$className = $classNode->getAttribute('name');
-		$className = preg_replace('/^Kaltura(.+)$/', '$1', $className); 
+		$className = preg_replace('/^Borhan(.+)$/', '$1', $className); 
 			
 		if(!$classNode->hasAttribute('plugin'))
-			return "Kaltura/Client/Type/{$className}.php";
+			return "Borhan/Client/Type/{$className}.php";
 
 		$pluginName = ucfirst($classNode->getAttribute('plugin'));
-		return "Kaltura/Client/{$pluginName}/Type/{$className}.php";
+		return "Borhan/Client/{$pluginName}/Type/{$className}.php";
 	}
 	
 	protected function getServicePath($serviceNode)
@@ -182,26 +182,26 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 		$serviceName = ucfirst($serviceNode->getAttribute('name'));
 			
 		if(!$serviceNode->hasAttribute('plugin'))
-			return "Kaltura/Client/{$serviceName}Service.php";
+			return "Borhan/Client/{$serviceName}Service.php";
 
 		$pluginName = ucfirst($serviceNode->getAttribute('plugin'));
-		return "Kaltura/Client/{$pluginName}/{$serviceName}Service.php";
+		return "Borhan/Client/{$pluginName}/{$serviceName}Service.php";
 	}
 	
 	protected function getPluginPath($pluginName)
 	{
 		$pluginName = ucfirst($pluginName);
-		return "Kaltura/Client/{$pluginName}/Plugin.php";
+		return "Borhan/Client/{$pluginName}/Plugin.php";
 	}
 	
 	protected function getMainPath()
 	{
-		return 'Kaltura/Client/Client.php';
+		return 'Borhan/Client/Client.php';
 	}
 	
 	protected function getMapPath()
 	{
-		return 'Kaltura/Client/TypeMap.php';
+		return 'Borhan/Client/TypeMap.php';
 	}
 	
 	protected function getEnumClass($enumName)
@@ -225,16 +225,16 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 		$serviceName = ucfirst($serviceNode->getAttribute('name'));
 		
 		if(!$serviceNode->hasAttribute('plugin'))
-			return "Kaltura_Client_{$serviceName}Service";
+			return "Borhan_Client_{$serviceName}Service";
 		
 		$pluginName = ucfirst($serviceNode->getAttribute('plugin'));
-		return "Kaltura_Client_{$pluginName}_{$serviceName}Service";
+		return "Borhan_Client_{$pluginName}_{$serviceName}Service";
 	}
 	
 	protected function getPluginClass($pluginName)
 	{
 		$pluginName = ucfirst($pluginName);
-		return "Kaltura_Client_{$pluginName}_Plugin";
+		return "Borhan_Client_{$pluginName}_Plugin";
 	}
 	
 	function writePlugin(DOMElement $pluginNode)
@@ -255,7 +255,7 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 		
-		$this->appendLine("class $pluginClassName extends Kaltura_Client_Plugin");
+		$this->appendLine("class $pluginClassName extends Borhan_Client_Plugin");
 		$this->appendLine('{');
 	
 		$serviceNodes = $xpath->query("/xml/services/service[@plugin = '$pluginName']");
@@ -271,7 +271,7 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine('');
 		}
 		
-		$this->appendLine('	protected function __construct(Kaltura_Client_Client $client)');
+		$this->appendLine('	protected function __construct(Borhan_Client_Client $client)');
 		$this->appendLine('	{');
 		$this->appendLine('		parent::__construct($client);');
 		foreach($serviceNodes as $serviceNode)
@@ -285,13 +285,13 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine('	/**');
 		$this->appendLine("	 * @return $pluginClassName");
 		$this->appendLine('	 */');
-		$this->appendLine('	public static function get(Kaltura_Client_Client $client)');
+		$this->appendLine('	public static function get(Borhan_Client_Client $client)');
 		$this->appendLine('	{');
 		$this->appendLine("		return new $pluginClassName(\$client);");
 		$this->appendLine('	}');
 		$this->appendLine('');
 		$this->appendLine('	/**');
-		$this->appendLine('	 * @return array<Kaltura_Client_ServiceBase>');
+		$this->appendLine('	 * @return array<Borhan_Client_ServiceBase>');
 		$this->appendLine('	 */');
 		$this->appendLine('	public function getServices()');
 		$this->appendLine('	{');
@@ -331,7 +331,7 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 		
-	 	$this->appendLine("class $enumName extends Kaltura_Client_EnumBase");		
+	 	$this->appendLine("class $enumName extends Borhan_Client_EnumBase");		
 		$this->appendLine("{");
 		foreach($enumNode->childNodes as $constNode)
 		{
@@ -351,8 +351,8 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 	
 	function writeClass(DOMElement $classNode)
 	{
-		$kalturaType = $classNode->getAttribute('name');
-		$type = $this->getTypeClass($kalturaType);
+		$borhanType = $classNode->getAttribute('name');
+		$type = $this->getTypeClass($borhanType);
 		
 		$abstract = '';
 		if ($classNode->hasAttribute("abstract"))
@@ -367,15 +367,15 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 		}
 		
 		// class definition
-		$baseClass = 'Kaltura_Client_ObjectBase';
+		$baseClass = 'Borhan_Client_ObjectBase';
 		if ($classNode->hasAttribute('base'))
 			$baseClass = $this->getTypeClass($classNode->getAttribute('base'));
 			
 		$this->appendLine($abstract . "class $type extends $baseClass");
 		$this->appendLine("{");
-		$this->appendLine("	public function getKalturaObjectType()");
+		$this->appendLine("	public function getBorhanObjectType()");
 		$this->appendLine("	{");
-		$this->appendLine("		return '$kalturaType';");
+		$this->appendLine("		return '$borhanType';");
 		$this->appendLine("	}");
 		$this->appendLine("	");
 	
@@ -431,7 +431,7 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 					$this->appendLine("			if(empty(\$xml->{$propName}))");
 					$this->appendLine("				\$this->$propName = array();");
 					$this->appendLine("			else");
-					$this->appendLine("				\$this->$propName = Kaltura_Client_ParseUtils::unmarshalArray(\$xml->$propName, \"$arrayType\");");
+					$this->appendLine("				\$this->$propName = Borhan_Client_ParseUtils::unmarshalArray(\$xml->$propName, \"$arrayType\");");
 					$this->appendLine("		}");
 					break;
 					
@@ -442,14 +442,14 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 					$this->appendLine("			if(empty(\$xml->{$propName}))");
 					$this->appendLine("				\$this->$propName = array();");
 					$this->appendLine("			else");
-					$this->appendLine("				\$this->$propName = Kaltura_Client_ParseUtils::unmarshalMap(\$xml->$propName, \"$arrayType\");");
+					$this->appendLine("				\$this->$propName = Borhan_Client_ParseUtils::unmarshalMap(\$xml->$propName, \"$arrayType\");");
 					$this->appendLine("		}");
 					break;
 					
 				default : // sub object
 					$fallback = $propertyNode->getAttribute("type");
 					$this->appendLine("		if(count(\$xml->{$propName}) && !empty(\$xml->{$propName}))");
-					$this->appendLine("			\$this->$propName = Kaltura_Client_ParseUtils::unmarshalObject(\$xml->$propName, \"$fallback\");");
+					$this->appendLine("			\$this->$propName = Borhan_Client_ParseUtils::unmarshalObject(\$xml->$propName, \"$fallback\");");
 					break;
 			}
 			
@@ -528,9 +528,9 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 		
-		$this->appendLine("class $serviceClassName extends Kaltura_Client_ServiceBase");
+		$this->appendLine("class $serviceClassName extends Borhan_Client_ServiceBase");
 		$this->appendLine("{");
-		$this->appendLine("	function __construct(Kaltura_Client_Client \$client = null)");
+		$this->appendLine("	function __construct(Borhan_Client_Client \$client = null)");
 		$this->appendLine("	{");
 		$this->appendLine("		parent::__construct(\$client);");
 		$this->appendLine("	}");
@@ -580,7 +580,7 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 		if(!$enableInMultiRequest)
 		{
 			$this->appendLine("		if (\$this->client->isMultiRequest())");
-			$this->appendLine("			throw \$this->client->getKalturaClientException(\"Action is not supported as part of multi-request.\", Kaltura_Client_ClientException::ERROR_ACTION_IN_MULTIREQUEST);");
+			$this->appendLine("			throw \$this->client->getBorhanClientException(\"Action is not supported as part of multi-request.\", Borhan_Client_ClientException::ERROR_ACTION_IN_MULTIREQUEST);");
 			$this->appendLine("		");
 		}
 		
@@ -678,18 +678,18 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 			switch($resultType)
 			{
 				case 'int':
-					$this->appendLine("		\$resultObject = (int)Kaltura_Client_ParseUtils::unmarshalSimpleType(\$resultXmlObject->result);");
+					$this->appendLine("		\$resultObject = (int)Borhan_Client_ParseUtils::unmarshalSimpleType(\$resultXmlObject->result);");
 					break;
 				
 				case 'bool':
-					$this->appendLine("		\$resultObject = (bool)Kaltura_Client_ParseUtils::unmarshalSimpleType(\$resultXmlObject->result);");
+					$this->appendLine("		\$resultObject = (bool)Borhan_Client_ParseUtils::unmarshalSimpleType(\$resultXmlObject->result);");
 					break;
 				case 'bigint':
 				case 'string':
-					$this->appendLine("		\$resultObject = (string)Kaltura_Client_ParseUtils::unmarshalSimpleType(\$resultXmlObject->result);");
+					$this->appendLine("		\$resultObject = (string)Borhan_Client_ParseUtils::unmarshalSimpleType(\$resultXmlObject->result);");
 					break;
 				case 'array':
-					$this->appendLine("		\$resultObject = Kaltura_Client_ParseUtils::unmarshalArray(\$resultXmlObject->result, \"$arrayObjectType\");");
+					$this->appendLine("		\$resultObject = Borhan_Client_ParseUtils::unmarshalArray(\$resultXmlObject->result, \"$arrayObjectType\");");
 					$arrayObjectType = $this->getTypeClass($arrayObjectType);
 					$this->appendLine("		foreach(\$resultObject as \$resultObjectItem){");
 					$this->appendLine("			\$this->client->validateObjectType(\$resultObjectItem, \"$arrayObjectType\");");
@@ -699,7 +699,7 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 				default:
 					if ($resultType)
 					{
-						$this->appendLine("		\$resultObject = Kaltura_Client_ParseUtils::unmarshalObject(\$resultXmlObject->result, \"$resultType\");");
+						$this->appendLine("		\$resultObject = Borhan_Client_ParseUtils::unmarshalObject(\$resultXmlObject->result, \"$resultType\");");
 						$resultType = $this->getTypeClass($resultType);
 						$this->appendLine("		\$this->client->validateObjectType(\$resultObject, \"$resultType\");");
 					}
@@ -773,7 +773,7 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 	
 	function writeMainClient(DOMNodeList $serviceNodes, DOMNodeList $configurationNodes)
 	{
-		$mainClassName = 'Kaltura_Client_Client';
+		$mainClassName = 'Borhan_Client_Client';
 		$apiVersion = $this->_doc->documentElement->getAttribute('apiVersion');
 		$date = date('y-m-d');
 		
@@ -785,7 +785,7 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 		
-		$this->appendLine("class $mainClassName extends Kaltura_Client_ClientBase");
+		$this->appendLine("class $mainClassName extends Borhan_Client_ClientBase");
 		$this->appendLine("{");
 	
 		foreach($serviceNodes as $serviceNode)
@@ -798,7 +798,7 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 				
 			$serviceName = $serviceNode->getAttribute("name");
 			$description = $serviceNode->getAttribute("description");
-			$serviceClassName = "Kaltura_Client_".ucfirst($serviceName)."Service";
+			$serviceClassName = "Borhan_Client_".ucfirst($serviceName)."Service";
 			$this->appendLine("	/**");
 			$description = str_replace("\n", "\n	 * ", $description); // to format multiline descriptions
 			$this->appendLine("	 * " . $description);
@@ -809,11 +809,11 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 		}
 		
 		$this->appendLine("	/**");
-		$this->appendLine("	 * Kaltura client constructor");
+		$this->appendLine("	 * Borhan client constructor");
 		$this->appendLine("	 *");
-		$this->appendLine("	 * @param Kaltura_Client_Configuration \$config");
+		$this->appendLine("	 * @param Borhan_Client_Configuration \$config");
 		$this->appendLine("	 */");
-		$this->appendLine("	public function __construct(Kaltura_Client_Configuration \$config)");
+		$this->appendLine("	public function __construct(Borhan_Client_Configuration \$config)");
 		$this->appendLine("	{");
 		$this->appendLine("		parent::__construct(\$config);");
 		$this->appendLine("		");
@@ -830,7 +830,7 @@ class PhpZendClientGenerator extends ClientGeneratorFromXml
 				continue;
 				
 			$serviceName = $serviceNode->getAttribute("name");
-			$serviceClassName = "Kaltura_Client_".ucfirst($serviceName)."Service";
+			$serviceClassName = "Borhan_Client_".ucfirst($serviceName)."Service";
 			$this->appendLine("		\$this->$serviceName = new $serviceClassName(\$this);");
 		}
 		$this->appendLine("	}");

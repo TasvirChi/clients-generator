@@ -2,19 +2,19 @@ var sync = require('synchronize');
 var fiber = sync.fiber;
 var await = sync.await;
 var defer = sync.defer;
-var kaltura = require('../KalturaClient');
-var ktypes = require('../KalturaTypes');
-var vo = require ('../KalturaVO.js');
+var borhan = require('../BorhanClient');
+var ktypes = require('../BorhanTypes');
+var vo = require ('../BorhanVO.js');
 var config = require ('./config.js');
 
 function init_client(callback) {
 	console.log('Initializing client');
-	var clientConfig = new kaltura.KalturaConfiguration(config.partner_id);
-	var client = new kaltura.KalturaClient(clientConfig);
+	var clientConfig = new borhan.BorhanConfiguration(config.partner_id);
+	var client = new borhan.BorhanClient(clientConfig);
 
 	clientConfig.serviceUrl = config.service_url;
 
-	var type = ktypes.KalturaSessionType.ADMIN;
+	var type = ktypes.BorhanSessionType.ADMIN;
 	
 	if(typeof callback === 'function'){
 	    client.session.start(function(ks) {
@@ -35,7 +35,7 @@ function cb(results)
 try {
     fiber(function() {
 	client=(init_client());
-	var partner = new vo.KalturaPartner();
+	var partner = new vo.BorhanPartner();
 	partner.name = "MBP";
 	partner.appearInSearch = null;
 	partner.adminName = "MBP";

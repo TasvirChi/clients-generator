@@ -1,12 +1,12 @@
 
 Overview
 =========
-The Kaltura CLI client is a bundle of command line utilities that can be used to interface with the 
-Kaltura API. The client is intended mostly for experimentation / small tasks, not for full-fledged
+The Borhan CLI client is a bundle of command line utilities that can be used to interface with the 
+Borhan API. The client is intended mostly for experimentation / small tasks, not for full-fledged
 applications.
 
 The following utilities are included in the package:
-1. kalcli - responsible for issuing Kaltura API calls, it builds the request URL and parses the 
+1. kalcli - responsible for issuing Borhan API calls, it builds the request URL and parses the 
 	response to a format that can be easily processed by command line utilities such as grep / awk.
 	The client library contains an additional script (kalcliAutoComplete) that provides bash-autocompletion 
 	functionality to the kalcli utility, for example:
@@ -14,15 +14,15 @@ The following utilities are included in the package:
 	kalcli med[TAB]
 	kalcli media l[TAB]
 	kalcli media list f[TAB]
-	kalcli media list filter:objectType=KalturaM[TAB]
-	kalcli media list filter:objectType=KalturaMediaEntryFilter
+	kalcli media list filter:objectType=BorhanM[TAB]
+	kalcli media list filter:objectType=BorhanMediaEntryFilter
 	...
 ```
-2. extractKs - parses a Kaltura session (KS) to its different fields.
+2. extractKs - parses a Borhan session (KS) to its different fields.
 3. generateKs - generates a KS.
-4. renewKs - useful to renew expired Kaltura sessions, generates a KS identical to the input KS with a 1 day expiry.
+4. renewKs - useful to renew expired Borhan sessions, generates a KS identical to the input KS with a 1 day expiry.
 5. logToCli - Parse an API log entry array of params into a kalcli command
-6. genIpHeader - generates a signed HTTP header that can be used to simulate access to the Kaltura API from a different source IP.
+6. genIpHeader - generates a signed HTTP header that can be used to simulate access to the Borhan API from a different source IP.
 
 *NOTE: when executing without arguments, all utilities display usage information including all available flags.*
 
@@ -41,13 +41,13 @@ Where:
 ```
 $BASEDIR is the prefix in which you wish to install the clientlibs
 
-$SERVICE_URL is the Kaltura API edge point, for instance www.kaltura.com if working against Kaltura's SaaS
+$SERVICE_URL is the Borhan API edge point, for instance www.borhan.com if working against Borhan's SaaS
 
-$PARTNER_ID is your Kaltura partner ID
+$PARTNER_ID is your Borhan partner ID
 
 $ADMIN_SECRET is your partner ID's admin_secret which can be found by going to:
 
-KMC->Settings->Integration Settings
+BMC->Settings->Integration Settings
 
 or by making the following DB query:
 
@@ -83,21 +83,21 @@ If you have root privileges on the machine in question, you can also do the foll
 	- Secret repositories - required for the extractKs / generateKs / renewKs utilities.
 		Two types of repositories can be configured:
 		- Preset repositories - contain a fixed list of (partner id, admin secret) pairs
-		- Database repositories - contain the connection details for a Kaltura server database, that can be used to pull the secrets of partner accounts.
+		- Database repositories - contain the connection details for a Borhan server database, that can be used to pull the secrets of partner accounts.
 
-		*NOTE: The second option is only possible if you are hosting your own Kaltura ENV. For SaaS, only the first one is viable.*
+		*NOTE: The second option is only possible if you are hosting your own Borhan ENV. For SaaS, only the first one is viable.*
 	- IP address salt - required for the genIpHeader utility.
-		The salt has to match the parameter 'remote_addr_header_salt' that is configured in configuration/local.ini on the Kaltura server.
+		The salt has to match the parameter 'remote_addr_header_salt' that is configured in configuration/local.ini on the Borhan server.
 		
-		*NOTE: this is only relevant when hosting your own Kaltura ENV, otherwise, leave empty.*
-	- API Host - The default is www.kaltura.com if not defined
+		*NOTE: this is only relevant when hosting your own Borhan ENV, otherwise, leave empty.*
+	- API Host - The default is www.borhan.com if not defined
 		May be uncommented and modified in order to globally point to a different api host
 		The -u parameter may be used to override the api host via command line
-	- Log Dir - The log directory that contains kaltura_api_v3.log (typically /var/log or /opt/kaltura/log)
+	- Log Dir - The log directory that contains borhan_api_v3.log (typically /var/log or /opt/borhan/log)
 		
 		This is relevant to the --log flag, that makes kalcli print the API log instead of the API output. 
 		
-		*Note: this works only when kalcli is executed against a Kaltura server running on the same machine*
+		*Note: this works only when kalcli is executed against a Borhan server running on the same machine*
 
 Windows
 --------
@@ -151,9 +151,9 @@ $ kalcli -x media list ks=MDQ2ZThjOTI0MTJmZGIxYTVlMWVhNDJlZDZhNDAyMDkyMWJhNzE0OX
 ```
 Sample output:
 ```
-KalturaMediaListResponse
+BorhanMediaListResponse
         objects array
-                0       KalturaMediaEntry
+                0       BorhanMediaEntry
                         mediaType       1
                         conversionQuality       6
                         sourceType      1
@@ -194,7 +194,7 @@ KalturaMediaListResponse
                         operationAttributes     array
                         entitledUsersEdit
                         entitledUsersPublish
-                1       KalturaMediaEntry
+                1       BorhanMediaEntry
                         mediaType       1
                         conversionQuality       6
                         sourceType      1
@@ -303,18 +303,18 @@ $ kalcli -x session start partnerId=$PARTNER_ID secret=abcdef type=2 | awk '{pri
 $ KS=`genks -b $PARTNER_ID`
 
 # gen token
-$ TOKEN=`kalcli -x uploadtoken add uploadToken:objectType=KalturaUploadToken uploadToken:fileName=$TEST_FLV  ks=$KS|awk '$1 == "id" {print $2}'`
+$ TOKEN=`kalcli -x uploadtoken add uploadToken:objectType=BorhanUploadToken uploadToken:fileName=$TEST_FLV  ks=$KS|awk '$1 == "id" {print $2}'`
 
 # upload token
 $ kalcli -x uploadtoken upload fileData=@$TEST_FLV uploadTokenId=$TOKEN ks=$KS
 
 # upload entry using $TOKEN
-$ ENTRY_ID=`kalcli -x baseentry addFromUploadedFile uploadTokenId=$TOKEN partnerId=$PARTNER_ID ks=$KS entry:objectType=KalturaBaseEntry |awk '$1 == "id" {print $2}'`
+$ ENTRY_ID=`kalcli -x baseentry addFromUploadedFile uploadTokenId=$TOKEN partnerId=$PARTNER_ID ks=$KS entry:objectType=BorhanBaseEntry |awk '$1 == "id" {print $2}'`
 
 ```
 Sample output:
 ```
-KalturaUploadToken
+BorhanUploadToken
         id      0_55909e3ed8b7c32d4bfd622884c5ae49
         partnerId       101
         userId  admin
@@ -327,7 +327,7 @@ KalturaUploadToken
 
 10. Sending the contents of a file on a string parameter:
 ```
-$ genks $PARTNER_ID | kalcli caption_captionasset setContent id=0_abcd56 contentResource:objectType=KalturaStringResource contentResource:content=@@/tmp/caption.srt
+$ genks $PARTNER_ID | kalcli caption_captionasset setContent id=0_abcd56 contentResource:objectType=BorhanStringResource contentResource:content=@@/tmp/caption.srt
 ```
 
 11. Executing an API with a different source IP address:

@@ -12,7 +12,7 @@ abstract class ClientGeneratorFromXml
 	
 	protected $generateDocs = false;
 	protected $package = 'External';
-	protected $subpackage = 'Kaltura';
+	protected $subpackage = 'Borhan';
 	protected $excludeSourcePaths = array();
 	protected $outputPath = null;
 	protected $copyPath = null;
@@ -205,7 +205,7 @@ abstract class ClientGeneratorFromXml
 			$serviceNode = $serviceNodes->item(0);
 			if(!$serviceNode)
 			{
-				KalturaLog::warning("Service [$serviceId] not found");
+				BorhanLog::warning("Service [$serviceId] not found");
 				continue;
 			}
 
@@ -226,10 +226,10 @@ abstract class ClientGeneratorFromXml
 		}
 
 		$alwaysAdd = array(
-				'KalturaApiExceptionArg',
-				'KalturaClientConfiguration',
-				'KalturaRequestConfiguration',
-				'KalturaListResponse',
+				'BorhanApiExceptionArg',
+				'BorhanClientConfiguration',
+				'BorhanRequestConfiguration',
+				'BorhanListResponse',
 		);
 		
 		foreach($alwaysAdd as $additional)
@@ -238,7 +238,7 @@ abstract class ClientGeneratorFromXml
 	
 	protected function loadTypesRecursive($type, $strict = true)
 	{
-		if($type == 'KalturaObjectBase')
+		if($type == 'BorhanObjectBase')
 			return;
 
 		if(in_array($type, $this->_ignoreTypes))
@@ -267,7 +267,7 @@ abstract class ClientGeneratorFromXml
 			if($strict)
 				throw new Exception("Missing type [$type]");
 			
-			KalturaLog::warning("Missing type [$type]");
+			BorhanLog::warning("Missing type [$type]");
 			return;
 		}
 
@@ -338,13 +338,13 @@ abstract class ClientGeneratorFromXml
 	{
 		if (is_dir($this->_sourcePath))
 		{
-			KalturaLog::info("Copy sources from [$this->_sourcePath]");
+			BorhanLog::info("Copy sources from [$this->_sourcePath]");
 			$this->addSourceFiles($this->_sourcePath, $this->_sourcePath . DIRECTORY_SEPARATOR, "");
 		}
 
 		if ($this->testsPath && is_dir($this->testsPath))
 		{
-			KalturaLog::info("Copy tests from [$this->_sourcePath]");
+			BorhanLog::info("Copy tests from [$this->_sourcePath]");
 			$this->addSourceFiles($this->testsPath, $this->testsPath . DIRECTORY_SEPARATOR, "");
 		}
 	}

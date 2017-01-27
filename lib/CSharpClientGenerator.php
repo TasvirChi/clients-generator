@@ -58,12 +58,12 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 			return;
 
 		$s = "";
-		$s .= "namespace Kaltura"."\n";
+		$s .= "namespace Borhan"."\n";
 		$s .= "{"."\n";
 
 		if ($enumNode->getAttribute("enumType") == "string")
 		{
-			$s .= "	public sealed class $enumName : KalturaStringEnum"."\n";
+			$s .= "	public sealed class $enumName : BorhanStringEnum"."\n";
 			$s .= "	{"."\n";
 
 			foreach($enumNode->childNodes as $constNode)
@@ -98,7 +98,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 			$s .= "}"."\n";
 		}
 		$file = "Enums/$enumName.cs";
-		$this->addFile("KalturaClient/".$file, $s);
+		$this->addFile("BorhanClient/".$file, $s);
 		$this->_csprojIncludes[] = $file;
 	}
 
@@ -108,7 +108,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 		if(!$this->shouldIncludeType($type))
 			return;
 
-		if($type == 'KalturaObject')
+		if($type == 'BorhanObject')
 			return;
 
 		$this->startNewTextBlock();
@@ -116,7 +116,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("using System.Xml;");
 		$this->appendLine("using System.Collections.Generic;");
 		$this->appendLine();
-		$this->appendLine("namespace Kaltura");
+		$this->appendLine("namespace Borhan");
 		$this->appendLine("{");
 
 		// class definition
@@ -126,13 +126,13 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 		}
 		else
 		{
-			$this->appendLine("	public class $type : KalturaObjectBase");
+			$this->appendLine("	public class $type : BorhanObjectBase");
 		}
 		$this->appendLine("	{");
 
 		// we want to make the orderBy property strongly typed with the corresponding string enum
 		$isFilter = false;
-		if ($this->isClassInherit($type, "KalturaFilter"))
+		if ($this->isClassInherit($type, "BorhanFilter"))
 		{
 			$orderByType = str_replace("Filter", "OrderBy", $type);
 			if ($this->enumExists($orderByType))
@@ -174,15 +174,15 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 			else if ($propType == "array")
 			{
 				$arrayObjectType = $propertyNode->getAttribute("arrayType");
-				if($arrayObjectType == 'KalturaObject')
-					$arrayObjectType = 'KalturaObjectBase';
+				if($arrayObjectType == 'BorhanObject')
+					$arrayObjectType = 'BorhanObjectBase';
 				$dotNetPropType = "IList<$arrayObjectType>";
 			}
 			else if ($propType == "map")
 			{
 				$arrayObjectType = $propertyNode->getAttribute("arrayType");
-				if($arrayObjectType == 'KalturaObject')
-					$arrayObjectType = 'KalturaObjectBase';
+				if($arrayObjectType == 'BorhanObject')
+					$arrayObjectType = 'BorhanObjectBase';
 				$dotNetPropType = "IDictionary<string, $arrayObjectType>";
 			}
 			else if ($propType == "bool")
@@ -336,7 +336,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 						if ($isEnum)
 						{
 							$enumType = $propertyNode->getAttribute("enumType");
-							$this->appendLine("						this._$dotNetPropName = ($enumType)KalturaStringEnum.Parse(typeof($enumType), txt);");
+							$this->appendLine("						this._$dotNetPropName = ($enumType)BorhanStringEnum.Parse(typeof($enumType), txt);");
 						}
 						else
 							$this->appendLine("						this._$dotNetPropName = txt;");
@@ -349,19 +349,19 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 						break;
 					case "array":
 						$arrayType = $propertyNode->getAttribute("arrayType");
-						if($arrayType == 'KalturaObject')
-							$arrayType = 'KalturaObjectBase';
+						if($arrayType == 'BorhanObject')
+							$arrayType = 'BorhanObjectBase';
 
 						$this->appendLine("						this._$dotNetPropName = new List<$arrayType>();");
 						$this->appendLine("						foreach(XmlElement arrayNode in propertyNode.ChildNodes)");
 						$this->appendLine("						{");
-						$this->appendLine("							this._$dotNetPropName.Add(($arrayType)KalturaObjectFactory.Create(arrayNode, \"$arrayType\"));");
+						$this->appendLine("							this._$dotNetPropName.Add(($arrayType)BorhanObjectFactory.Create(arrayNode, \"$arrayType\"));");
 						$this->appendLine("						}");
 						break;
 					case "map":
 						$arrayType = $propertyNode->getAttribute("arrayType");
-						if($arrayType == 'KalturaObject')
-							$arrayType = 'KalturaObjectBase';
+						if($arrayType == 'BorhanObject')
+							$arrayType = 'BorhanObjectBase';
 
 						$this->appendLine("						{");		// TODO: remove the index once the keys are added to the response
 						$this->appendLine("							string key;");
@@ -369,12 +369,12 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 						$this->appendLine("							foreach(XmlElement arrayNode in propertyNode.ChildNodes)");
 						$this->appendLine("							{");
 						$this->appendLine("								key = arrayNode[\"itemKey\"].InnerText;;");
-						$this->appendLine("								this._{$dotNetPropName}[key] = ($arrayType)KalturaObjectFactory.Create(arrayNode, \"$arrayType\");");
+						$this->appendLine("								this._{$dotNetPropName}[key] = ($arrayType)BorhanObjectFactory.Create(arrayNode, \"$arrayType\");");
 						$this->appendLine("							}");
 						$this->appendLine("						}");
 						break;
 					default: // sub object
-						$this->appendLine("						this._$dotNetPropName = ($propType)KalturaObjectFactory.Create(propertyNode, \"$propType\");");
+						$this->appendLine("						this._$dotNetPropName = ($propType)BorhanObjectFactory.Create(propertyNode, \"$propType\");");
 						break;
 				}
 				$this->appendLine("						continue;");
@@ -388,9 +388,9 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 
 		$this->appendLine("		#region Methods");
 		// ToParams method
-		$this->appendLine("		public override KalturaParams ToParams()");
+		$this->appendLine("		public override BorhanParams ToParams()");
 		$this->appendLine("		{");
-		$this->appendLine("			KalturaParams kparams = base.ToParams();");
+		$this->appendLine("			BorhanParams kparams = base.ToParams();");
 		$this->appendLine("			kparams.AddReplace(\"objectType\", \"$type\");");
 		foreach($classNode->childNodes as $propertyNode)
 		{
@@ -411,7 +411,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine();
 
 		$file = "Types/$type.cs";
-		$this->addFile("KalturaClient/".$file, $this->getTextBlock());
+		$this->addFile("BorhanClient/".$file, $this->getTextBlock());
 		$this->_csprojIncludes[] = $file;
 	}
 
@@ -419,7 +419,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 	{
 		$csprojDoc = new DOMDocument();
 		$csprojDoc->formatOutput = true;
-		$csprojDoc->load($this->_sourcePath."/KalturaClient/KalturaClient.csproj");
+		$csprojDoc->load($this->_sourcePath."/BorhanClient/BorhanClient.csproj");
 		$csprojXPath = new DOMXPath($csprojDoc);
 		$csprojXPath->registerNamespace("m", "http://schemas.microsoft.com/developer/msbuild/2003");
 		$compileNodes = $csprojXPath->query("//m:ItemGroup/m:Compile/..");
@@ -431,7 +431,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 			$compileElement->setAttribute("Include", str_replace("/","\\", $include));
 			$compileItemGroupElement->appendChild($compileElement);
 		}
-		$this->addFile("KalturaClient/KalturaClient.csproj", $csprojDoc->saveXML(), false);
+		$this->addFile("BorhanClient/BorhanClient.csproj", $csprojDoc->saveXML(), false);
 	}
 
 	function writeService(DOMElement $serviceNode)
@@ -446,18 +446,18 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("using System.Collections.Generic;");
 		$this->appendLine("using System.IO;");
 		$this->appendLine();
-		$this->appendLine("namespace Kaltura");
+		$this->appendLine("namespace Borhan");
 		$this->appendLine("{");
 		$serviceName = $serviceNode->getAttribute("name");
 
 
 		$dotNetServiceName = $this->upperCaseFirstLetter($serviceName)."Service";
-		$dotNetServiceType = "Kaltura" . $dotNetServiceName;
+		$dotNetServiceType = "Borhan" . $dotNetServiceName;
 
 		$this->appendLine();
-		$this->appendLine("	public class $dotNetServiceType : KalturaServiceBase");
+		$this->appendLine("	public class $dotNetServiceType : BorhanServiceBase");
 		$this->appendLine("	{");
-		$this->appendLine("	public $dotNetServiceType(KalturaClient client)");
+		$this->appendLine("	public $dotNetServiceType(BorhanClient client)");
 		$this->appendLine("			: base(client)");
 		$this->appendLine("		{");
 		$this->appendLine("		}");
@@ -475,7 +475,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("}");
 
 		$file = "Services/".$dotNetServiceName.".cs";
-		$this->addFile("KalturaClient/".$file, $this->getTextBlock());
+		$this->addFile("BorhanClient/".$file, $this->getTextBlock());
 		$this->_csprojIncludes[] = $file;
 	}
 
@@ -605,7 +605,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine("				throw new Exception(\"Action is not supported as part of multi-request.\");");
 		}
 
-		$this->appendLine("			KalturaParams kparams = new KalturaParams();");
+		$this->appendLine("			BorhanParams kparams = new BorhanParams();");
 		$haveFiles = false;
 		foreach($paramNodes as $paramNode)
 		{
@@ -618,7 +618,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 				if ($haveFiles === false)
 				{
 					$haveFiles = true;
-					$this->appendLine("			KalturaFiles kfiles = new KalturaFiles();");
+					$this->appendLine("			BorhanFiles kfiles = new BorhanFiles();");
 				}
 				$this->appendLine("			kfiles.Add(\"$paramName\", ".$this->fixParamName($paramName).");");
 			}
@@ -671,7 +671,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 					$this->appendLine("			IList<$arrayType> list = new List<$arrayType>();");
 					$this->appendLine("			foreach(XmlElement node in result.ChildNodes)");
 					$this->appendLine("			{");
-					$this->appendLine("				list.Add(($arrayType)KalturaObjectFactory.Create(node, \"$arrayType\"));");
+					$this->appendLine("				list.Add(($arrayType)BorhanObjectFactory.Create(node, \"$arrayType\"));");
 					$this->appendLine("			}");
 					$this->appendLine("			return list;");
 					break;
@@ -682,7 +682,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 					$this->appendLine("			foreach(XmlElement node in result.ChildNodes)");
 					$this->appendLine("			{");
 					$this->appendLine("				key = xmlElement[\"itemKey\"]");
-					$this->appendLine("				map.Add(key, ($arrayType)KalturaObjectFactory.Create(node, \"$arrayType\"));");
+					$this->appendLine("				map.Add(key, ($arrayType)BorhanObjectFactory.Create(node, \"$arrayType\"));");
 					$this->appendLine("			}");
 					$this->appendLine("			return map;");
 					break;
@@ -704,7 +704,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 					$this->appendLine("			return result.InnerText;");
 					break;
 				default:
-					$this->appendLine("			return ($resultType)KalturaObjectFactory.Create(result, \"$resultType\");");
+					$this->appendLine("			return ($resultType)BorhanObjectFactory.Create(result, \"$resultType\");");
 					break;
 			}
 		}
@@ -767,11 +767,11 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("using System;");
 		$this->appendLine();
 
-		$this->appendLine("namespace Kaltura");
+		$this->appendLine("namespace Borhan");
 		$this->appendLine("{");
-		$this->appendLine("	public class KalturaClient : KalturaClientBase");
+		$this->appendLine("	public class BorhanClient : BorhanClientBase");
 		$this->appendLine("	{");
-		$this->appendLine("		public KalturaClient(KalturaConfiguration config) : base(config)");
+		$this->appendLine("		public BorhanClient(BorhanConfiguration config) : base(config)");
 		$this->appendLine("		{");
 		$this->appendLine("				ApiVersion = \"$apiVersion\";");
 		$this->appendLine("				ClientTag = \"dotnet:$date\";");
@@ -783,7 +783,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 
 			$serviceName = $serviceNode->getAttribute("name");
 			$dotNetServiceName = $this->upperCaseFirstLetter($serviceName)."Service";
-			$dotNetServiceType = "Kaltura" . $dotNetServiceName;
+			$dotNetServiceType = "Borhan" . $dotNetServiceName;
 
 			$this->appendLine();
 			$this->appendLine("		$dotNetServiceType _$dotNetServiceName;");
@@ -857,10 +857,10 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine("	}");
 		$this->appendLine("}");
 
-		$this->addFile("KalturaClient/KalturaClient.cs", $this->getTextBlock());
+		$this->addFile("BorhanClient/BorhanClient.cs", $this->getTextBlock());
 
 		// not needed because it is included in the sources
-		//$this->_csprojIncludes[] = "KalturaClient.cs";
+		//$this->_csprojIncludes[] = "BorhanClient.cs";
 	}
 
 	protected function writeConfigurationProperty($configurationName, $name, $paramName, $type, $description)
@@ -1002,7 +1002,7 @@ class CSharpClientGenerator extends ClientGeneratorFromXml
 
 	protected function addFile($fileName, $fileContents, $addLicense = true)
 	{
-		if ($fileName == "KalturaClient.suo")
+		if ($fileName == "BorhanClient.suo")
 			return;
 
 		$dirname = pathinfo($fileName, PATHINFO_DIRNAME);

@@ -6,11 +6,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,7 +28,7 @@
 // @ignore
 // ===================================================================================================
 
-require_once(dirname(__file__) . '/lib/KalturaCommandLineParser.php');
+require_once(dirname(__file__) . '/lib/BorhanCommandLineParser.php');
 
 function print_r_reverse($in) {
     $lines = explode("\n", trim($in));
@@ -168,15 +168,15 @@ function generateOutput($parsedParams, $multireqMode)
 
 // parse the command line
 $commandLineSwitches = array(
-		array(KalturaCommandLineParser::SWITCH_NO_VALUE, 's', 'single', 'Generate a single command for multirequest'),
-		array(KalturaCommandLineParser::SWITCH_NO_VALUE, 'h', 'help', 'Prints usage information'),
+		array(BorhanCommandLineParser::SWITCH_NO_VALUE, 's', 'single', 'Generate a single command for multirequest'),
+		array(BorhanCommandLineParser::SWITCH_NO_VALUE, 'h', 'help', 'Prints usage information'),
 );
 
-$options = KalturaCommandLineParser::parseArguments($commandLineSwitches);
+$options = BorhanCommandLineParser::parseArguments($commandLineSwitches);
 if (isset($options['help']))
 {
 	$usage = "Usage: logToCli [switches]\nOptions:\n";
-	$usage .= KalturaCommandLineParser::getArgumentsUsage($commandLineSwitches);
+	$usage .= BorhanCommandLineParser::getArgumentsUsage($commandLineSwitches);
 	echo $usage; 
 	exit(1);
 }

@@ -28,7 +28,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 		
-		$this->appendLine('require_once(dirname(__FILE__) . "/KalturaClientBase.php");');
+		$this->appendLine('require_once(dirname(__FILE__) . "/BorhanClientBase.php");');
 		$this->appendLine('');
 	    
 		$enumNodes = $xpath->query("/xml/enums/enum");
@@ -37,7 +37,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 			if(!$enumNode->hasAttribute('plugin'))
 				$this->writeEnum($enumNode);
 		}
-    	$this->addFile("KalturaEnums.php", $this->getTextBlock());
+    	$this->addFile("BorhanEnums.php", $this->getTextBlock());
     	
     	
 		// classes
@@ -52,7 +52,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 		
-		$this->appendLine('require_once(dirname(__FILE__) . "/KalturaClientBase.php");');
+		$this->appendLine('require_once(dirname(__FILE__) . "/BorhanClientBase.php");');
 		$this->appendLine('');
 		
 		$classNodes = $xpath->query("/xml/classes/class");
@@ -61,7 +61,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 			if(!$classNode->hasAttribute('plugin'))
 				$this->writeClass($classNode);
 		}
-    	$this->addFile("KalturaTypes.php", $this->getTextBlock());
+    	$this->addFile("BorhanTypes.php", $this->getTextBlock());
 		
 		
 		// services
@@ -76,9 +76,9 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 		
-		$this->appendLine('require_once(dirname(__FILE__) . "/KalturaClientBase.php");');
-		$this->appendLine('require_once(dirname(__FILE__) . "/KalturaEnums.php");');
-		$this->appendLine('require_once(dirname(__FILE__) . "/KalturaTypes.php");');
+		$this->appendLine('require_once(dirname(__FILE__) . "/BorhanClientBase.php");');
+		$this->appendLine('require_once(dirname(__FILE__) . "/BorhanEnums.php");');
+		$this->appendLine('require_once(dirname(__FILE__) . "/BorhanTypes.php");');
 		$this->appendLine('');
 		
 		$serviceNodes = $xpath->query("/xml/services/service");
@@ -93,7 +93,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 	    $this->writeMainClient($serviceNodes, $configurationNodes);
 	    $this->appendLine();
 	    
-    	$this->addFile("KalturaClient.php", $this->getTextBlock());
+    	$this->addFile("BorhanClient.php", $this->getTextBlock());
     	
 		// plugins
 		$pluginNodes = $xpath->query("/xml/plugins/plugin");
@@ -105,7 +105,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 	
 	function getPluginClassName($pluginName)
 	{
-		return "Kaltura" . ucfirst($pluginName) . "ClientPlugin";
+		return "Borhan" . ucfirst($pluginName) . "ClientPlugin";
 	}
 
 	function writePlugin(DOMElement $pluginNode)
@@ -126,9 +126,9 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 		
-		$this->appendLine('require_once(dirname(__FILE__) . "/../KalturaClientBase.php");');
-		$this->appendLine('require_once(dirname(__FILE__) . "/../KalturaEnums.php");');
-		$this->appendLine('require_once(dirname(__FILE__) . "/../KalturaTypes.php");');
+		$this->appendLine('require_once(dirname(__FILE__) . "/../BorhanClientBase.php");');
+		$this->appendLine('require_once(dirname(__FILE__) . "/../BorhanEnums.php");');
+		$this->appendLine('require_once(dirname(__FILE__) . "/../BorhanTypes.php");');
 
 		$dependencyNodes = $xpath->query("/xml/plugins/plugin[@name = '$pluginName']/dependency");
 		foreach($dependencyNodes as $dependencyNode)
@@ -177,39 +177,39 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 		
-		$this->appendLine("class $pluginClassName extends KalturaClientPlugin");
+		$this->appendLine("class $pluginClassName extends BorhanClientPlugin");
 		$this->appendLine('{');
 	
 		foreach($services as $service)
 		{
 			$serviceName = ucfirst($service);
 			$this->appendLine('	/**');
-			$this->appendLine("	 * @var Kaltura{$serviceName}Service");
+			$this->appendLine("	 * @var Borhan{$serviceName}Service");
 			$this->appendLine('	 */');
 			$this->appendLine("	public \${$service} = null;");
 			$this->appendLine('');
 		}
 		
-		$this->appendLine('	protected function __construct(KalturaClient $client)');
+		$this->appendLine('	protected function __construct(BorhanClient $client)');
 		$this->appendLine('	{');
 		$this->appendLine('		parent::__construct($client);');
 		foreach($services as $service)
 		{
 			$serviceName = ucfirst($service);
-			$this->appendLine("		\$this->$service = new Kaltura{$serviceName}Service(\$client);");
+			$this->appendLine("		\$this->$service = new Borhan{$serviceName}Service(\$client);");
 		}
 		$this->appendLine('	}');
 		$this->appendLine('');
 		$this->appendLine('	/**');
 		$this->appendLine("	 * @return $pluginClassName");
 		$this->appendLine('	 */');
-		$this->appendLine('	public static function get(KalturaClient $client)');
+		$this->appendLine('	public static function get(BorhanClient $client)');
 		$this->appendLine('	{');
 		$this->appendLine("		return new $pluginClassName(\$client);");
 		$this->appendLine('	}');
 		$this->appendLine('');
 		$this->appendLine('	/**');
-		$this->appendLine('	 * @return array<KalturaServiceBase>');
+		$this->appendLine('	 * @return array<BorhanServiceBase>');
 		$this->appendLine('	 */');
 		$this->appendLine('	public function getServices()');
 		$this->appendLine('	{');
@@ -230,7 +230,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine('}');
 		$this->appendLine('');
 		
-    	$this->addFile("KalturaPlugins/$pluginClassName.php", $this->getTextBlock());
+    	$this->addFile("BorhanPlugins/$pluginClassName.php", $this->getTextBlock());
 	}
 	
 	function writeEnum(DOMElement $enumNode)
@@ -247,7 +247,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 		
-	 	$this->appendLine("class $enumName extends KalturaEnumBase");
+	 	$this->appendLine("class $enumName extends BorhanEnumBase");
 		$this->appendLine("{");
 		foreach($enumNode->childNodes as $constNode)
 		{
@@ -287,7 +287,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 		if ($classNode->hasAttribute("base"))
 			$this->appendLine($abstract . "class $type extends " . $classNode->getAttribute("base"));
 		else
-			$this->appendLine($abstract . "class $type extends KalturaObjectBase");
+			$this->appendLine($abstract . "class $type extends BorhanObjectBase");
 		$this->appendLine("{");
 		// class properties
 		foreach($classNode->childNodes as $propertyNode)
@@ -339,7 +339,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 		$this->appendLine();
 	}
 	
-	function writeService(DOMElement $serviceNode, $serviceName = null, $serviceId = null, $actionPrefix = "", $extends = "KalturaServiceBase")
+	function writeService(DOMElement $serviceNode, $serviceName = null, $serviceId = null, $actionPrefix = "", $extends = "BorhanServiceBase")
 	{
 		$serviceId = $serviceId ? $serviceId : $serviceNode->getAttribute("id");
 		if(!$this->shouldIncludeService($serviceId))
@@ -355,7 +355,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 		    $this->writeServicePluginClasses($servicePlugin, $serviceName, $serviceId);
 		}
 		
-		$serviceClassName = "Kaltura".$this->upperCaseFirstLetter($serviceName)."Service";
+		$serviceClassName = "Borhan".$this->upperCaseFirstLetter($serviceName)."Service";
 		$this->appendLine();
 		
 		if($this->generateDocs)
@@ -375,13 +375,13 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 		    {
 		        $this->appendLine("");
 		        $this->appendLine('	/**');
-			    $this->appendLine("	* @param Kaltura".$this->upperCaseFirstLetter($servicePlugin->getAttribute("name"))."ServicePlugin");
+			    $this->appendLine("	* @param Borhan".$this->upperCaseFirstLetter($servicePlugin->getAttribute("name"))."ServicePlugin");
 			    $this->appendLine('	*/');
 			    $this->appendLine("	public $".$servicePlugin->getAttribute("name").";");
 		    }
 		}
 		
-		$this->appendLine("	function __construct(KalturaClient \$client = null)");
+		$this->appendLine("	function __construct(BorhanClient \$client = null)");
 		$this->appendLine("	{");
 		$this->appendLine("		parent::__construct(\$client);");
 		
@@ -454,7 +454,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 		if(!$enableInMultiRequest)
 		{
 			$this->appendLine("		if (\$this->client->isMultiRequest())");
-			$this->appendLine("			throw new KalturaClientException(\"Action is not supported as part of multi-request.\", KalturaClientException::ERROR_ACTION_IN_MULTIREQUEST);");
+			$this->appendLine("			throw new BorhanClientException(\"Action is not supported as part of multi-request.\", BorhanClientException::ERROR_ACTION_IN_MULTIREQUEST);");
 			$this->appendLine("		");
 		}
 		
@@ -571,10 +571,10 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 	{
 	    $extendingPluginName = $extendingPluginNode->getAttribute("name");
 	    
-	    $servicePluginClassName = "Kaltura". $this->upperCaseFirstLetter($extendingPluginName) ."ServicePlugin";
+	    $servicePluginClassName = "Borhan". $this->upperCaseFirstLetter($extendingPluginName) ."ServicePlugin";
 	    
 	    $this->appendLine("");
-	    $this->appendLine("class ". $servicePluginClassName . " extends BaseKalturaServicePlugin");
+	    $this->appendLine("class ". $servicePluginClassName . " extends BaseBorhanServicePlugin");
 	    $this->appendLine("{");
 	    
 	    $serviceNodes = $extendingPluginNode->getElementsByTagName("service");
@@ -586,14 +586,14 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 					continue;
 			
 	            $this->appendLine("	/**");
-	            $this->appendLine("	* @param Kaltura". $this->upperCaseFirstLetter($serviceNode->getAttribute("name")) ."ExtendedService");
+	            $this->appendLine("	* @param Borhan". $this->upperCaseFirstLetter($serviceNode->getAttribute("name")) ."ExtendedService");
 	            $this->appendLine("	*/");
 	            $this->appendLine("	public $".$serviceNode->getAttribute("name"));
 	            $this->appendLine("");
 	        }
 	    }
 	    
-	    $this->appendLine("	public function __construct(KalturaClient \$client = null)");
+	    $this->appendLine("	public function __construct(BorhanClient \$client = null)");
 	    $this->appendLine("	{");
 	    $this->appendLine("		parent::__construct(\$client);");
 	    
@@ -603,7 +603,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 				continue;
 			
 	        $extendingServiceName = $serviceNode->getAttribute("name");
-	        $this->appendLine("		$".$extendingServiceName." = new Kaltura".$this->upperCaseFirstLetter($extendingServiceName)."ExtendedService();");
+	        $this->appendLine("		$".$extendingServiceName." = new Borhan".$this->upperCaseFirstLetter($extendingServiceName)."ExtendedService();");
 	    }
 	    
 	    $this->appendLine("	}");
@@ -614,9 +614,9 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 	    {
 	        $extendingServiceName = $serviceNode->getAttribute("name");
 	        
-	        $extendingServiceClassName = "Kaltura".$this->upperCaseFirstLetter($extendingServiceName)."Extended";
+	        $extendingServiceClassName = "Borhan".$this->upperCaseFirstLetter($extendingServiceName)."Extended";
 	        
-	        $this->writeService($serviceNode, $extendingServiceClassName , $extendedServiceId, $extendingPluginName."_".$extendingServiceName."_"   ,"KalturaExtendedService");
+	        $this->writeService($serviceNode, $extendingServiceClassName , $extendedServiceId, $extendingPluginName."_".$extendingServiceName."_"   ,"BorhanExtendedService");
 	    }
 	}
 	
@@ -674,7 +674,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 	
 	function writeMainClient(DOMNodeList $serviceNodes, DOMNodeList $configurationNodes)
 	{
-		$mainClassName = 'KalturaClient';
+		$mainClassName = 'BorhanClient';
 		$apiVersion = $this->_doc->documentElement->getAttribute('apiVersion');
 		$date = date('y-m-d');
 		
@@ -686,7 +686,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 			$this->appendLine(' */');
 		}
 		
-		$this->appendLine("class $mainClassName extends KalturaClientBase");
+		$this->appendLine("class $mainClassName extends BorhanClientBase");
 		$this->appendLine("{");
 	
 		foreach($serviceNodes as $serviceNode)
@@ -699,7 +699,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 				
 			$serviceName = $serviceNode->getAttribute("name");
 			$description = ucfirst(trim($serviceNode->getAttribute("description"), " \t\r\n"));
-			$serviceClassName = "Kaltura".$this->upperCaseFirstLetter($serviceName)."Service";
+			$serviceClassName = "Borhan".$this->upperCaseFirstLetter($serviceName)."Service";
 			$this->appendLine("	/**");
 			$description = str_replace("\n", "\n	 * ", $description); // to format multiline descriptions
 			$this->appendLine("	 * " . $description);
@@ -710,11 +710,11 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 		}
 		
 		$this->appendLine("	/**");
-		$this->appendLine("	 * Kaltura client constructor");
+		$this->appendLine("	 * Borhan client constructor");
 		$this->appendLine("	 *");
-		$this->appendLine("	 * @param KalturaConfiguration \$config");
+		$this->appendLine("	 * @param BorhanConfiguration \$config");
 		$this->appendLine("	 */");
-		$this->appendLine("	public function __construct(KalturaConfiguration \$config)");
+		$this->appendLine("	public function __construct(BorhanConfiguration \$config)");
 		$this->appendLine("	{");
 		$this->appendLine("		parent::__construct(\$config);");
 		$this->appendLine("		");
@@ -731,7 +731,7 @@ class Php5ClientGenerator extends ClientGeneratorFromXml
 				continue;
 			
 			$serviceName = $serviceNode->getAttribute("name");
-			$serviceClassName = "Kaltura".$this->upperCaseFirstLetter($serviceName)."Service";
+			$serviceClassName = "Borhan".$this->upperCaseFirstLetter($serviceName)."Service";
 			$this->appendLine("		\$this->$serviceName = new $serviceClassName(\$this);");
 		}
 		$this->appendLine("	}");

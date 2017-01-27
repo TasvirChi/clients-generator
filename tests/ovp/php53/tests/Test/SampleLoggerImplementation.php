@@ -5,7 +5,7 @@
  */
 namespace Test;
 
-class SampleLoggerImplementation implements \Kaltura\Client\ILogger
+class SampleLoggerImplementation implements \Borhan\Client\ILogger
 {
 	public function log($msg)
 	{

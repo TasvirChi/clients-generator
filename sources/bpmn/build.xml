@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Kaltura BPMN Deployment" default="deploy">
+<project name="Borhan BPMN Deployment" default="deploy">
 
 	<property environment="env" />
 	<property name="java.lib.path" value="${basedir}/../pojo" />
 	<property name="jar.lib.path" value="${basedir}/../pojo/target" />
-	<property name="bar.filename" value="${basedir}/KalturaClientLib.bar" />
+	<property name="bar.filename" value="${basedir}/BorhanClientLib.bar" />
 
 	<target name="set-home" depends="install-contrib">
 		<if>
@@ -29,7 +29,7 @@
 				</not>
 			</condition>
 		</fail>
-		<input message="Please enter Kaltura client lib version" addproperty="kaltura.client.version" defaultvalue="3.3.1" />
+		<input message="Please enter Borhan client lib version" addproperty="borhan.client.version" defaultvalue="3.3.1" />
 	</target>
 		
 	<target name="check-contrib">
@@ -132,7 +132,7 @@
 				<fail message="BAR file [${bar.filename}] is missing, please run bar target first." />
 			</then>
 		</if>
-		<java classname="com.kaltura.bpmn.deploy.DeployAllProcesses" failonerror="true">
+		<java classname="com.borhan.bpmn.deploy.DeployAllProcesses" failonerror="true">
 			<classpath path="${basedir}/deploy/bin">
 				<fileset dir="${catalina.home}/webapps/activiti-explorer##5.17.0/WEB-INF/lib">
 					<include name="*.jar" />

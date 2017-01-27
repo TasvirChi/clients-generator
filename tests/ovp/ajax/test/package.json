@@ -1,7 +1,7 @@
 {
-  "name": "kaltura-ajax-client-library",
+  "name": "borhan-ajax-client-library",
   "version": "1.0.0",
-  "description": "Kaltura JavaScript API Client Library.",
+  "description": "Borhan JavaScript API Client Library.",
   "main": "index.js",
   "directories": {
     "test": "tests"

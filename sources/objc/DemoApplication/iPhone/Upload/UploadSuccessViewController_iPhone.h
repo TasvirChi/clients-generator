@@ -1,9 +1,9 @@
 //
 //  UploadSuccessViewController_iPhone.h
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 06.03.12.
-//  Copyright (c) 2012 Kaltura. All rights reserved.
+//  Copyright (c) 2012 Borhan. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
