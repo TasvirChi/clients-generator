@@ -328,10 +328,10 @@ var kTestMe = {
 	
 	calculateDimensions: function() {
 		this.height = jQuery("body").innerHeight();
-		if (jQuery("#kmcSubMenu").size() == 0) // when displayed in admin console without the menu
+		if (jQuery("#bmcSubMenu").size() == 0) // when displayed in admin console without the menu
 			this.height = this.height - 10;
 		else
-			this.height = this.height - jQuery("#kmcSubMenu").outerHeight() - 44; 
+			this.height = this.height - jQuery("#bmcSubMenu").outerHeight() - 44; 
 		
 		this.testmeHeight = this.height - jQuery('#codeSubMenu').outerHeight(true);
 		if (jQuery('#codeExample').is(':visible'))

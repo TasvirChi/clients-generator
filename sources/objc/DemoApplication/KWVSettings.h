@@ -1,6 +1,6 @@
 //
 //  WVSettings.h
-//  Kaltura
+//  Borhan
 //
 //  Created by Eliza Sapir on 6/3/13.
 //

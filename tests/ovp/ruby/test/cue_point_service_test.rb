@@ -4,11 +4,11 @@
 #                          | ' </ _` | |  _| || | '_/ _` |
 #                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 #
-# This file is part of the Kaltura Collaborative Media Suite which allows users
+# This file is part of the Borhan Collaborative Media Suite which allows users
 # to do with audio, video, and animation what Wiki platfroms allow them to do with
 # text.
 #
-# Copyright (C) 2006-2011  Kaltura Inc.
+# Copyright (C) 2006-2011  Borhan Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -29,13 +29,13 @@ require 'test_helper'
 
 class CuePointServiceTest < Test::Unit::TestCase
   
-  # this test adds a cuepoint and retrieves the list of cue_points to demonstrate the use of kaltura plugins.
+  # this test adds a cuepoint and retrieves the list of cue_points to demonstrate the use of borhan plugins.
   should "creates a cue_point and get the cue_point list" do
     
     # creates a media_entry 
-    media_entry = Kaltura::KalturaMediaEntry.new
-    media_entry.name = "kaltura_test1"
-    media_entry.media_type = Kaltura::KalturaMediaType::VIDEO
+    media_entry = Borhan::BorhanMediaEntry.new
+    media_entry.name = "borhan_test1"
+    media_entry.media_type = Borhan::BorhanMediaType::VIDEO
     video_file = File.open("test/media/test.wmv")
     
     video_token = @client.media_service.upload(video_file)
@@ -44,8 +44,8 @@ class CuePointServiceTest < Test::Unit::TestCase
     assert_not_nil created_entry.id
      
     # creates a cue_point  
-    cue_point = Kaltura::KalturaAnnotation.new
-    cue_point.cue_point_type = Kaltura::KalturaCuePointType::ANNOTATION 
+    cue_point = Borhan::BorhanAnnotation.new
+    cue_point.cue_point_type = Borhan::BorhanCuePointType::ANNOTATION 
     cue_point.entry_id = created_entry.id
     
     created_cue_point = @client.cue_point_service.add(cue_point) 
@@ -53,9 +53,9 @@ class CuePointServiceTest < Test::Unit::TestCase
     assert_not_nil created_cue_point.id
   
     # list the cuepoints
-    cue_point_filter = Kaltura::KalturaCuePointFilter.new
+    cue_point_filter = Borhan::BorhanCuePointFilter.new
     cue_point_filter.entry_id_equal = created_entry.id
-    filter_pager = Kaltura::KalturaFilterPager.new      
+    filter_pager = Borhan::BorhanFilterPager.new      
     
     cue_point_list = @client.cue_point_service.list(cue_point_filter, filter_pager)    
     

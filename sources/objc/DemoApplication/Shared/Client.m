@@ -1,9 +1,9 @@
 //
 //  Client.m
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 28.02.12.
-//  Copyright (c) 2012 Kaltura. All rights reserved.
+//  Copyright (c) 2012 Borhan. All rights reserved.
 //
 
 #import "Client.h"
@@ -44,16 +44,16 @@ static NSArray *sBitRates;
 
 - (id)initClient {
     
-    KalturaConfiguration* config = [[KalturaConfiguration alloc] init];
-    KalturaNSLogger* logger = [[KalturaNSLogger alloc] init];
+    BorhanConfiguration* config = [[BorhanConfiguration alloc] init];
+    BorhanNSLogger* logger = [[BorhanNSLogger alloc] init];
     config.logger = logger;
     config.serviceUrl = DEFAULT_SERVICE_URL;
     [logger release];           // retained on config
     
-    self.client = [[KalturaClient alloc] initWithConfig:config];
+    self.client = [[BorhanClient alloc] initWithConfig:config];
     [config release];           // retained on the client
     
-    KalturaUserService *service = [[KalturaUserService alloc] init];
+    BorhanUserService *service = [[BorhanUserService alloc] init];
     service.client = self.client;
     
     NSString *userEmail = [[NSUserDefaults standardUserDefaults] objectForKey:@"userEmail"];
@@ -64,9 +64,9 @@ static NSArray *sBitRates;
     
     [service release];
     
-    KalturaUserListResponse *response = [self.client.user list];
+    BorhanUserListResponse *response = [self.client.user list];
     
-    for (KalturaUser *user in [response objects]) {
+    for (BorhanUser *user in [response objects]) {
         self.partnerId = user.partnerId;
     }
     
@@ -83,16 +83,16 @@ static NSArray *sBitRates;
     
     [self.client release];
     
-    KalturaConfiguration* config = [[KalturaConfiguration alloc] init];
-    KalturaNSLogger* logger = [[KalturaNSLogger alloc] init];
+    BorhanConfiguration* config = [[BorhanConfiguration alloc] init];
+    BorhanNSLogger* logger = [[BorhanNSLogger alloc] init];
     config.logger = logger;
     config.serviceUrl = DEFAULT_SERVICE_URL;
     [logger release];           // retained on config
     
-    self.client = [[KalturaClient alloc] initWithConfig:config];
+    self.client = [[BorhanClient alloc] initWithConfig:config];
     [config release];           // retained on the client
     
-    KalturaUserService *service = [[KalturaUserService alloc] init];
+    BorhanUserService *service = [[BorhanUserService alloc] init];
     service.client = self.client;
     
     
@@ -103,9 +103,9 @@ static NSArray *sBitRates;
     
     [service release];
     
-    KalturaUserListResponse *response = [self.client.user list];
+    BorhanUserListResponse *response = [self.client.user list];
     
-    for (KalturaUser *user in [response objects]) {
+    for (BorhanUser *user in [response objects]) {
         self.partnerId = user.partnerId;
     }
     
@@ -120,9 +120,9 @@ static NSArray *sBitRates;
     
     if ([self.categories count] == 0) {
         
-        KalturaCategoryListResponse *response = [self.client.category list];
+        BorhanCategoryListResponse *response = [self.client.category list];
         
-        for (KalturaCategory *category in response.objects) {
+        for (BorhanCategory *category in response.objects) {
             
             [self.categories addObject:category];
             
@@ -134,18 +134,18 @@ static NSArray *sBitRates;
     
 }
 
-- (NSArray *)getMedia:(KalturaCategory *)category {
+- (NSArray *)getMedia:(BorhanCategory *)category {
     
     if ([self.media count] == 0) {
         
-        KalturaMediaEntryFilter *filter = [[KalturaMediaEntryFilter alloc] init];
+        BorhanMediaEntryFilter *filter = [[BorhanMediaEntryFilter alloc] init];
         
-        KalturaFilterPager *pager = [[KalturaFilterPager alloc] init];
+        BorhanFilterPager *pager = [[BorhanFilterPager alloc] init];
         pager.pageSize = 0;
         
-        KalturaMediaListResponse *response  = [self.client.media listWithFilter:filter withPager:pager];
+        BorhanMediaListResponse *response  = [self.client.media listWithFilter:filter withPager:pager];
         
-        for (KalturaMediaEntry *mediaEntry in response.objects) {
+        for (BorhanMediaEntry *mediaEntry in response.objects) {
             
             [self.media addObject:mediaEntry];
             
@@ -175,7 +175,7 @@ static NSArray *sBitRates;
 	return [docsDir stringByAppendingPathComponent:fileName];
 }
 
-- (BOOL)isThumbExist:(KalturaMediaEntry *)mediaEntry {
+- (BOOL)isThumbExist:(BorhanMediaEntry *)mediaEntry {
     
     NSString *thumbPath = [self getThumbPath:mediaEntry.id];
     if ([[NSFileManager defaultManager] fileExistsAtPath:thumbPath]) {
@@ -199,7 +199,7 @@ static NSArray *sBitRates;
     
 }
 
-- (BOOL)isThumbExist:(KalturaMediaEntry *)mediaEntry width:(int)width height:(int)height {
+- (BOOL)isThumbExist:(BorhanMediaEntry *)mediaEntry width:(int)width height:(int)height {
     
     NSString *thumbPath = [NSString stringWithFormat:@"%@_%d_%d", mediaEntry.id, width, height];
     thumbPath = [self getThumbPath:thumbPath];
@@ -213,7 +213,7 @@ static NSArray *sBitRates;
     
 }
 
-- (NSData *)getThumb:(KalturaMediaEntry *)mediaEntry {
+- (NSData *)getThumb:(BorhanMediaEntry *)mediaEntry {
     
     NSString *thumbPath = [self getThumbPath:mediaEntry.id];
     if (![[NSFileManager defaultManager] fileExistsAtPath:thumbPath]) {
@@ -230,24 +230,24 @@ static NSArray *sBitRates;
 
 - (NSString *)getThumbURL:(NSString *)fileName width:(int)width height:(int)height {
     
-    return [NSString stringWithFormat:@"http://cdn.kaltura.com/p/%d/thumbnail/entry_id/%@/width/%d/height/%d", self.partnerId, fileName, width, height];
+    return [NSString stringWithFormat:@"http://cdn.borhan.com/p/%d/thumbnail/entry_id/%@/width/%d/height/%d", self.partnerId, fileName, width, height];
     
 }
 
-- (NSString *)getShareURL:(KalturaMediaEntry *)mediaEntry {
+- (NSString *)getShareURL:(BorhanMediaEntry *)mediaEntry {
     
-    return [NSString stringWithFormat:@"http://prod.kaltura.co.cc/index.php/kmc/preview/partner_id/%d/uiconf_id/4630031/entry_id/%@/delivery/http", self.partnerId, mediaEntry.id];
+    return [NSString stringWithFormat:@"http://prod.borhan.co.cc/index.php/bmc/preview/partner_id/%d/uiconf_id/4630031/entry_id/%@/delivery/http", self.partnerId, mediaEntry.id];
     
 }
 
-- (void)shareFacebook:(KalturaMediaEntry *)mediaEntry {
+- (void)shareFacebook:(BorhanMediaEntry *)mediaEntry {
     
     NSString *strURL = [NSString stringWithFormat:@"https://www.facebook.com/sharer/sharer.php?u=%@", [self getShareURL:mediaEntry]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:strURL]];
     
 }
 
-- (void)shareTwitter:(KalturaMediaEntry *)mediaEntry {
+- (void)shareTwitter:(BorhanMediaEntry *)mediaEntry {
     
     NSString *strURL = [NSString stringWithFormat:@"http://twitter.com/intent/tweet?url=%@", [self getShareURL:mediaEntry]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:strURL]];
@@ -299,7 +299,7 @@ static NSArray *sBitRates;
     
 }
 
-- (void)requestFinished:(KalturaClientBase*)aClient withResult:(id)result {
+- (void)requestFinished:(BorhanClientBase*)aClient withResult:(id)result {
     
     currentChunk++;
     
@@ -320,7 +320,7 @@ static NSArray *sBitRates;
     [uploadDelegateController performSelector:@selector(uploadFinished)];
 }
 
-- (void)requestFailed:(KalturaClientBase*)aClient
+- (void)requestFailed:(BorhanClientBase*)aClient
 {
     if (uploadTryCount < 4) {
         
@@ -347,20 +347,20 @@ static NSArray *sBitRates;
     
     client.delegate = nil;
     
-    token = [[KalturaUploadToken alloc] init];
+    token = [[BorhanUploadToken alloc] init];
     token.fileName = @"video.m4v";
     token = [client.uploadToken addWithUploadToken:token];
     
-    KalturaMediaEntry* entry = [[[KalturaMediaEntry alloc] init] autorelease];
+    BorhanMediaEntry* entry = [[[BorhanMediaEntry alloc] init] autorelease];
     entry.name = [data objectForKey:@"title"];
-    entry.mediaType = [KalturaMediaType VIDEO];
+    entry.mediaType = [BorhanMediaType VIDEO];
     entry.categories = [data objectForKey:@"category"];
     entry.description = [data objectForKey:@"description"];
     entry.tags = [data objectForKey:@"tags"];
     
     entry = [client.media addWithEntry:entry];
     
-    KalturaUploadedFileTokenResource* resource = [[[KalturaUploadedFileTokenResource alloc] init] autorelease];
+    BorhanUploadedFileTokenResource* resource = [[[BorhanUploadedFileTokenResource alloc] init] autorelease];
     resource.token = token.id;
     entry = [client.media addContentWithEntryId:entry.id withResource:resource];
     
@@ -402,17 +402,17 @@ NSInteger bitratesSort(id media1, id media2, void *reverse)
 	}
 }
 
-- (NSArray *)getBitratesList:(KalturaMediaEntry *)mediaEntry withFilter:(NSString *)filter {
+- (NSArray *)getBitratesList:(BorhanMediaEntry *)mediaEntry withFilter:(NSString *)filter {
     
     NSMutableArray *bitrates = [[[NSMutableArray alloc] init] autorelease];
     
-    KalturaAssetFilter *_filter = [[KalturaAssetFilter alloc] init];
+    BorhanAssetFilter *_filter = [[BorhanAssetFilter alloc] init];
     _filter.entryIdEqual = mediaEntry.id;
-    KalturaFlavorAssetListResponse* _response = [client.flavorAsset listWithFilter:_filter];
+    BorhanFlavorAssetListResponse* _response = [client.flavorAsset listWithFilter:_filter];
     [_filter release];
     
     
-    for (KalturaFlavorAsset *asset in _response.objects) {
+    for (BorhanFlavorAsset *asset in _response.objects) {
         
         if ([asset.tags rangeOfString:filter].length > 0) {
             
@@ -452,7 +452,7 @@ NSInteger bitratesSort(id media1, id media2, void *reverse)
     return [NSString stringWithFormat:@"%@://%@",[self getConfig: @"playbackProtocol"], [self getConfig: @"playbackHost"]];
 }
 
-- (NSString *)getVideoURL:(KalturaMediaEntry *)mediaEntry forMediaEntryDuration:(int)EntryDuration forFlavor:(NSString *)flavorId forFlavorType: (NSString*)flavorType;
+- (NSString *)getVideoURL:(BorhanMediaEntry *)mediaEntry forMediaEntryDuration:(int)EntryDuration forFlavor:(NSString *)flavorId forFlavorType: (NSString*)flavorType;
 {
     NSString *urlString;
     int minimumEntryDuration = 10;
@@ -472,7 +472,7 @@ NSInteger bitratesSort(id media1, id media2, void *reverse)
     return urlString;
 }
 
-- (NSString *)getIframeURL:(KalturaMediaEntry *)mediaEntry{
+- (NSString *)getIframeURL:(BorhanMediaEntry *)mediaEntry{
     return [NSString stringWithFormat:@"http://kgit.html5video.org/tags/v2.0.0.rc12/mwEmbedFrame.php?wid=_%d&uiconf_id=%@&entry_id=%@", partnerId, [self getConfig: @"uiconfID"], mediaEntry.id];
 }
 

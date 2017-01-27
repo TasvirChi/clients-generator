@@ -1,9 +1,9 @@
 //
 //  CategoryLTableViewCell_iPhone.h
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 04.03.12.
-//  Copyright (c) 2012 Kaltura. All rights reserved.
+//  Copyright (c) 2012 Borhan. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -13,17 +13,17 @@
 @interface CategoryLTableViewCell_iPhone : UITableViewCell {
     
     IBOutlet UIView *cell1View;
-    IBOutlet KalturaThumbView *cell1Image;
+    IBOutlet BorhanThumbView *cell1Image;
     IBOutlet UILabel *cell1Label1;
     IBOutlet UILabel *cell1Label2;
     
     IBOutlet UIView *cell2View;
-    IBOutlet KalturaThumbView *cell2Image;
+    IBOutlet BorhanThumbView *cell2Image;
     IBOutlet UILabel *cell2Label1;
     IBOutlet UILabel *cell2Label2;
     
     IBOutlet UIView *cell3View;
-    IBOutlet KalturaThumbView *cell3Image;
+    IBOutlet BorhanThumbView *cell3Image;
     IBOutlet UILabel *cell3Label1;
     IBOutlet UILabel *cell3Label2;
     
@@ -33,9 +33,9 @@
     
 }
 
-- (void)updateCell1:(KalturaMediaEntry *)mediaEntry;
-- (void)updateCell2:(KalturaMediaEntry *)mediaEntry;
-- (void)updateCell3:(KalturaMediaEntry *)mediaEntry;
+- (void)updateCell1:(BorhanMediaEntry *)mediaEntry;
+- (void)updateCell2:(BorhanMediaEntry *)mediaEntry;
+- (void)updateCell3:(BorhanMediaEntry *)mediaEntry;
 
 - (IBAction)selectCellView:(UIButton *)button;
 - (IBAction)playButtonPressed:(UIButton *)button;

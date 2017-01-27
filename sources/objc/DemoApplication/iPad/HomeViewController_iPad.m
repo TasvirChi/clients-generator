@@ -1,9 +1,9 @@
 //
 //  HomeViewController_iPad.m
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 01.03.12.
-//  Copyright (c) 2012 Kaltura. All rights reserved.
+//  Copyright (c) 2012 Borhan. All rights reserved.
 //
 
 #import "HomeViewController_iPad.h"
@@ -155,7 +155,7 @@
     
     if ([array count] > 0) {
         
-        KalturaCategory *category = [array objectAtIndex:0];
+        BorhanCategory *category = [array objectAtIndex:0];
         
         labelCategoryName.text = category.fullName;
         
@@ -416,7 +416,7 @@
     
     NSArray *array = [[Client instance] getCategories];
     
-    KalturaCategory *category = [array objectAtIndex:row];
+    BorhanCategory *category = [array objectAtIndex:row];
     
     return category.fullName;
 }
@@ -425,7 +425,7 @@
     
     NSArray *array = [[Client instance] getCategories];
     
-    KalturaCategory *category = [array objectAtIndex:row];
+    BorhanCategory *category = [array objectAtIndex:row];
     
     labelCategoryName.text = category.fullName;
 }

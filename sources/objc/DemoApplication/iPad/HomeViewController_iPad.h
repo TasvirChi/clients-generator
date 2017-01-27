@@ -1,9 +1,9 @@
 //
 //  HomeViewController_iPad.h
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 01.03.12.
-//  Copyright (c) 2012 Kaltura. All rights reserved.
+//  Copyright (c) 2012 Borhan. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -73,7 +73,7 @@
 
     int selectedItem;
     
-    KalturaUploadToken* token;
+    BorhanUploadToken* token;
     
     NSString *uploadFilePath;
     

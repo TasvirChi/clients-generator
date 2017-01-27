@@ -22,7 +22,7 @@ class AjaxClientGenerator extends ClientGeneratorFromXml
 	/**
 	* Constructor.
 	* @param string $xmlPath path to schema xml.
-	* @link http://www.kaltura.com/api_v3/api_schema.php
+	* @link http://www.borhan.com/api_v3/api_schema.php
 	*/
 	function __construct($xmlPath, Zend_Config $config, $sourcePath = "ajax")
 	{
@@ -44,7 +44,7 @@ class AjaxClientGenerator extends ClientGeneratorFromXml
 	
 		$this->schemaXml = new SimpleXMLElement(file_get_contents( $this->_xmlFile ));
 
-		$fullFilePath = $this->getFilePath('KalturaFullClient.js');
+		$fullFilePath = $this->getFilePath('BorhanFullClient.js');
 		$this->fullFile = fopen($fullFilePath, 'w');
 		if(!$this->fullFile)
 			throw new Exception("Failed to open file for writing: $fullFilePath");
@@ -72,10 +72,10 @@ class AjaxClientGenerator extends ClientGeneratorFromXml
 			}
 		}
 		
-		$this->startNewFile('KalturaClient.js');
+		$this->startNewFile('BorhanClient.js');
 		
 		$includePaths = array(
-				"KalturaClientBase.js",
+				"BorhanClientBase.js",
 				"webtoolkit.md5.js",
 		);
 		foreach($includePaths as $includePath)
@@ -92,11 +92,11 @@ class AjaxClientGenerator extends ClientGeneratorFromXml
 		$this->copyFile($fullFilePath);
 		
 		$this->closeFile();
-		$this->minify('KalturaClient.js', 'KalturaClient.min.js');
-		$this->copyFile('KalturaClient.min.js');
+		$this->minify('BorhanClient.js', 'BorhanClient.min.js');
+		$this->copyFile('BorhanClient.min.js');
 
-		$this->minify('KalturaFullClient.js', 'KalturaFullClient.min.js');
-		$this->copyFile('KalturaFullClient.min.js');
+		$this->minify('BorhanFullClient.js', 'BorhanFullClient.min.js');
+		$this->copyFile('BorhanFullClient.min.js');
 	}
 	
 	protected function append($txt = "")
@@ -124,7 +124,7 @@ class AjaxClientGenerator extends ClientGeneratorFromXml
 	protected function addFile($fileName, $fileContents, $addLicense = true)
 	{
 		$excludePaths = array(
-			"KalturaClientBase.js",
+			"BorhanClientBase.js",
 			"webtoolkit.md5.js",
 		);
 		
@@ -148,13 +148,13 @@ class AjaxClientGenerator extends ClientGeneratorFromXml
 			return;
 
 		$serviceName = $serviceNodes->attributes()->name;
-		$serviceClassName = "Kaltura".ucfirst($serviceName)."Service";
+		$serviceClassName = "Borhan".ucfirst($serviceName)."Service";
 		
 		$this->startNewFile("$serviceClassName.js");
 
 		$this->appendLine();
 		$this->appendLine("/**");
-		$this->appendLine(" *Class definition for the Kaltura service: $serviceName.");
+		$this->appendLine(" *Class definition for the Borhan service: $serviceName.");
 		$this->appendLine(" **/");
 		$this->appendLine("var $serviceClassName = {");
 		
@@ -294,7 +294,7 @@ class AjaxClientGenerator extends ClientGeneratorFromXml
 						break;
 				}
 			}
-			$this->appendLine("		return new KalturaRequestBuilder(\"$serviceId\", \"$actionName\", kparams);");
+			$this->appendLine("		return new BorhanRequestBuilder(\"$serviceId\", \"$actionName\", kparams);");
 			$this->append("	}");
 		}
 		$this->appendLine();
@@ -306,7 +306,7 @@ class AjaxClientGenerator extends ClientGeneratorFromXml
 	
 	/**
 	* Create the main class of the client library, may parse Services and actions.
-	* initialize the service and assign to client to provide access to servcies and actions through the Kaltura client object.
+	* initialize the service and assign to client to provide access to servcies and actions through the Borhan client object.
 	*/
 	protected function writeMainClass(SimpleXMLElement $configurations)
 	{
@@ -314,28 +314,28 @@ class AjaxClientGenerator extends ClientGeneratorFromXml
 		$date = date('y-m-d');
 		
 		$this->appendLine("/**");
-		$this->appendLine(" * The Kaltura Client - this is the facade through which all service actions should be called.");
-		$this->appendLine(" * @param config the Kaltura configuration object holding partner credentials (type: KalturaConfiguration).");
+		$this->appendLine(" * The Borhan Client - this is the facade through which all service actions should be called.");
+		$this->appendLine(" * @param config the Borhan configuration object holding partner credentials (type: BorhanConfiguration).");
 		$this->appendLine(" */");
-		$this->appendLine("function KalturaClient(config){");
+		$this->appendLine("function BorhanClient(config){");
 		$this->appendLine("\tthis.init(config);");
 		$this->appendLine("\tthis.setClientTag('ajax:$date');");
 		$this->appendLine("\tthis.setApiVersion('$apiVersion');");
 		$this->appendLine("}");
-		$this->appendLine("KalturaClient.inheritsFrom (KalturaClientBase);");
+		$this->appendLine("BorhanClient.inheritsFrom (BorhanClientBase);");
 		
 		$this->appendLine("/**");
 		$this->appendLine(" * The client constructor.");
-		$this->appendLine(" * @param config the Kaltura configuration object holding partner credentials (type: KalturaConfiguration).");
+		$this->appendLine(" * @param config the Borhan configuration object holding partner credentials (type: BorhanConfiguration).");
 		$this->appendLine(" */");
-		$this->appendLine("KalturaClient.prototype.init = function(config){");
+		$this->appendLine("BorhanClient.prototype.init = function(config){");
 		$this->appendLine("\t//call the super constructor:");
-		$this->appendLine("\tKalturaClientBase.prototype.init.apply(this, arguments);");
+		$this->appendLine("\tBorhanClientBase.prototype.init.apply(this, arguments);");
 		$this->appendLine("};");
 		$this->appendLine();
 
-		$this->writeConfigurationProperties('KalturaClient', $configurations, false);
-		$this->writeConfigurationProperties('KalturaRequestBuilder', $configurations, true);
+		$this->writeConfigurationProperties('BorhanClient', $configurations, false);
+		$this->writeConfigurationProperties('BorhanRequestBuilder', $configurations, true);
 	}
 
 	protected function writeConfigurationProperties($class, SimpleXMLElement $configurations, $enableVolatile)

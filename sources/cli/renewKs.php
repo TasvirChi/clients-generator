@@ -6,11 +6,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,8 +28,8 @@
 // @ignore
 // ===================================================================================================
 
-require_once(dirname(__file__) . '/lib/KalturaCommandLineParser.php');
-require_once(dirname(__file__) . '/lib/KalturaSession.php');
+require_once(dirname(__file__) . '/lib/BorhanCommandLineParser.php');
+require_once(dirname(__file__) . '/lib/BorhanSession.php');
 
 function renewKs($input, $expiry)
 {
@@ -50,27 +50,27 @@ function renewKs($input, $expiry)
 		}
 	}
 	
-	return str_replace($ks, KalturaSession::extendKs($ks, $expiry), $input);
+	return str_replace($ks, BorhanSession::extendKs($ks, $expiry), $input);
 }
 
 $commandLineSwitches = array(
-	array(KalturaCommandLineParser::SWITCH_NO_VALUE, 'i', 'stdin', 'Read input from stdin'),
-	array(KalturaCommandLineParser::SWITCH_NO_VALUE, 'b', 'bare', 'Print only the KS itself'),
-	array(KalturaCommandLineParser::SWITCH_REQUIRES_VALUE, 'e', 'expiry', 'Session expiry (seconds)'),
+	array(BorhanCommandLineParser::SWITCH_NO_VALUE, 'i', 'stdin', 'Read input from stdin'),
+	array(BorhanCommandLineParser::SWITCH_NO_VALUE, 'b', 'bare', 'Print only the KS itself'),
+	array(BorhanCommandLineParser::SWITCH_REQUIRES_VALUE, 'e', 'expiry', 'Session expiry (seconds)'),
 );
 
 // parse command line
-$options = KalturaCommandLineParser::parseArguments($commandLineSwitches);
-$arguments = KalturaCommandLineParser::stripCommandLineSwitches($commandLineSwitches, $argv);
+$options = BorhanCommandLineParser::parseArguments($commandLineSwitches);
+$arguments = BorhanCommandLineParser::stripCommandLineSwitches($commandLineSwitches, $argv);
 
 if (!$arguments && !isset($options['stdin']))
 {
 	$usage = "Usage: renewKs [switches] <ks>\nOptions:\n";
-	$usage .= KalturaCommandLineParser::getArgumentsUsage($commandLineSwitches);
+	$usage .= BorhanCommandLineParser::getArgumentsUsage($commandLineSwitches);
 	die($usage);
 }
 
-KalturaSecretRepository::init();
+BorhanSecretRepository::init();
 
 $expiry = (isset($options['expiry']) ? $options['expiry'] : 86400);
 

@@ -1,7 +1,7 @@
 var Unit = require('deadunit')
-var kc = require('../KalturaClient');
-var ktypes = require('../KalturaTypes');
-var vo = require ('../KalturaVO.js');
+var kc = require('../BorhanClient');
+var ktypes = require('../BorhanTypes');
+var vo = require ('../BorhanVO.js');
 var config = require ('./config.js');
 var cb = function (results)
 {
@@ -26,10 +26,10 @@ var cb = function (results)
 
 
 function init_minus2_session(){
-    var kaltura_conf = new kc.KalturaConfiguration(config.minus2_partner_id);
-    kaltura_conf.serviceUrl = config.service_url ;
-    var client = new kc.KalturaClient(kaltura_conf);
-    var type = ktypes.KalturaSessionType.ADMIN;
+    var borhan_conf = new kc.BorhanConfiguration(config.minus2_partner_id);
+    borhan_conf.serviceUrl = config.service_url ;
+    var client = new kc.BorhanClient(borhan_conf);
+    var type = ktypes.BorhanSessionType.ADMIN;
 
     var expiry = null;
     var privileges = null;
@@ -38,10 +38,10 @@ function init_minus2_session(){
 }
 
 function init_session(){
-    var kaltura_conf = new kc.KalturaConfiguration(config.partner_id);
-    kaltura_conf.serviceUrl = config.service_url ;
-    var client = new kc.KalturaClient(kaltura_conf);
-    var type = ktypes.KalturaSessionType.ADMIN;
+    var borhan_conf = new kc.BorhanConfiguration(config.partner_id);
+    borhan_conf.serviceUrl = config.service_url ;
+    var client = new kc.BorhanClient(borhan_conf);
+    var type = ktypes.BorhanSessionType.ADMIN;
 
     var expiry = null;
     var privileges = null;
@@ -52,7 +52,7 @@ function create_partner(results)
 {
     console.log(results);
     process.exit();
-    var partner = new vo.KalturaPartner();
+    var partner = new vo.BorhanPartner();
     partner.name = "MBP";
     partner.appearInSearch = null;
     partner.adminName = "MBP";
@@ -66,7 +66,7 @@ function create_partner(results)
 }
 function create_upload_token(result)
 {
-	var uploadToken = new vo.KalturaUploadToken();
+	var uploadToken = new vo.BorhanUploadToken();
 	uploadToken.fileName = "~/downloads/cat.mp4";
 	var result = client.uploadToken.add(upload_entry, uploadToken);
 	console.log(result);

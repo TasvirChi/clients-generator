@@ -4,11 +4,11 @@
 #													| ' </ _` | |	_| || | '_/ _` |
 #													|_|\_\__,_|_|\__|\_,_|_| \__,_|
 #
-# This file is part of the Kaltura Collaborative Media Suite which allows users
+# This file is part of the Borhan Collaborative Media Suite which allows users
 # to do with audio, video, and animation what Wiki platfroms allow them to do with
 # text.
 #
-# Copyright (C) 2006-2011	Kaltura Inc.
+# Copyright (C) 2006-2011	Borhan Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -29,12 +29,12 @@ require 'test_helper'
 
 class BaseEntryServiceTest < Test::Unit::TestCase
 	
-	# this test uploads a file to kaltura and creates an entry using the uploaded file.
+	# this test uploads a file to borhan and creates an entry using the uploaded file.
 	should "upload a file and create an entry" do
 			
-		base_entry = Kaltura::KalturaBaseEntry.new
-		base_entry.type = Kaltura::KalturaEntryType::MEDIA_CLIP
-		base_entry.name = "kaltura_test"
+		base_entry = Borhan::BorhanBaseEntry.new
+		base_entry.type = Borhan::BorhanEntryType::MEDIA_CLIP
+		base_entry.name = "borhan_test"
 		media_file = File.open("test/media/test.mov")
 
 		upload_token = @client.upload_token_service.add()
@@ -44,20 +44,20 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 		created_entry = @client.base_entry_service.add(base_entry)
 		assert_not_nil created_entry.id
 		
-		resource = Kaltura::KalturaUploadedFileTokenResource.new
+		resource = Borhan::BorhanUploadedFileTokenResource.new
 		resource.token = upload_token.id
 		@client.media_service.add_content(created_entry.id, resource)
 		
 		assert_nil @client.base_entry_service.delete(created_entry.id)
 	 end
 		
-	# this test creates an entry and retrieves the list of entries and count from kaltura by setting a filter.
+	# this test creates an entry and retrieves the list of entries and count from borhan by setting a filter.
 	should "get the base entry list" do
 		
 		# cleaning up the list
-		base_entry_filter = Kaltura::KalturaBaseEntryFilter.new
-		base_entry_filter.name_multi_like_or = "kaltura_test"
-		filter_pager = Kaltura::KalturaFilterPager.new
+		base_entry_filter = Borhan::BorhanBaseEntryFilter.new
+		base_entry_filter.name_multi_like_or = "borhan_test"
+		filter_pager = Borhan::BorhanFilterPager.new
 		base_entry_list = @client.base_entry_service.list(base_entry_filter, filter_pager)
 		base_entry_list.objects.each do |obj|
 			@client.base_entry_service.delete(obj.id) rescue nil
@@ -65,9 +65,9 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 		
 		unique_id = (0...8).map { (97 + rand(26)).chr }.join
 			
-		base_entry = Kaltura::KalturaBaseEntry.new
-		base_entry.type = Kaltura::KalturaEntryType::MEDIA_CLIP
-		base_entry.name = "kaltura_test"
+		base_entry = Borhan::BorhanBaseEntry.new
+		base_entry.type = Borhan::BorhanEntryType::MEDIA_CLIP
+		base_entry.name = "borhan_test"
 		base_entry.tags = unique_id
 		media_file = File.open("test/media/test.mov")
 
@@ -78,14 +78,14 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 		created_entry = @client.base_entry_service.add(base_entry)
 		assert_not_nil created_entry.id
 		
-		resource = Kaltura::KalturaUploadedFileTokenResource.new
+		resource = Borhan::BorhanUploadedFileTokenResource.new
 		resource.token = upload_token.id
 		@client.media_service.add_content(created_entry.id, resource)
 
-		base_entry_filter = Kaltura::KalturaBaseEntryFilter.new
+		base_entry_filter = Borhan::BorhanBaseEntryFilter.new
 		base_entry_filter.tags_like = unique_id
 		base_entry_filter.status_in = (0...8).to_a.join(",")
-		filter_pager = Kaltura::KalturaFilterPager.new
+		filter_pager = Borhan::BorhanFilterPager.new
 		base_entry_list = @client.base_entry_service.list(base_entry_filter, filter_pager)
 		
 		assert_equal 1, base_entry_list.total_count
@@ -99,9 +99,9 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 	# this test creates an entry and retrieves it back using the id.
 	should "get the base entry" do
 		
-		base_entry = Kaltura::KalturaBaseEntry.new
-		base_entry.type = Kaltura::KalturaEntryType::MEDIA_CLIP
-		base_entry.name = "kaltura_test"
+		base_entry = Borhan::BorhanBaseEntry.new
+		base_entry.type = Borhan::BorhanEntryType::MEDIA_CLIP
+		base_entry.name = "borhan_test"
 		media_file = File.open("test/media/test.mov")
 
 		upload_token = @client.upload_token_service.add()
@@ -111,14 +111,14 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 		created_entry = @client.base_entry_service.add(base_entry)
 		assert_not_nil created_entry.id
 		
-		resource = Kaltura::KalturaUploadedFileTokenResource.new
+		resource = Borhan::BorhanUploadedFileTokenResource.new
 		resource.token = upload_token.id
 		@client.media_service.add_content(created_entry.id, resource)
 
 		base_entry = @client.base_entry_service.get(created_entry.id)
 		
 		assert_not_nil base_entry
-		assert_instance_of Kaltura::KalturaMediaEntry, base_entry
+		assert_instance_of Borhan::BorhanMediaEntry, base_entry
 		assert_equal base_entry.id, created_entry.id
 		assert_nil @client.base_entry_service.delete(base_entry.id)
 	end
@@ -126,9 +126,9 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 	# this test creates couple of entries and retrieves them back using the ids
 	should "get the base entries using the ids" do
 		
-		base_entry = Kaltura::KalturaBaseEntry.new
-		base_entry.type = Kaltura::KalturaEntryType::MEDIA_CLIP
-		base_entry.name = "kaltura_test"
+		base_entry = Borhan::BorhanBaseEntry.new
+		base_entry.type = Borhan::BorhanEntryType::MEDIA_CLIP
+		base_entry.name = "borhan_test"
 		media_file = File.open("test/media/test.mov")
 
 		upload_token = @client.upload_token_service.add()
@@ -138,13 +138,13 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 		created_entry1 = @client.base_entry_service.add(base_entry)
 		assert_not_nil created_entry1.id
 		
-		resource = Kaltura::KalturaUploadedFileTokenResource.new
+		resource = Borhan::BorhanUploadedFileTokenResource.new
 		resource.token = upload_token.id
 		@client.media_service.add_content(created_entry1.id, resource)
 
-		base_entry = Kaltura::KalturaBaseEntry.new
-		base_entry.type = Kaltura::KalturaEntryType::MEDIA_CLIP
-		base_entry.name = "kaltura_test"
+		base_entry = Borhan::BorhanBaseEntry.new
+		base_entry.type = Borhan::BorhanEntryType::MEDIA_CLIP
+		base_entry.name = "borhan_test"
 		media_file = File.open("test/media/test.mov")
 
 		upload_token = @client.upload_token_service.add()
@@ -154,7 +154,7 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 		created_entry2 = @client.base_entry_service.add(base_entry)
 		assert_not_nil created_entry2.id
 		
-		resource = Kaltura::KalturaUploadedFileTokenResource.new
+		resource = Borhan::BorhanUploadedFileTokenResource.new
 		resource.token = upload_token.id
 		@client.media_service.add_content(created_entry2.id, resource)
 		
@@ -170,7 +170,7 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 	# this test tries toretrieve an entry with invalid id.
 	should "throw an error for invalid base entry id" do
 		
-		assert_raise Kaltura::KalturaAPIError do
+		assert_raise Borhan::BorhanAPIError do
 			@client.base_entry_service.get("invalid_base_entry_id")
 		end
 		
@@ -179,9 +179,9 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 	# this test creates an entry and updates the metadata of it.
 	should "update the base entry metadata" do
 		
-		base_entry = Kaltura::KalturaBaseEntry.new
-		base_entry.type = Kaltura::KalturaEntryType::MEDIA_CLIP
-		base_entry.name = "kaltura test"
+		base_entry = Borhan::BorhanBaseEntry.new
+		base_entry.type = Borhan::BorhanEntryType::MEDIA_CLIP
+		base_entry.name = "borhan test"
 		media_file = File.open("test/media/test.mov")
 
 		upload_token = @client.upload_token_service.add()
@@ -191,19 +191,19 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 		created_entry = @client.base_entry_service.add(base_entry)
 		assert_not_nil created_entry.id
 		
-		resource = Kaltura::KalturaUploadedFileTokenResource.new
+		resource = Borhan::BorhanUploadedFileTokenResource.new
 		resource.token = upload_token.id
 		@client.media_service.add_content(created_entry.id, resource)
 
-		base_entry = Kaltura::KalturaBaseEntry.new
-		base_entry.name = "kaltura test updated"
-		base_entry.description = "kaltura test description"
+		base_entry = Borhan::BorhanBaseEntry.new
+		base_entry.name = "borhan test updated"
+		base_entry.description = "borhan test description"
 		base_entry_updated = @client.base_entry_service.update(created_entry.id, base_entry)
 		
 		assert_not_nil base_entry_updated
-		assert_instance_of Kaltura::KalturaBaseEntry, base_entry_updated
-		assert_equal base_entry_updated.name, "kaltura test updated"
-		assert_equal base_entry_updated.description, "kaltura test description"
+		assert_instance_of Borhan::BorhanBaseEntry, base_entry_updated
+		assert_equal base_entry_updated.name, "borhan test updated"
+		assert_equal base_entry_updated.description, "borhan test description"
 		
 		assert_nil @client.base_entry_service.delete(base_entry_updated.id)
 	end
@@ -211,9 +211,9 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 	# this test creates an entry and updates it's thumbnail.
 	should "upload a thumbnail for the base entry " do
 	
-		base_entry = Kaltura::KalturaBaseEntry.new
-		base_entry.type = Kaltura::KalturaEntryType::MEDIA_CLIP
-		base_entry.name = "kaltura_test"
+		base_entry = Borhan::BorhanBaseEntry.new
+		base_entry.type = Borhan::BorhanEntryType::MEDIA_CLIP
+		base_entry.name = "borhan_test"
 		media_file = File.open("test/media/test.mov")
 
 		upload_token = @client.upload_token_service.add()
@@ -223,7 +223,7 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 		created_entry = @client.base_entry_service.add(base_entry)
 		assert_not_nil created_entry.id
 		
-		resource = Kaltura::KalturaUploadedFileTokenResource.new
+		resource = Borhan::BorhanUploadedFileTokenResource.new
 		resource.token = upload_token.id
 		@client.media_service.add_content(created_entry.id, resource)
 
@@ -239,9 +239,9 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 	# this test creates an entry and set it's moderation flags.
 	should "set the moderation flags" do
 	
-		base_entry = Kaltura::KalturaBaseEntry.new
-		base_entry.type = Kaltura::KalturaEntryType::MEDIA_CLIP
-		base_entry.name = "kaltura_test"
+		base_entry = Borhan::BorhanBaseEntry.new
+		base_entry.type = Borhan::BorhanEntryType::MEDIA_CLIP
+		base_entry.name = "borhan_test"
 		media_file = File.open("test/media/test.mov")
 	
 		upload_token = @client.upload_token_service.add()
@@ -251,7 +251,7 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 		created_entry = @client.base_entry_service.add(base_entry)
 		assert_not_nil created_entry.id
 		
-		resource = Kaltura::KalturaUploadedFileTokenResource.new
+		resource = Borhan::BorhanUploadedFileTokenResource.new
 		resource.token = upload_token.id
 		@client.media_service.add_content(created_entry.id, resource)
 	
@@ -261,16 +261,16 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 		assert_equal moderation_flag_list.total_count, 0
 	
 		# add a new flag for moderate
-		flag = Kaltura::KalturaModerationFlag.new
+		flag = Borhan::BorhanModerationFlag.new
 		flag.flagged_entry_id = created_entry.id
-		flag.flag_type = Kaltura::KalturaModerationFlagType::SEXUAL_CONTENT
+		flag.flag_type = Borhan::BorhanModerationFlagType::SEXUAL_CONTENT
 		flag = @client.base_entry_service.flag(flag)
 		
 		# list the flags, should be 1
 		moderation_flag_list = @client.base_entry_service.list_flags(created_entry.id)
 		
 		assert_equal moderation_flag_list.total_count, 1
-		assert_equal moderation_flag_list.objects[0].status, Kaltura::KalturaModerationFlagStatus::PENDING
+		assert_equal moderation_flag_list.objects[0].status, Borhan::BorhanModerationFlagStatus::PENDING
 		
 		# approve the flags
 		@client.base_entry_service.approve(created_entry.id)
@@ -283,7 +283,7 @@ class BaseEntryServiceTest < Test::Unit::TestCase
 			# get the entry and check the moderation status
 		created_entry = @client.base_entry_service.get(created_entry.id)
 		
-		assert_equal created_entry.moderation_status, Kaltura::KalturaEntryModerationStatus::APPROVED
+		assert_equal created_entry.moderation_status, Borhan::BorhanEntryModerationStatus::APPROVED
 		
 		assert_nil @client.base_entry_service.delete(created_entry.id)
 	end

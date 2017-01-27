@@ -1,3 +1,3 @@
-exports.kc = require('./KalturaClient');
-exports.vo = require ('./KalturaVO.js');
+exports.kc = require('./BorhanClient');
+exports.vo = require ('./BorhanVO.js');
 

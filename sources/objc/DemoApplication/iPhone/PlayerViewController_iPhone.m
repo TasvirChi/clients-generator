@@ -1,9 +1,9 @@
 //
 //  PlayerViewController_iPhone.m
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 22.03.12.
-//  Copyright (c) 2012 Kaltura. All rights reserved.
+//  Copyright (c) 2012 Borhan. All rights reserved.
 //
 
 #import "PlayerViewController_iPhone.h"

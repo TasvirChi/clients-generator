@@ -1,9 +1,9 @@
 //
 //  AppDelegate_iPad.m
-//  Kaltura
+//  Borhan
 //
 //  Created by Pavel on 28.02.12.
-//  Copyright 2012 Kaltura. All rights reserved.
+//  Copyright 2012 Borhan. All rights reserved.
 //
 
 #import "AppDelegate_iPad.h"
@@ -93,7 +93,7 @@
    
     [self.window makeKeyAndVisible];
     
-    NSString* suffixUA = @"kalturaNativeCordovaPlayer";
+    NSString* suffixUA = @"borhanNativeCordovaPlayer";
     UIWebView* webView = [[UIWebView alloc] initWithFrame:CGRectZero];
     NSString* defaultUA = [webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
     NSString* finalUA = [defaultUA stringByAppendingString:suffixUA];

@@ -4,11 +4,11 @@
 #                          | ' </ _` | |  _| || | '_/ _` |
 #                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 #
-# This file is part of the Kaltura Collaborative Media Suite which allows users
+# This file is part of the Borhan Collaborative Media Suite which allows users
 # to do with audio, video, and animation what Wiki platfroms allow them to do with
 # text.
 #
-# Copyright (C) 2006-2011  Kaltura Inc.
+# Copyright (C) 2006-2011  Borhan Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -33,8 +33,8 @@ class ResponseProfileTest < Test::Unit::TestCase
 	end
 
 	def createEntry()
-		entry = Kaltura::KalturaMediaEntry.new()
-		entry.media_type = Kaltura::KalturaMediaType::VIDEO
+		entry = Borhan::BorhanMediaEntry.new()
+		entry.media_type = Borhan::BorhanMediaType::VIDEO
 		entry.name = uniqid('test_')
 		entry.description = uniqid('test ')
 		entry.tags = @uniqueTag
@@ -45,7 +45,7 @@ class ResponseProfileTest < Test::Unit::TestCase
 	end
 
 	def createMetadata(metadataProfileId, objectType, objectId, xmlData)
-		metadata = Kaltura::KalturaMetadata.new()
+		metadata = Borhan::BorhanMetadata.new()
 		metadata.metadata_object_type = objectType
 		metadata.object_id = objectId
 
@@ -55,7 +55,7 @@ class ResponseProfileTest < Test::Unit::TestCase
 	end
 
 	def createMetadataProfile(objectType, xsdData)
-		metadataProfile = Kaltura::KalturaMetadataProfile.new()
+		metadataProfile = Borhan::BorhanMetadataProfile.new()
 		metadataProfile.metadata_object_type = objectType
 		metadataProfile.name = uniqid('test_')
 		metadataProfile.system_name = uniqid('test_')
@@ -121,7 +121,7 @@ class ResponseProfileTest < Test::Unit::TestCase
 	</xsd:simpleType>
 </xsd:schema>'
 
-			metadataProfiles[i.to_s] = createMetadataProfile(Kaltura::KalturaMetadataObjectType::ENTRY, xsd)
+			metadataProfiles[i.to_s] = createMetadataProfile(Borhan::BorhanMetadataObjectType::ENTRY, xsd)
 		end
 
 		for i in 1 .. entriesCount
@@ -135,7 +135,7 @@ class ResponseProfileTest < Test::Unit::TestCase
 	<FreeText' + index + '>example text ' + index + '</FreeText' + index + '>
 </metadata>'
 
-				createMetadata(metadataProfiles[j.to_s].id, Kaltura::KalturaMetadataObjectType::ENTRY, entry.id, xml)
+				createMetadata(metadataProfiles[j.to_s].id, Borhan::BorhanMetadataObjectType::ENTRY, entry.id, xml)
 			end
 		end
 
@@ -152,41 +152,41 @@ class ResponseProfileTest < Test::Unit::TestCase
 
 		entries, metadataProfiles = createEntriesWithMetadataObjects(entriesTotalCount)
 
-		entriesFilter = Kaltura::KalturaMediaEntryFilter.new()
+		entriesFilter = Borhan::BorhanMediaEntryFilter.new()
 		entriesFilter.tags_like = @uniqueTag
-		entriesFilter.status_in = Kaltura::KalturaEntryStatus::PENDING + ',' + Kaltura::KalturaEntryStatus::NO_CONTENT
+		entriesFilter.status_in = Borhan::BorhanEntryStatus::PENDING + ',' + Borhan::BorhanEntryStatus::NO_CONTENT
 
-		entriesPager = Kaltura::KalturaFilterPager.new()
+		entriesPager = Borhan::BorhanFilterPager.new()
 		entriesPager.page_size = entriesPageSize
 
-		metadataFilter = Kaltura::KalturaMetadataFilter.new()
-		metadataFilter.metadata_object_type_equal = Kaltura::KalturaMetadataObjectType::ENTRY
+		metadataFilter = Borhan::BorhanMetadataFilter.new()
+		metadataFilter.metadata_object_type_equal = Borhan::BorhanMetadataObjectType::ENTRY
 
-		metadataMapping = Kaltura::KalturaResponseProfileMapping.new()
+		metadataMapping = Borhan::BorhanResponseProfileMapping.new()
 		metadataMapping.filter_property = 'objectIdEqual'
 		metadataMapping.parent_property = 'id'
 
-		metadataPager = Kaltura::KalturaFilterPager.new()
+		metadataPager = Borhan::BorhanFilterPager.new()
 		metadataPager.page_size = metadataPageSize
 
-		metadataResponseProfile = Kaltura::KalturaDetachedResponseProfile.new()
+		metadataResponseProfile = Borhan::BorhanDetachedResponseProfile.new()
 		metadataResponseProfile.name = uniqid('test_')
-		metadataResponseProfile.type = Kaltura::KalturaResponseProfileType::INCLUDE_FIELDS
+		metadataResponseProfile.type = Borhan::BorhanResponseProfileType::INCLUDE_FIELDS
 		metadataResponseProfile.fields = 'id,objectId,createdAt, xml'
 		metadataResponseProfile.filter = metadataFilter
 		metadataResponseProfile.pager = metadataPager
 		metadataResponseProfile.mappings = [metadataMapping]
 
-		responseProfile = Kaltura::KalturaResponseProfile.new()
+		responseProfile = Borhan::BorhanResponseProfile.new()
 		responseProfile.name = uniqid('test_')
 		responseProfile.system_name = uniqid('test_')
-		responseProfile.type = Kaltura::KalturaResponseProfileType::INCLUDE_FIELDS
+		responseProfile.type = Borhan::BorhanResponseProfileType::INCLUDE_FIELDS
 		responseProfile.fields = 'id,name,createdAt'
 		responseProfile.related_profiles = [metadataResponseProfile]
 
 		responseProfile = @client.response_profile_service.add(responseProfile)
 
-		nestedResponseProfile = Kaltura::KalturaResponseProfileHolder.new()
+		nestedResponseProfile = Borhan::BorhanResponseProfileHolder.new()
 		nestedResponseProfile.id = responseProfile.id
 
 		@client.response_profile = nestedResponseProfile

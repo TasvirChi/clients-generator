@@ -14,7 +14,7 @@ class JsClientGenerator extends ClientGeneratorFromXml
 	/**
 	* Constructor.
 	* @param string $xmlPath path to schema xml.
-	* @link http://www.kaltura.com/api_v3/api_schema.php
+	* @link http://www.borhan.com/api_v3/api_schema.php
 	*/
 	function __construct($xmlPath, Zend_Config $config, $sourcePath = "js")
 	{
@@ -66,10 +66,10 @@ class JsClientGenerator extends ClientGeneratorFromXml
 				break;	
 			}
 		}
-		$this->addFile('KalturaTypes.js', $this->enumTypes);
-		$this->addFile('KalturaVO.js', $this->voClasses);
-		$this->addFile('KalturaServices.js', $this->serviceClasses);
-		$this->addFile('KalturaClient.js', $this->mainClass);
+		$this->addFile('BorhanTypes.js', $this->enumTypes);
+		$this->addFile('BorhanVO.js', $this->voClasses);
+		$this->addFile('BorhanServices.js', $this->serviceClasses);
+		$this->addFile('BorhanClient.js', $this->mainClass);
 		//write project file (if needed, this can also be included in the static sources folder if not dynamic)
 		$this->writeProjectFile();
 	}
@@ -158,8 +158,8 @@ class JsClientGenerator extends ClientGeneratorFromXml
 			//$this->echoLine ($this->voClasses, "$clasName.prototype = new " . $parentClass . "();");
 			$this->echoLine ($this->voClasses, "$clasName.inheritsFrom ($parentClass);");
 		} else {
-			//$this->echoLine ($this->voClasses, "$clasName.prototype = new KalturaObjectBase();");
-			$this->echoLine ($this->voClasses, "$clasName.inheritsFrom (KalturaObjectBase);");
+			//$this->echoLine ($this->voClasses, "$clasName.prototype = new BorhanObjectBase();");
+			$this->echoLine ($this->voClasses, "$clasName.inheritsFrom (BorhanObjectBase);");
 		}
 		//$this->echoLine ($this->voClasses, "$clasName.prototype.constructor = $clasName;");
 		$this->echoLine ($this->voClasses, "\r\n");
@@ -176,16 +176,16 @@ class JsClientGenerator extends ClientGeneratorFromXml
 			return;
 				
 		$serviceName = $serviceNodes->attributes()->name;
-		$serviceClassName = "Kaltura".$this->upperCaseFirstLetter($serviceName)."Service";
+		$serviceClassName = "Borhan".$this->upperCaseFirstLetter($serviceName)."Service";
 		$serviceClass = "function $serviceClassName(client){\r\n";
 		$serviceClass .= "\tthis.init(client);\r\n";
 		$serviceClass .= "}\r\n";
-		//$serviceClass .= "$serviceClassName.prototype = new KalturaServiceBase();\r\n";
+		//$serviceClass .= "$serviceClassName.prototype = new BorhanServiceBase();\r\n";
 		//$serviceClass .= "$serviceClassName.prototype.constructor = $serviceClassName;\r\n";
-		$serviceClass .= "$serviceClassName.inheritsFrom (KalturaServiceBase);\r\n";
+		$serviceClass .= "$serviceClassName.inheritsFrom (BorhanServiceBase);\r\n";
 		
 		$serviceClassDesc = "/**\r\n";
-		$serviceClassDesc .= " *Class definition for the Kaltura service: $serviceName.\r\n";
+		$serviceClassDesc .= " *Class definition for the Borhan service: $serviceName.\r\n";
 		$actionsList = " * The available service actions:\r\n";
 		
 		//parse the service actions
@@ -342,23 +342,23 @@ class JsClientGenerator extends ClientGeneratorFromXml
 	
 	/**
 	* Create the main class of the client library, may parse Services and actions.
-	* initialize the service and assign to client to provide access to servcies and actions through the Kaltura client object.
+	* initialize the service and assign to client to provide access to servcies and actions through the Borhan client object.
 	*/
 	protected function writeMainClass(SimpleXMLElement $servicesNodes)
 	{
 		$apiVersion = $this->schemaXml->attributes()->apiVersion;
 	
 		$this->echoLine($this->mainClass, "/**");
-		$this->echoLine($this->mainClass, " * The Kaltura Client - this is the facade through which all service actions should be called.");
-		$this->echoLine($this->mainClass, " * @param config the Kaltura configuration object holding partner credentials (type: KalturaConfiguration).");
+		$this->echoLine($this->mainClass, " * The Borhan Client - this is the facade through which all service actions should be called.");
+		$this->echoLine($this->mainClass, " * @param config the Borhan configuration object holding partner credentials (type: BorhanConfiguration).");
 		$this->echoLine($this->mainClass, " */");
-		$this->echoLine($this->mainClass, "function KalturaClient(config){");
+		$this->echoLine($this->mainClass, "function BorhanClient(config){");
 		$this->echoLine($this->mainClass, "\tthis.init(config);");
 		$this->echoLine($this->mainClass, "}");
-		//$this->echoLine($this->mainClass, "KalturaClient.prototype = new KalturaClientBase();");
-		//$this->echoLine($this->mainClass, "KalturaClient.prototype.constructor = KalturaClient;");
-		$this->echoLine ($this->mainClass, "KalturaClient.inheritsFrom (KalturaClientBase);");
-		$this->echoLine ($this->mainClass, "KalturaClient.prototype.apiVersion = \"$apiVersion\";");
+		//$this->echoLine($this->mainClass, "BorhanClient.prototype = new BorhanClientBase();");
+		//$this->echoLine($this->mainClass, "BorhanClient.prototype.constructor = BorhanClient;");
+		$this->echoLine ($this->mainClass, "BorhanClient.inheritsFrom (BorhanClientBase);");
+		$this->echoLine ($this->mainClass, "BorhanClient.prototype.apiVersion = \"$apiVersion\";");
 		
 		foreach($servicesNodes as $service_node)
 		{
@@ -366,21 +366,21 @@ class JsClientGenerator extends ClientGeneratorFromXml
 				continue;
 				
 			$serviceName = $service_node->attributes()->name;
-			$serviceClassName = "Kaltura".$this->upperCaseFirstLetter($serviceName)."Service";
+			$serviceClassName = "Borhan".$this->upperCaseFirstLetter($serviceName)."Service";
 			$this->echoLine($this->mainClass, "/**");
 			$description = str_replace("\n", "\n *\t", $service_node->attributes()->description); // to format multi-line descriptions
 			$this->echoLine($this->mainClass, " * " . $description);
 			$this->echoLine($this->mainClass, " * @param $serviceClassName");
 			$this->echoLine($this->mainClass, " */");
-			$this->echoLine($this->mainClass, "KalturaClient.prototype.$serviceName = null;");
+			$this->echoLine($this->mainClass, "BorhanClient.prototype.$serviceName = null;");
 		}
 		$this->echoLine($this->mainClass, "/**");
 		$this->echoLine($this->mainClass, " * The client constructor.");
-		$this->echoLine($this->mainClass, " * @param config the Kaltura configuration object holding partner credentials (type: KalturaConfiguration).");
+		$this->echoLine($this->mainClass, " * @param config the Borhan configuration object holding partner credentials (type: BorhanConfiguration).");
 		$this->echoLine($this->mainClass, " */");
-		$this->echoLine($this->mainClass, "KalturaClient.prototype.init = function(config){");
+		$this->echoLine($this->mainClass, "BorhanClient.prototype.init = function(config){");
 		$this->echoLine($this->mainClass, "\t//call the super constructor:");
-		$this->echoLine($this->mainClass, "\tKalturaClientBase.prototype.init.apply(this, arguments);");
+		$this->echoLine($this->mainClass, "\tBorhanClientBase.prototype.init.apply(this, arguments);");
 		$this->echoLine($this->mainClass, "\t//initialize client services:");
 		foreach($servicesNodes as $service_node)
 		{
@@ -388,7 +388,7 @@ class JsClientGenerator extends ClientGeneratorFromXml
 				continue;
 			
 			$serviceName = $service_node->attributes()->name;
-			$serviceClassName = "Kaltura".$this->upperCaseFirstLetter($serviceName)."Service";
+			$serviceClassName = "Borhan".$this->upperCaseFirstLetter($serviceName)."Service";
 			$this->echoLine($this->mainClass, "\tthis.$serviceName = new $serviceClassName(this);");
 		}
 		$this->echoLine($this->mainClass, "}");

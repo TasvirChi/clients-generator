@@ -1,2 +1,2 @@
-Kaltura PHP API Client Library for Zend framework.
-Compatible with Kaltura server version 10.20.0 and above.
+Borhan PHP API Client Library for Zend framework.
+Compatible with Borhan server version 10.20.0 and above.

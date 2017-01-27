@@ -1,7 +1,7 @@
 var Unit = require('deadunit')
-var kc = require('../KalturaClient');
-var ktypes = require('../KalturaTypes');
-var vo = require ('../KalturaVO.js');
+var kc = require('../BorhanClient');
+var ktypes = require('../BorhanTypes');
+var vo = require ('../BorhanVO.js');
 var config = require ('./config.js');
 
 var create_session = function (results)
@@ -65,16 +65,16 @@ var upload_entry = function (results)
 	console.log('Something went wrong here :(');
     }
 }
-var kaltura_conf = new kc.KalturaConfiguration(config.minus2_partner_id);
-kaltura_conf.serviceUrl = config.service_url ;
-var client = new kc.KalturaClient(kaltura_conf);
-var type = ktypes.KalturaSessionType.ADMIN;
+var borhan_conf = new kc.BorhanConfiguration(config.minus2_partner_id);
+borhan_conf.serviceUrl = config.service_url ;
+var client = new kc.BorhanClient(borhan_conf);
+var type = ktypes.BorhanSessionType.ADMIN;
 
 var expiry = null;
 var privileges = null;
 var ks = client.session.start(create_session, config.minus2_admin_secret, config.user_id, type, config.minus2_partner_id, expiry, privileges);
 
-var partner = new vo.KalturaPartner();
+var partner = new vo.BorhanPartner();
 partner.name = "MBP";
 partner.appearInSearch = null;
 partner.adminName = "MBP";
@@ -85,15 +85,15 @@ var template_partner_id = null;
 var silent = null;
 var result = client.partner.register(create_partner, partner, cms_password, template_partner_id, silent);
 
-var kaltura_conf = new kc.KalturaConfiguration(config.partner_id);
-kaltura_conf.serviceUrl = config.service_url ;
-var client1 = new kc.KalturaClient(kaltura_conf);
-var type = ktypes.KalturaSessionType.USER;
+var borhan_conf = new kc.BorhanConfiguration(config.partner_id);
+borhan_conf.serviceUrl = config.service_url ;
+var client1 = new kc.BorhanClient(borhan_conf);
+var type = ktypes.BorhanSessionType.USER;
 
 var expiry = null;
 var privileges = null;
 var ks = client1.session.start(create_session, config.secret, config.user_id, type, config.partner_id, expiry, privileges);
-var uploadToken = new vo.KalturaUploadToken();
+var uploadToken = new vo.BorhanUploadToken();
 //var uploadToken.fileName = "~/downloads/cat.mp4";
 var result = client1.uploadToken.add(create_upload_token, uploadToken);
 /*var uploadTokenId = result.id;
